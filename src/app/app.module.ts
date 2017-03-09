@@ -4,17 +4,23 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { P0TableComponent } from './p0-table.component';
+
+import { PIDataService } from './pi-data.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    P0TableComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [
+    PIDataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,10 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { PIData } from './pi-data';
+
+import { PIDataService } from './pi-data.service';
 
 @Component({
-  selector: 'p0-table',
-  templateUrl: './p0-table.component.html'
+   moduleId: module.id,
+   selector: 'p0-table',
+   templateUrl: './p0-table.component.html'
 })
 
-export class P0TableComponent {
-  
+export class P0TableComponent implements OnInit {
+   data: PIData[];
+
+   constructor(private piDataService: PIDataService) {}
+
+   ngOnInit(): void {
+      this.data = this.piDataService.getPIData();
+   }
 }
