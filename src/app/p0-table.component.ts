@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { PIData } from './pi-data';
 
 import { PIDataService } from './pi-data.service';
+import { PICalcService } from './pi-calc.service';
 
 @Component({
    moduleId: module.id,
@@ -13,7 +14,10 @@ import { PIDataService } from './pi-data.service';
 export class P0TableComponent implements OnInit {
    data: PIData[];
 
-   constructor(private piDataService: PIDataService) {}
+   constructor(
+      private piDataService: PIDataService, 
+      private piCalcService: PICalcService
+   ) {}
 
    ngOnInit(): void {
       this.data = this.piDataService.getPIData();

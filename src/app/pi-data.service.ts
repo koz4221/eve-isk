@@ -6,8 +6,8 @@ import { PIData } from './pi-data';
 export class PIDataService {
 
     private data: PIData[] = [
-        {typeId: 2393, name: "Bacteria", pClass: 0, jitaBuy: 373.23, jitaSell: 380.99},
-        {typeId: 2396, name: "Biofuels", pClass: 0, jitaBuy: 340.39, jitaSell: 387.88}
+        {typeId: 2073, name: "Microorganisms", pClass: 0, jitaBuy: 1.63, jitaSell: 2.00},
+        {typeId: 2287, name: "Complex Organisms", pClass: 0, jitaBuy: 7.25, jitaSell: 7.41}
     ]
 
     getPIData() { return this.data; }
