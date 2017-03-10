@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
+import { HttpModule, JsonpModule } from '@angular/http';
 
 import { PIData } from './pi-data';
+
+const PI_P0_TYPEIDS: number[] = [
+    2073, 2287
+]
 
 @Injectable()
 export class PIDataService {
@@ -10,5 +15,7 @@ export class PIDataService {
         {typeId: 2287, name: "Complex Organisms", pClass: 0, jitaBuy: 7.25, jitaSell: 7.41}
     ]
 
-    getPIData() { return this.data; }
+    getPIData(): PIData[] { return this.data; }
+
+    getP0PriceData() {}
 }
