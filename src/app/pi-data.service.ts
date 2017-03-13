@@ -33,7 +33,7 @@ export class PIDataService {
       return body || { };
    }
 
-   public extractMarketDataPrices(data: any[]): { sell: number, buy: number } {
+   public extractMarketDataPrices(data): { buy: number, sell: number } {
       // this gets the lowest sell price and highest buy price from a list of orders from Eve ESI
       let sellValue: number = 0
       let buyValue: number = 0
@@ -48,6 +48,6 @@ export class PIDataService {
          }
       }
 
-      return { sell: sellValue, buy: buyValue };
+      return { buy: buyValue, sell: sellValue };
    }
 }

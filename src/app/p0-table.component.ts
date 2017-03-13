@@ -14,20 +14,21 @@ import { PICalcService } from './pi-calc.service';
 export class P0TableComponent implements OnInit {
    data: PIData[];
    rando: any;
-   crap: {buy: number, sell: number};
+   crap: any = "what";
 
    constructor(
-      private piDataService: PIDataService, 
-      private piCalcService: PICalcService
+      public piDataService: PIDataService, 
+      public piCalcService: PICalcService
    ) {}
 
    ngOnInit(): void {
       this.data = this.piDataService.getPIData();
       
       this.piDataService.getP0PriceData().subscribe(
-         param => {
-            this.crap = this.piDataService.extractMarketDataPrices(param)
-         }    
+         res => {
+            this.crap = this.piDataService.extractMarketDataPrices(res) 
+         },
+         error => console.log(error)   
       );
    }
 }
