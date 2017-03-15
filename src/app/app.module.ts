@@ -9,6 +9,7 @@ import { P0TableComponent } from './p0-table.component';
 
 import { PIDataService } from './pi-data.service';
 import { PICalcService } from './pi-calc.service';
+import { SampleService } from './sample.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PICalcService } from './pi-calc.service';
   ],
   providers: [
     PIDataService,
-    PICalcService
+    PICalcService,
+    SampleService
   ],
   bootstrap: [AppComponent]
 })

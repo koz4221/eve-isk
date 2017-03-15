@@ -12,9 +12,7 @@ import { PICalcService } from './pi-calc.service';
 })
 
 export class P0TableComponent implements OnInit {
-   data: PIData[];
-   rando: any;
-   crap: any = "what";
+   data: PIData[] = [];
 
    constructor(
       public piDataService: PIDataService, 
@@ -26,7 +24,8 @@ export class P0TableComponent implements OnInit {
       
       this.piDataService.getP0PriceData().subscribe(
          res => {
-            this.crap = this.piDataService.extractMarketDataPrices(res) 
+            let prices = this.piDataService.extractMarketDataPrices(res);
+            this.data.push(new PIData(2073, "Unknown", 0, prices.sell, prices.buy));
          },
          error => console.log(error)   
       );
