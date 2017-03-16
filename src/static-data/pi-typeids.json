@@ -1,0 +1,62 @@
+[
+  {
+    "type_id": 2268,
+    "type_name": "Aqueous Liquids"
+  },
+  {
+    "type_id": 2305,
+    "type_name": "Autotrophs"
+  },
+  {
+    "type_id": 2267,
+    "type_name": "Base Metals"
+  },
+  {
+    "type_id": 2288,
+    "type_name": "Carbon Compounds"
+  },
+  {
+    "type_id": 2287,
+    "type_name": "Complex Organisms"
+  },
+  {
+    "type_id": 2307,
+    "type_name": "Felsic Magma"
+  },
+  {
+    "type_id": 2272,
+    "type_name": "Heavy Metals"
+  },
+  {
+    "type_id": 2309,
+    "type_name": "Ionic Solutions"
+  },
+  {
+    "type_id": 2073,
+    "type_name": "Micro Organisms"
+  },
+  {
+    "type_id": 2310,
+    "type_name": "Noble Gas"
+  },
+  {
+    "type_id": 2270,
+    "type_name": "Noble Metals"
+  },
+  {
+    "type_id": 2306,
+    "type_name": "Non-CS Crystals"
+  },
+  {
+    "type_id": 2286,
+    "type_name": "Planktic Colonies"
+  },
+  {
+    "type_id": 2311,
+    "type_name": "Reactive Gas"
+  },
+  {
+    "type_id": 2308,
+    "type_name": "Suspended Plasma"
+  }
+]
