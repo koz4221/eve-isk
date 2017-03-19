@@ -7,6 +7,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { P0TableComponent } from './p0-table.component';
 
+import { AppRoutingModule } from './app-routing.module';
+
 import { PIDataService } from './pi-data.service';
 import { PICalcService } from './pi-calc.service';
 import { SampleService } from './sample.service';
@@ -20,7 +22,8 @@ import { SampleService } from './sample.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    JsonpModule
+    JsonpModule,
+    AppRoutingModule
   ],
   providers: [
     PIDataService,
