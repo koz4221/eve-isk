@@ -1,8 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { JsonpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { P0TableComponent } from './p0-table.component';
