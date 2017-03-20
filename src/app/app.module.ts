@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { P0TableComponent } from './p0-table.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import { AlertModule } from 'ng2-bootstrap';
 
 import { PIDataService } from './pi-data.service';
 import { PICalcService } from './pi-calc.service';
@@ -23,7 +24,8 @@ import { TypeIdResolver } from './services/type-id-resolver.service'
     FormsModule,
     HttpModule,
     JsonpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AlertModule.forRoot()
   ],
   providers: [
     PIDataService,
