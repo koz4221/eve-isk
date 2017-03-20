@@ -17,14 +17,14 @@ export class PIDataService {
         {typeId: 2287, name: "Complex Organisms", pClass: 0, jitaBuy: 7.25, jitaSell: 7.41}
     ]
 
-    private dataUrl: string = "https://esi.tech.ccp.is/latest/markets/10000002/orders/?datasource=tranquility&order_type=all&page=1&type_id=2073";
+    private dataUrl: string = "https://esi.tech.ccp.is/latest/markets/10000002/orders/?datasource=tranquility&order_type=all&page=1&type_id=";
 
     constructor(private http: Http) {}
 
     getPIData(): PIData[] { return this.data; }
 
-    getP0PriceData(): Observable<any> {
-       return this.http.get(this.dataUrl)
+    getP0PriceData(typeID: number): Observable<any> {
+       return this.http.get(this.dataUrl + typeID)
          .map(this.extractData);
     }
 

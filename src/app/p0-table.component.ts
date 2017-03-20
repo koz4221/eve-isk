@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { PIData } from './pi-data';
+import { PIData, PITypeID } from './pi-data';
 
 import { PIDataService } from './pi-data.service';
 import { PICalcService } from './pi-calc.service';
@@ -13,6 +13,7 @@ import { PICalcService } from './pi-calc.service';
 })
 
 export class P0TableComponent implements OnInit {
+   typeIDs: any[];
    data: PIData[] = [];
 
    constructor(
@@ -22,16 +23,19 @@ export class P0TableComponent implements OnInit {
    ) {}
 
    ngOnInit(): void {
-      console.log(this.route.snapshot.data['typeIDs'].json());
-
-      this.data = this.piDataService.getPIData();
+      this.typeIDs = this.route.snapshot.data['typeIDs'].json()
+         .filter(tid => tid.p_class === 0);
       
-      this.piDataService.getP0PriceData().subscribe(
-         res => {
-            let prices = this.piDataService.extractMarketDataPrices(res);
-            this.data.push(new PIData(2073, "Unknown", 0, prices.sell, prices.buy));
-         },
-         error => console.log(error)   
-      );
+      for (let tid of this.typeIDs) {
+         this.piDataService.getP0PriceData(tid.type_id).subscribe(
+            res => {
+               let prices = this.piDataService.extractMarketDataPrices(res);
+               this.data.push(new PIData(tid.type_id, tid.type_name, tid.p_class, prices.sell, prices.buy));
+            },
+            error => console.log(error)   
+         );
+      }
+
+
    }
 }

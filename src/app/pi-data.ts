@@ -11,3 +11,11 @@ export class PIData {
        return this.typeId + " " + this.name + " " + this.pClass + " " + this.jitaBuy + " " + this.jitaSell
     }
 }
+
+export class PITypeID {
+   constructor (
+      public typeID: number,
+      public typeName: string,
+      public pClass: number
+   ) {}
+}
