@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { PIDataService } from './pi-data.service';
 import { PICalcService } from './pi-calc.service';
-import { SampleService } from './sample.service';
+import { TypeIdResolver } from './services/type-id-resolver.service'
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import { SampleService } from './sample.service';
   providers: [
     PIDataService,
     PICalcService,
-    SampleService
+    TypeIdResolver
   ],
   bootstrap: [AppComponent]
 })

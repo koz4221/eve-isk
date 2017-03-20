@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { PIData } from './pi-data';
 
@@ -16,10 +17,13 @@ export class P0TableComponent implements OnInit {
 
    constructor(
       public piDataService: PIDataService, 
-      public piCalcService: PICalcService
+      public piCalcService: PICalcService,
+      private route: ActivatedRoute
    ) {}
 
    ngOnInit(): void {
+      console.log(this.route.snapshot.data['typeIDs'].json());
+
       this.data = this.piDataService.getPIData();
       
       this.piDataService.getP0PriceData().subscribe(
