@@ -9,13 +9,17 @@ export class PICalcService {
       {day: 7, amt: 2300}
    ]
 
+   formatNumberString(num: number): string {
+      return <string>(<any>num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+   }
+
    getEHeadsPerPlanet() { return this.eHeadsPerPlanet; }
 
    getHourProdPerDur(dayRange: number): number {
       return this.eHeadProdPerHourPerDur.find(item => item.day == dayRange).amt;
    }
 
-   getTotalDayProdPerDur(dayRange: number): number {
-      return this.eHeadProdPerHourPerDur.find(item => item.day == dayRange).amt * this.eHeadsPerPlanet * 24;
+   getTotalDayProdPerDur(dayRange: number): string {
+      return this.formatNumberString(this.eHeadProdPerHourPerDur.find(item => item.day == dayRange).amt * this.eHeadsPerPlanet * 24);
    }
 }
