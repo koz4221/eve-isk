@@ -5,19 +5,16 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { P0TableComponent } from './p0-table.component';
+import { PITablesComponent } from './pi-data/pi-tables.component';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AlertModule } from 'ng2-bootstrap';
+import { PITablesModule } from './pi-data/pi-tables.module';
 
-import { PIDataService } from './pi-data.service';
-import { PICalcService } from './pi-calc.service';
 import { TypeIdResolver } from './services/type-id-resolver.service'
 
 @NgModule({
   declarations: [
-    AppComponent,
-    P0TableComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -25,11 +22,9 @@ import { TypeIdResolver } from './services/type-id-resolver.service'
     HttpModule,
     JsonpModule,
     AppRoutingModule,
-    AlertModule.forRoot()
+    PITablesModule
   ],
   providers: [
-    PIDataService,
-    PICalcService,
     TypeIdResolver
   ],
   bootstrap: [AppComponent]

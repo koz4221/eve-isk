@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { TypeIdResolver } from './services/type-id-resolver.service'
 
-import { P0TableComponent } from './p0-table.component';
+import { PITablesComponent } from './pi-data/pi-tables.component';
 
 const appRoutes: Routes = [
    {
-      path: 'p0-table',
-      component: P0TableComponent,
+      path: 'pi-tables',
+      component: PITablesComponent,
       resolve: {
          typeIDs: TypeIdResolver
       }

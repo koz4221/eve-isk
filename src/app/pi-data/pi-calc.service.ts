@@ -8,6 +8,11 @@ export class PICalcService {
       {day: 3, amt: 3600},
       {day: 7, amt: 2300}
    ]
+   eToP1ProdPerHourPerDur: {day: number, amt: number}[] = [
+      {day: 1, amt: 320},
+      {day: 3, amt: 240},
+      {day: 7, amt: 153}
+   ]
 
    formatNumberString(num: number): string {
       let fNum: string
@@ -27,15 +32,27 @@ export class PICalcService {
 
    getEHeadsPerPlanet() { return this.eHeadsPerPlanet; }
 
-   getHourProdPerDur(dayRange: number): string {
+   getP0HourProdPerDur(dayRange: number): string {
       return this.formatNumberString(this.eHeadProdPerHourPerDur.find(item => item.day == dayRange).amt);
    }
 
-   getTotalDayProdPerDur(dayRange: number): string {
+   getP0TotalDayProdPerDur(dayRange: number): string {
       return this.formatNumberString(this.eHeadProdPerHourPerDur.find(item => item.day == dayRange).amt * this.eHeadsPerPlanet * 24);
    }
 
-   getTotalDayProfitPerDur(dayRange: number, buyPrice: number): string {
+   getP0TotalDayProfitPerDur(dayRange: number, buyPrice: number): string {
       return this.formatNumberString(this.eHeadProdPerHourPerDur.find(item => item.day == dayRange).amt * this.eHeadsPerPlanet * 24 * buyPrice);
+   }
+
+   getEtoP1HourProdPerDur(dayRange: number): string {
+      return this.formatNumberString(this.eToP1ProdPerHourPerDur.find(item => item.day == dayRange).amt);
+   }
+
+   getEtoP1TotalDayProdPerDur(dayRange: number): string {
+      return this.formatNumberString(this.eToP1ProdPerHourPerDur.find(item => item.day == dayRange).amt * 24);
+   }
+
+   getEtoP1TotalDayProfitPerDur(dayRange: number, buyPrice: number): string {
+      return this.formatNumberString(this.eToP1ProdPerHourPerDur.find(item => item.day == dayRange).amt * 24 * buyPrice);
    }
 }

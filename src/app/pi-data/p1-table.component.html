@@ -1,0 +1,33 @@
+<table class="table">
+    <!-- header row -->
+   <tr>
+      <td>Commodity</td>
+      <td>Cost Price</td>
+      <td>Value Price</td>
+      <td>Prod on 1 Day</td>
+      <td>Total prod 1 Day</td>
+      <td>Total prof 1 Day</td>
+      <td>Prod on 3 Day</td>
+      <td>Total prod 3 Day</td>
+      <td>Total prof 3 Day</td>
+      <td>Prod on 7 Day</td>
+      <td>Total prod 7 Day</td>
+      <td>Total prof 7 Day</td>
+   </tr>
+   <tr *ngFor="let p1 of data">
+      <td>{{p1.name}}</td>
+      <td>{{p1.jitaSell.toFixed(2)}}</td>
+      <td>{{p1.jitaBuy.toFixed(2)}}</td>
+      <td>{{this.piCalcService.getEtoP1HourProdPerDur(1)}}</td>
+      <td>{{this.piCalcService.getEtoP1TotalDayProdPerDur(1)}}</td>
+      <td>{{this.piCalcService.getEtoP1TotalDayProfitPerDur(1, p1.jitaBuy)}}</td>
+      <td>{{this.piCalcService.getEtoP1HourProdPerDur(3)}}</td>
+      <td>{{this.piCalcService.getEtoP1TotalDayProdPerDur(3)}}</td>
+      <td>{{this.piCalcService.getEtoP1TotalDayProfitPerDur(3, p1.jitaBuy)}}</td>
+      <td>{{this.piCalcService.getEtoP1HourProdPerDur(7)}}</td>
+      <td>{{this.piCalcService.getEtoP1TotalDayProdPerDur(7)}}</td>
+      <td>{{this.piCalcService.getEtoP1TotalDayProfitPerDur(7, p1.jitaBuy)}}</td>
+   </tr>
+</table>
+
+<br/>

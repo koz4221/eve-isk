@@ -72,5 +72,80 @@
     "type_id": 2308,
     "type_name": "Suspended Plasma",
     "p_class": 0
+  },
+  {
+    "type_id": 2393,
+    "type_name": "Bacteria",
+    "p_class": 1
+  },
+  {
+    "type_id": 2396,
+    "type_name": "Biofuels",
+    "p_class": 1
+  },
+  {
+    "type_id": 3779,
+    "type_name": "Biomass",
+    "p_class": 1
+  },
+  {
+    "type_id": 2401,
+    "type_name": "Chiral Structures",
+    "p_class": 1
+  },
+  {
+    "type_id": 2390,
+    "type_name": "Electrolytes",
+    "p_class": 1
+  },
+  {
+    "type_id": 2397,
+    "type_name": "Industrial Fibers",
+    "p_class": 1
+  },
+  {
+    "type_id": 2392,
+    "type_name": "Oxidizing Compound",
+    "p_class": 1
+  },
+  {
+    "type_id": 3683,
+    "type_name": "Oxygen",
+    "p_class": 1
+  },
+  {
+    "type_id": 2389,
+    "type_name": "Plasmoids",
+    "p_class": 1
+  },
+  {
+    "type_id": 2399,
+    "type_name": "Precious Metals",
+    "p_class": 1
+  },
+  {
+    "type_id": 2395,
+    "type_name": "Proteins",
+    "p_class": 1
+  },
+  {
+    "type_id": 2398,
+    "type_name": "Reactive Metals",
+    "p_class": 1
+  },
+  {
+    "type_id": 9828,
+    "type_name": "Silicon",
+    "p_class": 1
+  },
+  {
+    "type_id": 2400,
+    "type_name": "Toxic Metals",
+    "p_class": 1
+  },
+  {
+    "type_id": 3645,
+    "type_name": "Water",
+    "p_class": 1
   }
 ]
