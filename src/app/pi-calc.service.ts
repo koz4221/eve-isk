@@ -10,16 +10,32 @@ export class PICalcService {
    ]
 
    formatNumberString(num: number): string {
-      return <string>(<any>num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      let fNum: string
+
+      // decimal precision
+      if (num < 1000) {
+         fNum = num.toFixed(2);
+      } else {
+         fNum = num.toFixed(0);
+      }
+
+      // add commas for big numbers
+      fNum = fNum.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+      return fNum;
    }
 
    getEHeadsPerPlanet() { return this.eHeadsPerPlanet; }
 
-   getHourProdPerDur(dayRange: number): number {
-      return this.eHeadProdPerHourPerDur.find(item => item.day == dayRange).amt;
+   getHourProdPerDur(dayRange: number): string {
+      return this.formatNumberString(this.eHeadProdPerHourPerDur.find(item => item.day == dayRange).amt);
    }
 
    getTotalDayProdPerDur(dayRange: number): string {
       return this.formatNumberString(this.eHeadProdPerHourPerDur.find(item => item.day == dayRange).amt * this.eHeadsPerPlanet * 24);
+   }
+
+   getTotalDayProfitPerDur(dayRange: number, buyPrice: number): string {
+      return this.formatNumberString(this.eHeadProdPerHourPerDur.find(item => item.day == dayRange).amt * this.eHeadsPerPlanet * 24 * buyPrice);
    }
 }

@@ -1,4 +1,4 @@
-<table>
+<table class="table">
     <!-- header row -->
    <tr>
       <td>Commodity</td>
@@ -17,18 +17,18 @@
    </tr>
    <tr *ngFor="let p0 of data">
       <td>{{p0.name}}</td>
-      <td>{{p0.jitaSell}}</td>
-      <td>{{p0.jitaBuy}}</td>
+      <td>{{this.piCalcService.formatNumberString(p0.jitaSell)}}</td>
+      <td>{{this.piCalcService.formatNumberString(p0.jitaBuy)}}</td>
       <td>{{this.piCalcService.getEHeadsPerPlanet()}}</td>
       <td>{{this.piCalcService.getHourProdPerDur(1)}}</td>
       <td>{{this.piCalcService.getTotalDayProdPerDur(1)}}</td>
-      <td>{{this.piCalcService.getTotalDayProdPerDur(1) * p0.jitaBuy}}</td>
+      <td>{{this.piCalcService.getTotalDayProfitPerDur(1, p0.jitaBuy)}}</td>
       <td>{{this.piCalcService.getHourProdPerDur(3)}}</td>
       <td>{{this.piCalcService.getTotalDayProdPerDur(3)}}</td>
-      <td>{{this.piCalcService.getTotalDayProdPerDur(3) * p0.jitaBuy}}</td>
+      <td>{{this.piCalcService.getTotalDayProfitPerDur(3, p0.jitaBuy)}}</td>
       <td>{{this.piCalcService.getHourProdPerDur(7)}}</td>
       <td>{{this.piCalcService.getTotalDayProdPerDur(7)}}</td>
-      <td>{{this.piCalcService.getTotalDayProdPerDur(7) * p0.jitaBuy}}</td>
+      <td>{{this.piCalcService.getTotalDayProfitPerDur(7, p0.jitaBuy)}}</td>
    </tr>
 </table>
 

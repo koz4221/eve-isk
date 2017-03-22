@@ -27,10 +27,13 @@ export class P0TableComponent implements OnInit {
          .filter(tid => tid.p_class === 0);
       
       for (let tid of this.typeIDs) {
+         this.data.push(new PIData(tid.type_id, tid.type_name, tid.p_class, 0, 0));
+
          this.piDataService.getP0PriceData(tid.type_id).subscribe(
             res => {
                let prices = this.piDataService.extractMarketDataPrices(res);
-               this.data.push(new PIData(tid.type_id, tid.type_name, tid.p_class, prices.sell, prices.buy));
+               this.data.find(item => item.typeId == tid.type_id).jitaBuy = prices.buy;
+               this.data.find(item => item.typeId == tid.type_id).jitaSell = prices.sell;
             },
             error => console.log(error)   
          );
