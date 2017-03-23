@@ -9,8 +9,8 @@ const appRoutes: Routes = [
    {
       path: 'pi-tables',
       component: PITablesComponent,
-      resolve: {
-         typeIDs: TypeIdResolver
+      resolve: { 
+         typeIDs: TypeIdResolver 
       }
    }
 ];

@@ -23,7 +23,7 @@ export class PIDataService {
 
     getPIData(): PIData[] { return this.data; }
 
-    getP0PriceData(typeID: number): Observable<any> {
+    getPIPriceData(typeID: number): Observable<any> {
        return this.http.get(this.dataUrl + typeID)
          .map(this.extractData);
     }
