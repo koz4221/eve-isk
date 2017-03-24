@@ -29,14 +29,14 @@ export class P1TableComponent implements OnInit {
       for (let tid of this.typeIDs) {
          this.data.push(new PIData(tid.type_id, tid.type_name, tid.p_class, 0, 0));
 
-         // this.piDataService.getPIPriceData(tid.type_id).subscribe(
-         //    res => {
-         //       let prices = this.piDataService.extractMarketDataPrices(res);
-         //       this.data.find(item => item.typeId == tid.type_id).jitaBuy = prices.buy;
-         //       this.data.find(item => item.typeId == tid.type_id).jitaSell = prices.sell;
-         //    },
-         //    error => console.log(error)   
-         // );
+         this.piDataService.getPIPriceData(tid.type_id).subscribe(
+            res => {
+               let prices = this.piDataService.extractMarketDataPrices(res);
+               this.data.find(item => item.typeId == tid.type_id).jitaBuy = prices.buy;
+               this.data.find(item => item.typeId == tid.type_id).jitaSell = prices.sell;
+            },
+            error => console.log(error)   
+         );
       }
 
 

@@ -11,6 +11,6 @@ export class PITablesComponent {
    constructor(piCalcService: PICalcService) {
       piCalcService.CCUpgradeSkill = 3;
       piCalcService.EHeadProdPerHour = 5600;
-      piCalcService.getMaxEtoP1Factories();
+      console.log(piCalcService.getEtoP1FactoryProd());
    }
 }

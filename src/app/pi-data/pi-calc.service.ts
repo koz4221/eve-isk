@@ -74,7 +74,7 @@ export class PICalcService {
    }
 
    // E -> p1 calculations
-   getMaxEtoP1Factories(): number { 
+   getEtoP1FactoryProd(): number { 
       // this calculation is based on extracting raw p0 materials and converting them to p1 through
       // basic factories on one planet.
       let totalPower: number = this.getTotalPlanetPower();
@@ -85,11 +85,23 @@ export class PICalcService {
       // every hour one basic factory consumes 6000 raw p0. This calculation gets the ratio of
       // how many factories are needed per extractor head based on hourly production
       let factEHeadRatio: number = this.EHeadProdPerHour / 6000;
+      let numHeads: number
 
-      for (var i = 0; i <= 20; i++) {
-         console.log(i + ": " + (factEHeadRatio * basicPwr * i + ((i * ehPwr) + ((Math.floor(i / 10) + 1) * ecuPwr))))
+      for (var i = 1; i <= 20; i++) {
+         if (factEHeadRatio * basicPwr * i + ((i * ehPwr) + ((Math.floor((i - 1) / 10) + 1) * ecuPwr)) > totalPower) {
+            numHeads = i - 1;
+            break;
+         }
       }
-      return 0
+
+      // factory number is likely to be a fraction, so first round up to see if it fits under total power. If not,
+      // round down and use that.
+      let numBIF: number = Math.ceil(numHeads * factEHeadRatio);
+      if (basicPwr * numBIF + ((numHeads * ehPwr) + ((Math.floor((numHeads - 1) / 10) + 1) * ecuPwr)) > totalPower) {
+         numBIF = Math.floor(numHeads * factEHeadRatio)
+      }
+      //console.log(numHeads + " " + numHeads * factEHeadRatio + " " + numBIF);
+      return 40 * (numBIF < (numHeads * factEHeadRatio) ? numBIF : (numHeads * factEHeadRatio));
    }
 
    getEtoP1HourProdPerDur(dayRange: number): string {
@@ -97,10 +109,10 @@ export class PICalcService {
    }
 
    getEtoP1TotalDayProdPerDur(dayRange: number): string {
-      return this.formatNumberString(this.eToP1ProdPerHourPerDur.find(item => item.day == dayRange).amt * 24);
+      return this.formatNumberString(this.getEtoP1FactoryProd() * 24);
    }
 
    getEtoP1TotalDayProfitPerDur(dayRange: number, buyPrice: number): string {
-      return this.formatNumberString(this.eToP1ProdPerHourPerDur.find(item => item.day == dayRange).amt * 24 * buyPrice);
+      return this.formatNumberString(this.getEtoP1FactoryProd() * 24 * buyPrice);
    }
 }
