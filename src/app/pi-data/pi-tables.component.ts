@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { PICalcService } from './pi-calc.service';
 
@@ -8,6 +9,9 @@ import { PICalcService } from './pi-calc.service';
 })
 
 export class PITablesComponent {
+   CCUpgradeSkill: number = 3;
+   ddlCCUpgradeVals: number[] = [0, 1, 2, 3, 4, 5];
+
    constructor(piCalcService: PICalcService) {
       piCalcService.CCUpgradeSkill = 3;
       piCalcService.EHeadProdPerHour = 5600;
