@@ -1,7 +1,13 @@
-<label for="ddlCCU">Command Center Upgrade:</label> 
-<select id="ddlCCU" name="ddlCCU" [(ngModel)]="CCUpgradeSkill">
-   <option *ngFor="let val of ddlCCUpgradeVals" [value]="val">{{val}}</option>
-</select>
+<form>
+   <label for="ddlCCU">Command Center Upgrade:</label> 
+   <select id="ddlCCU" name="ddlCCU" [(ngModel)]="CCUpgradeSkill" (change)="onCCUChange($event.target.value)">
+      <option *ngFor="let val of ddlCCUpgradeVals" [value]="val">{{val}}</option>
+   </select>
+   <br />
+   <input #eheadprod name="inpEHeadProd" [(ngModel)]="EHeadProdPerHour" (keyup.enter)="update(eheadprod.value)" 
+         (blur)="update(eheadprod.value)">{{value}}
+   <button type="submit" (click)="p0.loadData()">Recalculate</button>
+</form>
 <br /><br />
-<p0-table></p0-table>
+<p0-table #p0></p0-table>
 <p1-table></p1-table>

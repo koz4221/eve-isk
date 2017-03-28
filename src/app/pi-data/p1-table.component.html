@@ -4,7 +4,7 @@
       <td>Commodity</td>
       <td>Cost Price</td>
       <td>Value Price</td>
-      <td>Prod on 1 Day</td>
+      <td>Prod Per Day</td>
       <td>Total prod 1 Day</td>
       <td>Total prof 1 Day</td>
    </tr>
@@ -12,7 +12,7 @@
       <td>{{p1.name}}</td>
       <td>{{p1.jitaSell.toFixed(2)}}</td>
       <td>{{p1.jitaBuy.toFixed(2)}}</td>
-      <td>{{this.piCalcService.getEtoP1FactoryProd()}}</td>
+      <td>{{this.piCalcService.getEtoP1FactoryProdDisp()}}</td>
       <td>{{this.piCalcService.getEtoP1TotalDayProdPerDur(1)}}</td>
       <td>{{this.piCalcService.getEtoP1TotalDayProfitPerDur(1, p1.jitaBuy)}}</td>
    </tr>

@@ -11,11 +11,6 @@ export class PICalcService {
    public CCUpgradeSkill: number = 0;
    public EHeadProdPerHour: number = 0;
 
-   eHeadProdPerHourPerDur: {day: number, amt: number}[] = [
-      {day: 1, amt: 5600},
-      {day: 3, amt: 3600},
-      {day: 7, amt: 2300}
-   ]
    eToP1ProdPerHourPerDur: {day: number, amt: number}[] = [
       {day: 1, amt: 320},
       {day: 3, amt: 240},
@@ -53,24 +48,24 @@ export class PICalcService {
       let ecuPwr: number = PI_BUILDING_STATS.find(b => b.code == "ecu").power;
       let ehPwr: number = PI_BUILDING_STATS.find(b => b.code == "ehead").power;
 
-      for (var i = 0; i <= 30; i++) {
-         if ((i * ehPwr) + ((Math.floor(i / 10) + 1) * ecuPwr) > totalPower) {
+      for (var i = 1; i <= 30; i++) {
+         if ((i * ehPwr) + ((Math.floor((i - 1) / 10) + 1) * ecuPwr) > totalPower) {
             return i - 1;
          }
       }
       return 0;
    }
 
-   getP0HourProdPerDur(dayRange: number): string {
-      return this.formatNumberString(this.eHeadProdPerHourPerDur.find(item => item.day == dayRange).amt);
+   getP0HourProd(): string {
+      return this.formatNumberString(this.EHeadProdPerHour);
    }
 
-   getP0TotalDayProdPerDur(dayRange: number): string {
-      return this.formatNumberString(this.eHeadProdPerHourPerDur.find(item => item.day == dayRange).amt * this.getEHeadsPerPlanet() * 24);
+   getP0TotalDayProd(): string {
+      return this.formatNumberString(this.EHeadProdPerHour * this.getEHeadsPerPlanet() * 24);
    }
 
-   getP0TotalDayProfitPerDur(dayRange: number, buyPrice: number): string {
-      return this.formatNumberString(this.eHeadProdPerHourPerDur.find(item => item.day == dayRange).amt * this.getEHeadsPerPlanet() * 24 * buyPrice);
+   getP0TotalDayProfit(buyPrice: number): string {
+      return this.formatNumberString(this.EHeadProdPerHour * this.getEHeadsPerPlanet() * 24 * buyPrice);
    }
 
    // E -> p1 calculations
@@ -104,6 +99,10 @@ export class PICalcService {
       return 40 * (numBIF < (numHeads * factEHeadRatio) ? numBIF : (numHeads * factEHeadRatio));
    }
 
+   getEtoP1FactoryProdDisp(): string {
+      return this.formatNumberString(this.getEtoP1FactoryProd());
+   }
+
    getEtoP1HourProdPerDur(dayRange: number): string {
       return this.formatNumberString(this.eToP1ProdPerHourPerDur.find(item => item.day == dayRange).amt);
    }
@@ -114,5 +113,28 @@ export class PICalcService {
 
    getEtoP1TotalDayProfitPerDur(dayRange: number, buyPrice: number): string {
       return this.formatNumberString(this.getEtoP1FactoryProd() * 24 * buyPrice);
+   }
+
+   getEtoP2FactoryProd(): number {
+      let totalPower: number = this.getTotalPlanetPower();
+      let ecuPwr: number = PI_BUILDING_STATS.find(b => b.code == "ecu").power;
+      let ehPwr: number = PI_BUILDING_STATS.find(b => b.code == "ehead").power;
+      let basicPwr: number = PI_BUILDING_STATS.find(b => b.code == "basic").power;
+      let advPwr: number = PI_BUILDING_STATS.find(b => b.code == "adv").power;
+
+      let factEHeadRatio: number = this.EHeadProdPerHour / 6000;
+      let numHeads: number
+
+      for (var i = 1; i <= 20; i++) {
+         if ((factEHeadRatio * advPwr * i * 0.5) + 
+             (factEHeadRatio * basicPwr * i) + ((i * ehPwr * 2) + 
+             ((Math.floor((i - 1) / 10) + 1) * ecuPwr * 2)) > totalPower) {
+            numHeads = i - 1;
+            break;
+         }
+      }
+
+      console.log("E->p2: " + numHeads + " " + numHeads * factEHeadRatio)
+      return 0;
    }
 }

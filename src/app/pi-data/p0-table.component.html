@@ -8,27 +8,15 @@
       <td>Prod/head 1 Day</td>
       <td>Total prod 1 Day</td>
       <td>Total prof 1 Day</td>
-      <td>Prod/head 3 Day</td>
-      <td>Total prod 3 Day</td>
-      <td>Total prof 3 Day</td>
-      <td>Prod/head 7 Day</td>
-      <td>Total prod 7 Day</td>
-      <td>Total prof 7 Day</td>
    </tr>
    <tr *ngFor="let p0 of data">
       <td>{{p0.name}}</td>
       <td>{{this.piCalcService.formatNumberString(p0.jitaSell)}}</td>
       <td>{{this.piCalcService.formatNumberString(p0.jitaBuy)}}</td>
       <td>{{this.piCalcService.getEHeadsPerPlanet()}}</td>
-      <td>{{this.piCalcService.getP0HourProdPerDur(1)}}</td>
-      <td>{{this.piCalcService.getP0TotalDayProdPerDur(1)}}</td>
-      <td>{{this.piCalcService.getP0TotalDayProfitPerDur(1, p0.jitaBuy)}}</td>
-      <td>{{this.piCalcService.getP0HourProdPerDur(3)}}</td>
-      <td>{{this.piCalcService.getP0TotalDayProdPerDur(3)}}</td>
-      <td>{{this.piCalcService.getP0TotalDayProfitPerDur(3, p0.jitaBuy)}}</td>
-      <td>{{this.piCalcService.getP0HourProdPerDur(7)}}</td>
-      <td>{{this.piCalcService.getP0TotalDayProdPerDur(7)}}</td>
-      <td>{{this.piCalcService.getP0TotalDayProfitPerDur(7, p0.jitaBuy)}}</td>
+      <td>{{this.piCalcService.getP0HourProd()}}</td>
+      <td>{{this.piCalcService.getP0TotalDayProd()}}</td>
+      <td>{{this.piCalcService.getP0TotalDayProfit(p0.jitaBuy)}}</td>
    </tr>
 </table>
 
