@@ -8,15 +8,13 @@ import { PICalcService } from './pi-calc.service';
 
 @Component({
    moduleId: module.id,
-   selector: 'p0-table',
-   templateUrl: './p0-table.component.html'
+   selector: 'p2-1p-table',
+   templateUrl: './p2-1p-table.component.html'
 })
 
-export class P0TableComponent implements OnInit {
+export class P21PTableComponent implements OnInit {
    typeIDs: any[];
    data: PIData[] = [];
-
-   EHeadsPerPlanet: number;
 
    constructor(
       public piDataService: PIDataService, 
@@ -25,14 +23,8 @@ export class P0TableComponent implements OnInit {
    ) {}
 
    ngOnInit(): void {
-      this.loadData();
-   }
-
-   loadData(): void {
-      this.data = [];
-      
       this.typeIDs = this.route.snapshot.data['typeIDs'].json()
-         .filter(tid => tid.p_class === 0);
+         .filter(tid => tid.p_class === 2 && tid.single_planet === true);
       
       for (let tid of this.typeIDs) {
          this.data.push(new PIData(tid.type_id, tid.type_name, tid.p_class, 0, 0));
@@ -47,10 +39,6 @@ export class P0TableComponent implements OnInit {
          );
       }
 
-      this.EHeadsPerPlanet = this.piCalcService.getEHeadsPerPlanet();    
-   }
 
-   foo() {
-      alert("foo!");
    }
 }

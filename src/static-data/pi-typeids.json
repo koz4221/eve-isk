@@ -147,5 +147,197 @@
     "type_id": 3645,
     "type_name": "Water",
     "p_class": 1
+  },
+    {
+    "type_id": 2329,
+    "type_name": "Biocells",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 3828,
+    "type_name": "Construction Blocks",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 9836,
+    "type_name": "Consumer Electronics",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 9832,
+    "type_name": "Coolant",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 44,
+    "type_name": "Enriched Uranium",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 3693,
+    "type_name": "Fertilizer",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 15317,
+    "type_name": "Genetically Enhanced Livestock",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 3725,
+    "type_name": "Livestock",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 3689,
+    "type_name": "Mechanical Parts",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 2327,
+    "type_name": "Microfiber Shielding",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": false
+  },
+  {
+    "type_id": 9842,
+    "type_name": "Miniature Electronics",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 2463,
+    "type_name": "Nanites",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 2317,
+    "type_name": "Oxides",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 2321,
+    "type_name": "Polyaramids",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": false
+  },
+  {
+    "type_id": 3695,
+    "type_name": "Polytextiles",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 9830,
+    "type_name": "Rocket Fuel",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 3697,
+    "type_name": "Silicate Glass",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": false
+  },
+  {
+    "type_id": 9838,
+    "type_name": "Superconductors",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 2312,
+    "type_name": "Supertensile Plastics",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 3691,
+    "type_name": "Synthetic Oil",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 2319,
+    "type_name": "Test Cultures",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 9840,
+    "type_name": "Transmitter",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 3775,
+    "type_name": "Viral Agent",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
+  },
+  {
+    "type_id": 2328,
+    "type_name": "Water-Cooled CPU",
+    "p_class": 2,
+    "input1_type_id": 0,
+    "input2_type_id": 0,
+    "single_planet": true
   }
 ]

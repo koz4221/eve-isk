@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { PITablesComponent } from './pi-tables.component';
 import { P0TableComponent } from './p0-table.component';
 import { P1TableComponent } from './p1-table.component';
-import { TestComponent } from './test.component';
+import { P21PTableComponent } from './p2-1p-table.component';
 
 import { PIDataService } from './pi-data.service';
 import { PICalcService } from './pi-calc.service';
@@ -16,7 +16,7 @@ import { PICalcService } from './pi-calc.service';
       PITablesComponent,
       P0TableComponent,
       P1TableComponent,
-      TestComponent
+      P21PTableComponent
   ],
   imports: [
       BrowserModule,

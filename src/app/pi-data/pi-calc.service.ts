@@ -9,7 +9,10 @@ import { PI_BUILDING_STATS } from '../../static-data/pi-building-stats'
 @Injectable()
 export class PICalcService {
    public CCUpgradeSkill: number = 0;
-   public EHeadProdPerHour: number = 0;
+   public EHeadProdPerHour: number = 1;
+
+   // calculated values
+   private numEtoP2AdvFact_1P: number = 0
 
    eToP1ProdPerHourPerDur: {day: number, amt: number}[] = [
       {day: 1, amt: 320},
@@ -31,6 +34,10 @@ export class PICalcService {
       fNum = fNum.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
       return fNum;
+   }
+
+   resetCalculatedValues(): void {
+      this.numEtoP2AdvFact_1P = 0;
    }
 
    getTotalPlanetPower(): number {
@@ -103,38 +110,57 @@ export class PICalcService {
       return this.formatNumberString(this.getEtoP1FactoryProd());
    }
 
-   getEtoP1HourProdPerDur(dayRange: number): string {
-      return this.formatNumberString(this.eToP1ProdPerHourPerDur.find(item => item.day == dayRange).amt);
-   }
+   // getEtoP1HourProd(): string {
+   //    return this.formatNumberString(this.getEtoP1FactoryProd());
+   // }
 
-   getEtoP1TotalDayProdPerDur(dayRange: number): string {
+   getEtoP1TotalDayProd(): string {
       return this.formatNumberString(this.getEtoP1FactoryProd() * 24);
    }
 
-   getEtoP1TotalDayProfitPerDur(dayRange: number, buyPrice: number): string {
+   getEtoP1TotalDayProfit(buyPrice: number): string {
       return this.formatNumberString(this.getEtoP1FactoryProd() * 24 * buyPrice);
    }
 
-   getEtoP2FactoryProd(): number {
-      let totalPower: number = this.getTotalPlanetPower();
-      let ecuPwr: number = PI_BUILDING_STATS.find(b => b.code == "ecu").power;
-      let ehPwr: number = PI_BUILDING_STATS.find(b => b.code == "ehead").power;
-      let basicPwr: number = PI_BUILDING_STATS.find(b => b.code == "basic").power;
-      let advPwr: number = PI_BUILDING_STATS.find(b => b.code == "adv").power;
+   getEtoP2FactoryProd_1P(): number {
+      let numAdvF: number
+      if (this.numEtoP2AdvFact_1P == 0) {
+         let totalPower: number = this.getTotalPlanetPower();
+         let ecuPwr: number = PI_BUILDING_STATS.find(b => b.code == "ecu").power;
+         let ehPwr: number = PI_BUILDING_STATS.find(b => b.code == "ehead").power;
+         let basicPwr: number = PI_BUILDING_STATS.find(b => b.code == "basic").power;
+         let advPwr: number = PI_BUILDING_STATS.find(b => b.code == "adv").power;
 
-      let factEHeadRatio: number = this.EHeadProdPerHour / 6000;
-      let numHeads: number
+         let factEHeadRatio: number = 6000 / this.EHeadProdPerHour;
 
-      for (var i = 1; i <= 20; i++) {
-         if ((factEHeadRatio * advPwr * i * 0.5) + 
-             (factEHeadRatio * basicPwr * i) + ((i * ehPwr * 2) + 
-             ((Math.floor((i - 1) / 10) + 1) * ecuPwr * 2)) > totalPower) {
-            numHeads = i - 1;
-            break;
+         for (var i = 1; i <= 20; i++) {
+            if ((advPwr * i) + (basicPwr * i * 2) + 
+               ((Math.ceil(i * factEHeadRatio) * ehPwr * 2) + 
+               ((Math.floor((i * factEHeadRatio - 1) / 10) + 1) * ecuPwr * 2)) > totalPower) {
+               numAdvF = i - 1;
+               break;
+            }
          }
+
+         this.numEtoP2AdvFact_1P = numAdvF;
+         console.log("E->p2-1p: " + numAdvF + " " + Math.ceil(numAdvF * factEHeadRatio * 2))
+      } 
+      else {
+         numAdvF = this.numEtoP2AdvFact_1P
       }
 
-      console.log("E->p2: " + numHeads + " " + numHeads * factEHeadRatio)
-      return 0;
+      return 5 * numAdvF;
+   }
+
+   getEtoP2FactoryProd_1PDisp(): string {
+      return this.formatNumberString(this.getEtoP2FactoryProd_1P());
+   }
+
+   getEtoP2TotalDayProd_1P(): string {
+      return this.formatNumberString(this.getEtoP2FactoryProd_1P() * 24);
+   }
+
+   getEtoP2TotalDayProfit_1P(buyPrice: number): string {
+      return this.formatNumberString(this.getEtoP2FactoryProd_1P() * 24 * buyPrice);
    }
 }

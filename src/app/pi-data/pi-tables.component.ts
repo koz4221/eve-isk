@@ -16,11 +16,12 @@ export class PITablesComponent {
    constructor(protected piCalcService: PICalcService) {
       piCalcService.CCUpgradeSkill = 3;
       piCalcService.EHeadProdPerHour = 5600;
-      console.log(piCalcService.getEtoP2FactoryProd());
+      //piCalcService.getEtoP2FactoryProd_1P();
    }
 
    onCCUChange(value: string) {
       this.piCalcService.CCUpgradeSkill = +value;
+      this.piCalcService.resetCalculatedValues();
    }
 
    update(value: string): void {
