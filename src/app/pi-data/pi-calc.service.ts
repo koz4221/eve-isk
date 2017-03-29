@@ -123,17 +123,17 @@ export class PICalcService {
    }
 
    getEtoP2FactoryProd_1P(): number {
+      let totalPower: number = this.getTotalPlanetPower();
+      let ecuPwr: number = PI_BUILDING_STATS.find(b => b.code == "ecu").power;
+      let ehPwr: number = PI_BUILDING_STATS.find(b => b.code == "ehead").power;
+      let basicPwr: number = PI_BUILDING_STATS.find(b => b.code == "basic").power;
+      let advPwr: number = PI_BUILDING_STATS.find(b => b.code == "adv").power;
+
       let numAdvF: number
       let numEHeads: number
       let factEHeadRatio: number = 6000 / this.EHeadProdPerHour;
 
       if (this.numEtoP2AdvFact_1P == 0) {
-         let totalPower: number = this.getTotalPlanetPower();
-         let ecuPwr: number = PI_BUILDING_STATS.find(b => b.code == "ecu").power;
-         let ehPwr: number = PI_BUILDING_STATS.find(b => b.code == "ehead").power;
-         let basicPwr: number = PI_BUILDING_STATS.find(b => b.code == "basic").power;
-         let advPwr: number = PI_BUILDING_STATS.find(b => b.code == "adv").power;
-
          for (var i = 1; i <= 20; i++) {
             if ((advPwr * i) + (basicPwr * i * 2) + 
                ((Math.floor(i * factEHeadRatio) * ehPwr * 2) + 
@@ -159,8 +159,8 @@ export class PICalcService {
          numAdvF = this.numEtoP2AdvFact_1P
       }
 
-      //return 5 * (1 / factEHeadRatio) * numAdvF;
-      return 5 * (numAdvF < (numEHeads * 1 / factEHeadRatio) ? numAdvF : (numEHeads * 1 / factEHeadRatio));
+      let numBIF: number = numAdvF * 2;
+      return 5 * (numBIF * factEHeadRatio < numEHeads ? 0.5 * numBIF : 0.5 * numBIF * 1 / factEHeadRatio);  
    }
 
    getEtoP2FactoryProd_1PDisp(): string {
