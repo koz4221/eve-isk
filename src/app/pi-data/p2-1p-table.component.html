@@ -10,8 +10,8 @@
    </tr>
    <tr *ngFor="let p1 of data">
       <td>{{p1.name}}</td>
-      <td>{{p1.jitaSell.toFixed(2)}}</td>
-      <td>{{p1.jitaBuy.toFixed(2)}}</td>
+      <td>{{p1.jitaSell.toFixed(0)}}</td>
+      <td>{{p1.jitaBuy.toFixed(0)}}</td>
       <td>{{this.piCalcService.getEtoP2FactoryProd_1PDisp()}}</td>
       <td>{{this.piCalcService.getEtoP2TotalDayProd_1P()}}</td>
       <td>{{this.piCalcService.getEtoP2TotalDayProfit_1P(p1.jitaBuy)}}</td>

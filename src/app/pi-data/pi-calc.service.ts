@@ -124,6 +124,9 @@ export class PICalcService {
 
    getEtoP2FactoryProd_1P(): number {
       let numAdvF: number
+      let numEHeads: number
+      let factEHeadRatio: number = 6000 / this.EHeadProdPerHour;
+
       if (this.numEtoP2AdvFact_1P == 0) {
          let totalPower: number = this.getTotalPlanetPower();
          let ecuPwr: number = PI_BUILDING_STATS.find(b => b.code == "ecu").power;
@@ -131,25 +134,33 @@ export class PICalcService {
          let basicPwr: number = PI_BUILDING_STATS.find(b => b.code == "basic").power;
          let advPwr: number = PI_BUILDING_STATS.find(b => b.code == "adv").power;
 
-         let factEHeadRatio: number = 6000 / this.EHeadProdPerHour;
-
          for (var i = 1; i <= 20; i++) {
             if ((advPwr * i) + (basicPwr * i * 2) + 
-               ((Math.ceil(i * factEHeadRatio) * ehPwr * 2) + 
+               ((Math.floor(i * factEHeadRatio) * ehPwr * 2) + 
                ((Math.floor((i * factEHeadRatio - 1) / 10) + 1) * ecuPwr * 2)) > totalPower) {
                numAdvF = i - 1;
                break;
             }
          }
 
+         // minimum eheads won't fill all factories, see if we can fit two more in to maximize output
+         numEHeads = Math.floor(numAdvF * factEHeadRatio) + 2
+         if ((advPwr * numAdvF) + (basicPwr * numAdvF * 2) + 
+               ((numEHeads * ehPwr * 2) + 
+               ((Math.floor((numEHeads - 1) / 10) + 1) * ecuPwr * 2)) > totalPower) {
+               
+               numEHeads = numEHeads - 2;
+         }
+
          this.numEtoP2AdvFact_1P = numAdvF;
-         console.log("E->p2-1p: " + numAdvF + " " + Math.ceil(numAdvF * factEHeadRatio * 2))
+         console.log("E->p2-1p: " + numAdvF + " " + numEHeads * 2);
       } 
       else {
          numAdvF = this.numEtoP2AdvFact_1P
       }
 
-      return 5 * numAdvF;
+      //return 5 * (1 / factEHeadRatio) * numAdvF;
+      return 5 * (numAdvF < (numEHeads * 1 / factEHeadRatio) ? numAdvF : (numEHeads * 1 / factEHeadRatio));
    }
 
    getEtoP2FactoryProd_1PDisp(): string {
