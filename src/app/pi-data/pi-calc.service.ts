@@ -17,6 +17,9 @@ export class PICalcService {
    private numEtoP2EHeads_1P: number = 0;
    private numEtoP2BasFact_1P: number = 0;
    private numEtoP2AdvFact_1P: number = 0;
+   private numEtoP2EHeads_2P: number = 0;
+   private numEtoP2BasFact_2P: number = 0;
+   private numEtoP2AdvFact_2P: number = 0;
 
    eToP1ProdPerHourPerDur: {day: number, amt: number}[] = [
       {day: 1, amt: 320},
@@ -41,7 +44,9 @@ export class PICalcService {
    }
 
    resetCalculatedValues(): void {
+      this.numEtoP1EHeads = 0
       this.numEtoP2AdvFact_1P = 0;
+      this.numEtoP2AdvFact_2P = 0;
    }
 
    getTotalPlanetPower(): number {
@@ -144,6 +149,7 @@ export class PICalcService {
       let advPwr: number = PI_BUILDING_STATS.find(b => b.code == "adv").power;
 
       let numAdvF: number
+      let numBasF: number
       let numEHeads: number
       let factEHeadRatio: number = 6000 / this.EHeadProdPerHour;
 
@@ -166,14 +172,17 @@ export class PICalcService {
                numEHeads = numEHeads - 2;
          }
 
+         this.numEtoP2EHeads_1P = numEHeads;
+         this.numEtoP2BasFact_1P = numAdvF * 2;
          this.numEtoP2AdvFact_1P = numAdvF;
       } 
       else {
-         numAdvF = this.numEtoP2AdvFact_1P
+         numEHeads = this.numEtoP2EHeads_1P;
+         numAdvF = this.numEtoP2AdvFact_1P;
       }
 
-      let numBIF: number = numAdvF * 2;
-      return 5 * (numBIF * factEHeadRatio < numEHeads ? 0.5 * numBIF : 0.5 * numBIF * 1 / factEHeadRatio);  
+      numBasF = numAdvF * 2;
+      return 5 * (numBasF * factEHeadRatio < numEHeads ? 0.5 * numBasF : 0.5 * numBasF * 1 / factEHeadRatio);  
    }
 
    getEtoP2FactoryProd_1PDisp(): string {
@@ -186,5 +195,61 @@ export class PICalcService {
 
    getEtoP2TotalDayProfit_1P(buyPrice: number): string {
       return this.formatNumberString(this.getEtoP2FactoryProd_1P() * 24 * buyPrice);
+   }
+
+   getEtoP2FactoryProd_2P(): number {
+      let totalPower: number = this.getTotalPlanetPower();
+      let ecuPwr: number = PI_BUILDING_STATS.find(b => b.code == "ecu").power;
+      let ehPwr: number = PI_BUILDING_STATS.find(b => b.code == "ehead").power;
+      let basicPwr: number = PI_BUILDING_STATS.find(b => b.code == "basic").power;
+      let advPwr: number = PI_BUILDING_STATS.find(b => b.code == "adv").power;
+
+      let numAdvF: number
+      let numBasF: number
+      let numEHeads: number
+      let factEHeadRatio: number = 6000 / this.EHeadProdPerHour;
+
+      if (this.numEtoP2AdvFact_2P == 0) {
+         for (var i = 1; i <= 20; i++) {
+            if ((advPwr * i) + (basicPwr * i * 2) + 
+               ((Math.floor(i * factEHeadRatio * 2) * ehPwr) + 
+               ((Math.floor((i * factEHeadRatio - 1) / 10) + 1) * ecuPwr)) > totalPower) {
+               numAdvF = i - 1;
+               break;
+            }
+         }
+
+         // minimum eheads won't fill all factories, see if we can fit two more in to maximize output
+         numEHeads = Math.floor(numAdvF * 2 * factEHeadRatio) + 1
+         if ((advPwr * numAdvF) + (basicPwr * numAdvF * 2) + 
+               ((numEHeads * ehPwr) + 
+               ((Math.floor((numEHeads - 1) / 10) + 1) * ecuPwr)) > totalPower) {
+               
+               numEHeads = numEHeads - 1;
+         }
+
+         this.numEtoP2EHeads_2P = numEHeads;
+         this.numEtoP2BasFact_2P = numAdvF * 2;
+         this.numEtoP2AdvFact_2P = numAdvF;
+      } 
+      else {
+         numEHeads = this.numEtoP2EHeads_2P;
+         numAdvF = this.numEtoP2AdvFact_2P;
+      }
+
+      numBasF = numAdvF * 2;
+      return 5 * (numBasF * factEHeadRatio < numEHeads ? 0.5 * numBasF : 0.5 * numBasF * 1 / factEHeadRatio);  
+   }
+
+   getEtoP2FactoryProd_2PDisp(): string {
+      return this.formatNumberString(this.getEtoP2FactoryProd_2P());
+   }
+
+   getEtoP2TotalDayProd_2P(): string {
+      return this.formatNumberString(this.getEtoP2FactoryProd_2P() * 24);
+   }
+
+   getEtoP2TotalDayProfit_2P(buyPrice: number): string {
+      return this.formatNumberString(this.getEtoP2FactoryProd_2P() * 24 * buyPrice);
    }
 }

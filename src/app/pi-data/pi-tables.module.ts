@@ -7,6 +7,7 @@ import { PITablesComponent } from './pi-tables.component';
 import { P0TableComponent } from './p0-table.component';
 import { P1TableComponent } from './p1-table.component';
 import { P21PTableComponent } from './p2-1p-table.component';
+import { P22PTableComponent } from './p2-2p-table.component';
 
 import { PIDataService } from './pi-data.service';
 import { PICalcService } from './pi-calc.service';
@@ -16,7 +17,8 @@ import { PICalcService } from './pi-calc.service';
       PITablesComponent,
       P0TableComponent,
       P1TableComponent,
-      P21PTableComponent
+      P21PTableComponent,
+      P22PTableComponent
   ],
   imports: [
       BrowserModule,
