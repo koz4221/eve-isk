@@ -1,21 +1,30 @@
-<table class="table">
-    <!-- header row -->
-   <tr>
-      <td>Commodity</td>
-      <td>Jita Sell</td>
-      <td>Jita Buy</td>
-      <td>Prod Per Day</td>
-      <td>Total Prod Per Day</td>
-      <td>Total Profit Per Day</td>
-   </tr>
-   <tr *ngFor="let p1 of data">
-      <td>{{p1.name}}</td>
-      <td>{{p1.jitaSell.toFixed(0)}}</td>
-      <td>{{p1.jitaBuy.toFixed(0)}}</td>
-      <td>{{this.piCalcService.getEtoP2FactoryProd_1PDisp()}}</td>
-      <td>{{this.piCalcService.getEtoP2TotalDayProd_1P()}}</td>
-      <td>{{this.piCalcService.getEtoP2TotalDayProfit_1P(p1.jitaBuy)}}</td>
-   </tr>
-</table>
+<h3>Raw Extracted to P2, 1 Planet</h3>
+<div class="panel panel-default">
+   <div class="panel-heading">
+      Extractor Heads: <b>{{this.piCalcService.numEtoP1EHeads}}</b>, 
+      Basic Factories: <b>{{this.piCalcService.numEtoP1BasFact}}</b>, 
+      Advanced Factories: <b></b>
+   </div> 
+   <table class="table">
+      <!-- header row -->
+      <tr>
+         <th>Commodity</th>
+         <th>Jita Sell</th>
+         <th>Jita Buy</th>
+         <th>Prod Per Day</th>
+         <th>Total Prod Per Day</th>
+         <th>Total Profit Per Day</th>
+      </tr>
+      <tr *ngFor="let p1 of data">
+         <td>{{p1.name}}</td>
+         <td>{{p1.jitaSell.toFixed(0)}}</td>
+         <td>{{p1.jitaBuy.toFixed(0)}}</td>
+         <td>{{this.piCalcService.getEtoP2FactoryProd_1PDisp()}}</td>
+         <td>{{this.piCalcService.getEtoP2TotalDayProd_1P()}}</td>
+         <td>{{this.piCalcService.getEtoP2TotalDayProfit_1P(p1.jitaBuy)}}</td>
+      </tr>
+   </table>
+</div>
+
 
 <br/>

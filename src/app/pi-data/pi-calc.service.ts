@@ -12,7 +12,11 @@ export class PICalcService {
    public EHeadProdPerHour: number = 1;
 
    // calculated values
-   private numEtoP2AdvFact_1P: number = 0
+   private numEtoP1EHeads: number = 0;
+   private numEtoP1BasFact: number = 0;
+   private numEtoP2EHeads_1P: number = 0;
+   private numEtoP2BasFact_1P: number = 0;
+   private numEtoP2AdvFact_1P: number = 0;
 
    eToP1ProdPerHourPerDur: {day: number, amt: number}[] = [
       {day: 1, amt: 320},
@@ -88,21 +92,31 @@ export class PICalcService {
       // how many factories are needed per extractor head based on hourly production
       let factEHeadRatio: number = this.EHeadProdPerHour / 6000;
       let numHeads: number
+      let numBIF: number
 
-      for (var i = 1; i <= 20; i++) {
-         if (factEHeadRatio * basicPwr * i + ((i * ehPwr) + ((Math.floor((i - 1) / 10) + 1) * ecuPwr)) > totalPower) {
-            numHeads = i - 1;
-            break;
+      if (this.numEtoP1EHeads == 0) {
+         for (var i = 1; i <= 20; i++) {
+            if (factEHeadRatio * basicPwr * i + ((i * ehPwr) + ((Math.floor((i - 1) / 10) + 1) * ecuPwr)) > totalPower) {
+               numHeads = i - 1;
+               break;
+            }
          }
+
+         // factory number is likely to be a fraction, so first round up to see if it fits under total power. If not,
+         // round down and use that.
+         numBIF = Math.ceil(numHeads * factEHeadRatio);
+         if (basicPwr * numBIF + ((numHeads * ehPwr) + ((Math.floor((numHeads - 1) / 10) + 1) * ecuPwr)) > totalPower) {
+            numBIF = Math.floor(numHeads * factEHeadRatio)
+         }
+
+         this.numEtoP1EHeads = numHeads;
+         this.numEtoP1BasFact = numBIF;
+      }
+      else {
+         numHeads = this.numEtoP1EHeads;
+         numBIF = this.numEtoP1BasFact;
       }
 
-      // factory number is likely to be a fraction, so first round up to see if it fits under total power. If not,
-      // round down and use that.
-      let numBIF: number = Math.ceil(numHeads * factEHeadRatio);
-      if (basicPwr * numBIF + ((numHeads * ehPwr) + ((Math.floor((numHeads - 1) / 10) + 1) * ecuPwr)) > totalPower) {
-         numBIF = Math.floor(numHeads * factEHeadRatio)
-      }
-      //console.log(numHeads + " " + numHeads * factEHeadRatio + " " + numBIF);
       return 40 * (numBIF < (numHeads * factEHeadRatio) ? numBIF : (numHeads * factEHeadRatio));
    }
 
@@ -153,7 +167,6 @@ export class PICalcService {
          }
 
          this.numEtoP2AdvFact_1P = numAdvF;
-         console.log("E->p2-1p: " + numAdvF + " " + numEHeads * 2);
       } 
       else {
          numAdvF = this.numEtoP2AdvFact_1P
