@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import { PICalcService } from './pi-calc.service';
+import { PIDataService } from './pi-data.service';
 
 @Component({
   selector: 'pi-tables',
@@ -13,10 +15,10 @@ export class PITablesComponent {
    EHeadProdPerHour: number = 5600;
    ddlCCUpgradeVals: number[] = [0, 1, 2, 3, 4, 5];
 
-   constructor(protected piCalcService: PICalcService) {
+   constructor(protected piCalcService: PICalcService, piDataService: PIDataService, private route: ActivatedRoute) {
       piCalcService.CCUpgradeSkill = 3;
       piCalcService.EHeadProdPerHour = 5600;
-      //piCalcService.getEtoP2FactoryProd_1P();
+      piDataService.loadPIData(this.route.snapshot.data['typeIDs'].json());
    }
 
    onCCUChange(value: string) {

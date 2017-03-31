@@ -11,29 +11,41 @@ const PI_P0_TYPEIDS: number[] = [
 
 @Injectable()
 export class PIDataService {
+   dataUrl: string = "https://esi.tech.ccp.is/latest/markets/10000002/orders/?datasource=tranquility&order_type=all&page=1&type_id=";
+   data: PIData[] = [];
 
-    private data: PIData[] = [
-        {typeId: 2073, name: "Microorganisms", pClass: 0, jitaBuy: 1.63, jitaSell: 2.00},
-        {typeId: 2287, name: "Complex Organisms", pClass: 0, jitaBuy: 7.25, jitaSell: 7.41}
-    ]
+   constructor(private http: Http) {}
 
-    private dataUrl: string = "https://esi.tech.ccp.is/latest/markets/10000002/orders/?datasource=tranquility&order_type=all&page=1&type_id=";
+   getPIData(): PIData[] { return this.data; }
 
-    constructor(private http: Http) {}
+   loadPIData(typeIDs: any[]): void {
+      this.data = [];
+            
+      for (let tid of typeIDs) {
+         this.data.push(new PIData(tid.type_id, tid.type_name, tid.p_class, 0, 0));
 
-    getPIData(): PIData[] { return this.data; }
+         this.getPIPriceData(tid.type_id).subscribe(
+            res => {
+               let prices = this.extractMarketDataPrices(res);
+               this.data.find(item => item.typeId == tid.type_id).jitaBuy = prices.buy;
+               this.data.find(item => item.typeId == tid.type_id).jitaSell = prices.sell;
+            },
+            error => console.log(error)   
+         );
+      }
+   }
 
-    getPIPriceData(typeID: number): Observable<any> {
-       return this.http.get(this.dataUrl + typeID)
-         .map(this.extractData);
-    }
+   getPIPriceData(typeID: number): Observable<any> {
+      return this.http.get(this.dataUrl + typeID)
+      .map(this.extractData);
+   }
 
     extractData(res: Response) {
       let body = res.json();
       return body || { };
    }
 
-   public extractMarketDataPrices(data): { buy: number, sell: number } {
+   extractMarketDataPrices(data): { buy: number, sell: number } {
       // this gets the lowest sell price and highest buy price from a list of orders from Eve ESI
       let sellValue: number = 0
       let buyValue: number = 0

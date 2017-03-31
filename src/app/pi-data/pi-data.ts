@@ -19,3 +19,11 @@ export class PITypeID {
       public pClass: number
    ) {}
 }
+
+export class PriceData {
+   constructor (
+      public typeId: number,
+      public buy: number,
+      public sell: number
+   ){}
+}

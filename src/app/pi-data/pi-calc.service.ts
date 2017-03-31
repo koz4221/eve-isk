@@ -21,12 +21,6 @@ export class PICalcService {
    private numEtoP2BasFact_2P: number = 0;
    private numEtoP2AdvFact_2P: number = 0;
 
-   eToP1ProdPerHourPerDur: {day: number, amt: number}[] = [
-      {day: 1, amt: 320},
-      {day: 3, amt: 240},
-      {day: 7, amt: 153}
-   ]
-
    formatNumberString(num: number): string {
       let fNum: string
 
