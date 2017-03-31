@@ -11,7 +11,7 @@ import { PICalcService } from './pi-calc.service';
    templateUrl: './p1-table.component.html'
 })
 
-export class P1TableComponent implements OnInit {
+export class P1toP2TableComponent implements OnInit {
    data: PIData[] = [];
 
    constructor(

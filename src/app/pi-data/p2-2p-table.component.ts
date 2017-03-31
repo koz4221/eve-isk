@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
-import { PIData, PITypeID } from './pi-data';
+import { PIData } from './pi-data';
 
 import { PIDataService } from './pi-data.service';
 import { PICalcService } from './pi-calc.service';
