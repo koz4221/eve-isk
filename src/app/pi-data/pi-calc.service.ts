@@ -20,6 +20,7 @@ export class PICalcService {
    private numEtoP2EHeads_2P: number = 0;
    private numEtoP2BasFact_2P: number = 0;
    private numEtoP2AdvFact_2P: number = 0;
+   private numP1toP2AdvFact: number = 0;
 
    formatNumberString(num: number): string {
       let fNum: string
@@ -38,9 +39,10 @@ export class PICalcService {
    }
 
    resetCalculatedValues(): void {
-      this.numEtoP1EHeads = 0
+      this.numEtoP1EHeads = 0;
       this.numEtoP2AdvFact_1P = 0;
       this.numEtoP2AdvFact_2P = 0;
+      this.numP1toP2AdvFact = 0;
    }
 
    getTotalPlanetPower(): number {
@@ -245,5 +247,31 @@ export class PICalcService {
 
    getEtoP2TotalDayProfit_2P(buyPrice: number): string {
       return this.formatNumberString(this.getEtoP2FactoryProd_2P() * 24 * buyPrice);
+   }
+
+   getP1toP2FactoryProd(): {input: number, output: number} {
+      if (this.numP1toP2AdvFact == 0) {
+         let totalPower: number = this.getTotalPlanetPower();
+         let advPwr: number = PI_BUILDING_STATS.find(b => b.code == "adv").power;
+         this.numP1toP2AdvFact = Math.floor(totalPower / advPwr)
+      }
+
+      return {input: 80 * this.numP1toP2AdvFact, output: 5 * this.numP1toP2AdvFact};
+   }
+
+   getP1toP2TotalCost(inpPrice1: number, inpPrice2: number): number {
+      let inputProd: number = this.getP1toP2FactoryProd().input;
+
+      return (inpPrice1 * inputProd * 0.5) + (inpPrice2 * inputProd * 0.5);
+   }
+
+   getP1toP2TotalValue(outPrice: number): number {
+      let outputProd: number = this.getP1toP2FactoryProd().output;
+
+      return outPrice * outputProd;
+   }
+
+   getP1toP2TotalProfit(inpPrice1: number, inpPrice2: number, outPrice: number): string {
+      return this.formatNumberString(this.getP1toP2TotalValue(outPrice) - this.getP1toP2TotalCost(inpPrice1, inpPrice2));
    }
 }

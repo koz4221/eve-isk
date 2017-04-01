@@ -4,7 +4,10 @@ export class PIData {
       public name: string,
       public pClass: number,
       public jitaBuy: number,
-      public jitaSell: number
+      public jitaSell: number,
+      public input1?: number,
+      public input2?: number,
+      public input3?: number
     ){}
 
     public toString(): string {

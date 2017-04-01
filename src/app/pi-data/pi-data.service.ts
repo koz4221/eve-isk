@@ -18,11 +18,15 @@ export class PIDataService {
 
    getPIData(): PIData[] { return this.data; }
 
+   getPIDataByTypeID(typeID: number): PIData { 
+      return this.data.filter(tid => tid.typeId === typeID)[0];
+   }
+
    loadPIData(typeIDs: any[]): void {
       this.data = [];
             
       for (let tid of typeIDs) {
-         this.data.push(new PIData(tid.type_id, tid.type_name, tid.p_class, 0, 0));
+         this.data.push(new PIData(tid.type_id, tid.type_name, tid.p_class, 0, 0, tid.input1_type_id, tid.input2_type_id));
 
          this.getPIPriceData(tid.type_id).subscribe(
             res => {
