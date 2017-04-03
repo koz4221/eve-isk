@@ -22,4 +22,9 @@ export class P1toP2TableComponent implements OnInit {
    ngOnInit(): void {
       this.data = this.piDataService.data.filter(tid => tid.pClass === 2);
    }
+
+   // function solely to make the html {{}} not hideous
+   public getPIDataByTypeID(typeID: number): PIData {
+      return this.piDataService.getPIDataByTypeID(typeID)
+   }
 }

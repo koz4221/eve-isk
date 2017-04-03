@@ -26,7 +26,7 @@ export class PICalcService {
       let fNum: string
 
       // decimal precision
-      if (num < 1000) {
+      if (num < 1000 && num > -1000) {
          fNum = num.toFixed(2);
       } else {
          fNum = num.toFixed(0);

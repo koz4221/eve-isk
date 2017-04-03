@@ -23,15 +23,15 @@
          <td>{{p.name}}</td>
          <td>{{p.jitaSell.toFixed(0)}}</td>
          <td>{{p.jitaBuy.toFixed(0)}}</td>
-         <td>{{this.piDataService.getPIDataByTypeID(p.input1).name}}</td>
-         <td>{{this.piDataService.getPIDataByTypeID(p.input1).jitaSell}}</td>
-         <td>{{this.piDataService.getPIDataByTypeID(p.input2).name}}</td>
-         <td>{{this.piDataService.getPIDataByTypeID(p.input2).jitaSell}}</td>
-         <td>{{this.piCalcService.formatNumberString(this.piCalcService.getP1toP2TotalCost(this.piDataService.getPIDataByTypeID(p.input1).jitaSell, 
-               this.piDataService.getPIDataByTypeID(p.input2).jitaSell))}}</td>
+         <td>{{this.getPIDataByTypeID(p.input1).name}}</td>
+         <td>{{this.getPIDataByTypeID(p.input1).jitaSell}}</td>
+         <td>{{this.getPIDataByTypeID(p.input2).name}}</td>
+         <td>{{this.getPIDataByTypeID(p.input2).jitaSell}}</td>
+         <td>{{this.piCalcService.formatNumberString(this.piCalcService.getP1toP2TotalCost(this.getPIDataByTypeID(p.input1).jitaSell, 
+               this.getPIDataByTypeID(p.input2).jitaSell))}}</td>
          <td>{{this.piCalcService.formatNumberString(this.piCalcService.getP1toP2TotalValue(p.jitaBuy))}}</td>
-         <td>{{this.piCalcService.getP1toP2TotalProfit(this.piCalcService.getP1toP2TotalCost(this.piDataService.getPIDataByTypeID(p.input1).jitaSell, 
-               this.piDataService.getPIDataByTypeID(p.input2).jitaSell, this.piCalcService.getP1toP2TotalValue(p.jitaBuy)))}}</td>
+         <td>{{this.piCalcService.getP1toP2TotalProfit(this.getPIDataByTypeID(p.input1).jitaSell, 
+               this.getPIDataByTypeID(p.input2).jitaSell, p.jitaBuy)}}</td>
       </tr>
    </table>
 </div>
