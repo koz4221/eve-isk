@@ -38,6 +38,15 @@ export class PICalcService {
       return fNum;
    }
 
+   getCSSColorPosNeg(val: number): string {
+      if (val >= 0) {
+         return "green";
+      }
+      else {
+         return "red";
+      }
+   }
+
    resetCalculatedValues(): void {
       this.numEtoP1EHeads = 0;
       this.numEtoP2AdvFact_1P = 0;
@@ -271,7 +280,7 @@ export class PICalcService {
       return outPrice * outputProd;
    }
 
-   getP1toP2TotalProfit(inpPrice1: number, inpPrice2: number, outPrice: number): string {
-      return this.formatNumberString(this.getP1toP2TotalValue(outPrice) - this.getP1toP2TotalCost(inpPrice1, inpPrice2));
+   getP1toP2TotalProfit(inpPrice1: number, inpPrice2: number, outPrice: number): number {
+      return this.getP1toP2TotalValue(outPrice) - this.getP1toP2TotalCost(inpPrice1, inpPrice2);
    }
 }

@@ -7,7 +7,8 @@ export class PIData {
       public jitaSell: number,
       public input1?: number,
       public input2?: number,
-      public input3?: number
+      public input3?: number,
+      public cssValue?: string
     ){}
 
     public toString(): string {
