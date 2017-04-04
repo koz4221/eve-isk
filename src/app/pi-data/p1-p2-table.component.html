@@ -11,9 +11,9 @@
          <th>Jita Buy</th>
          <th>Jita Sell</th>
          <th>Input 1</th>
-         <th>Sell</th>
+         <!--<th>Sell</th>-->
          <th>Input 2</th>
-         <th>Sell</th>
+         <!--<th>Sell</th>-->
          <!--<th>Total Input m3 Per Day</th>-->
          <th>Total Cost Per Hour</th>
          <th>Total Revenue Per Hour</th>
@@ -24,13 +24,14 @@
          <td>{{p.jitaSell.toFixed(0)}}</td>
          <td>{{p.jitaBuy.toFixed(0)}}</td>
          <td>{{this.getPIDataByTypeID(p.input1).name}}</td>
-         <td>{{this.getPIDataByTypeID(p.input1).jitaSell}}</td>
+         <!--<td>{{this.getPIDataByTypeID(p.input1).jitaSell}}</td>-->
          <td>{{this.getPIDataByTypeID(p.input2).name}}</td>
-         <td>{{this.getPIDataByTypeID(p.input2).jitaSell}}</td>
+         <!--<td>{{this.getPIDataByTypeID(p.input2).jitaSell}}</td>-->
          <td>{{this.piCalcService.formatNumberString(this.piCalcService.getP1toP2TotalCost(this.getPIDataByTypeID(p.input1).jitaSell, 
                this.getPIDataByTypeID(p.input2).jitaSell))}}</td>
          <td>{{this.piCalcService.formatNumberString(this.piCalcService.getP1toP2TotalValue(p.jitaBuy))}}</td>
-         <td>{{this.getP1toP2TotalProfit(p)}}</td>
+         <td [ngClass]="{'posNumColor': this.isTotalPositive(p), 'negNumColor': this.isTotalNegative(p)}">
+               {{this.piCalcService.formatNumberString(this.getP1toP2TotalProfit(p))}}</td>
       </tr>
    </table>
 </div>
