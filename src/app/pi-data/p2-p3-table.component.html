@@ -1,0 +1,45 @@
+<h3>P2 to P3</h3>
+<div class="panel panel-default">
+   <div class="panel-heading">
+      <!--Advanced Factories: <b>{{this.piCalcService.numP1toP2AdvFact}}</b>,
+      P2 Production Per Hour: <b>{{this.piCalcService.getP1toP2FactoryProd().output}}</b>
+      <br>
+      Input m<sup>3</sup> Per Day: <b>{{(this.piCalcService.getP1toP2FactoryProd().input * 0.38 * 24).toFixed(0)}}</b>, 
+      Output m<sup>3</sup> Per Day: <b>{{(this.piCalcService.getP1toP2FactoryProd().output * 1.5 * 24).toFixed(0)}}</b>-->
+   </div> 
+   <table class="table">
+      <!-- header row -->
+      <tr>
+         <th>Commodity</th>
+         <th>Jita Buy</th>
+         <th>Jita Sell</th>
+         <th>Input 1</th>
+         <!--<th>Sell</th>-->
+         <th>Input 2</th>
+         <!--<th>Sell</th>-->
+         <th>Input 3</th>
+         <th>Total Cost Per Hour</th>
+         <th>Total Revenue Per Hour</th>
+         <th>Total Profit Per Hour</th>
+      </tr>
+      <tr *ngFor="let p of data">
+         <td>{{p.name}}</td>
+         <td>{{this.piCalcService.formatNumberString(p.jitaBuy)}}</td>
+         <td>{{this.piCalcService.formatNumberString(p.jitaSell)}}</td>
+         <td>{{this.getPIDataByTypeID(p.input1).name}}</td>
+         <!--<td>{{this.getPIDataByTypeID(p.input1).jitaSell}}</td>-->
+         <td>{{this.getPIDataByTypeID(p.input2).name}}</td>
+         <!--<td>{{this.getPIDataByTypeID(p.input2).jitaSell}}</td>-->
+         <td>{{(p.input3 == undefined) ? "" : this.piDataService.getPIDataByTypeID(p.input3).name}}</td>
+         <td>{{this.piCalcService.formatNumberString(this.piCalcService.getP2toP3TotalCost(this.getPIDataByTypeID(p.input1).jitaSell, 
+               this.getPIDataByTypeID(p.input2).jitaSell,
+               (p.input3 == undefined) ? undefined : this.piDataService.getPIDataByTypeID(p.input3).jitaSell))}}</td>
+         <td>{{this.piCalcService.formatNumberString(this.piCalcService.getP2toP3TotalValue(p.jitaBuy))}}</td>
+         <td [ngClass]="{'posNumColor': this.isTotalPositive(p), 'negNumColor': this.isTotalNegative(p)}">
+               {{this.piCalcService.formatNumberString(this.getP2toP3TotalProfit(p))}}</td>
+      </tr>
+   </table>
+</div>
+
+
+<br/>

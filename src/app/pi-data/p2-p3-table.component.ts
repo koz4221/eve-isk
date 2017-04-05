@@ -7,12 +7,12 @@ import { PICalcService } from './pi-calc.service';
 
 @Component({
    moduleId: module.id,
-   selector: 'p1-p2-table',
-   templateUrl: './p1-p2-table.component.html',
+   selector: 'p2-p3-table',
+   templateUrl: './p2-p3-table.component.html',
    styleUrls: ['../css/pi-data.css']
 })
 
-export class P1toP2TableComponent implements OnInit {
+export class P2toP3TableComponent implements OnInit {
    data: PIData[] = [];
 
    constructor(
@@ -21,12 +21,12 @@ export class P1toP2TableComponent implements OnInit {
    ) {}
 
    ngOnInit(): void {
-      this.data = this.piDataService.data.filter(tid => tid.pClass === 2);
+      this.data = this.piDataService.data.filter(tid => tid.pClass === 3);
    }
 
    public isTotalPositive(p: PIData): boolean {
       if (p.jitaBuy != 0 && p.jitaSell != 0) {
-         if (+this.getP1toP2TotalProfit(p) > 0) {
+         if (+this.getP2toP3TotalProfit(p) > 0) {
             return true;
          }
       }
@@ -35,7 +35,7 @@ export class P1toP2TableComponent implements OnInit {
 
    isTotalNegative(p: PIData): boolean {
       if (p.jitaBuy != 0 && p.jitaSell != 0) {
-         if (this.getP1toP2TotalProfit(p) < 0) {
+         if (this.getP2toP3TotalProfit(p) < 0) {
             return true;
          }
       }
@@ -44,16 +44,18 @@ export class P1toP2TableComponent implements OnInit {
 
    // function solely to make the html {{}} not hideous
    public getPIDataByTypeID(typeID: number): PIData {
-      return this.piDataService.getPIDataByTypeID(typeID)
+      if (typeID == undefined) return undefined;
+      return this.piDataService.getPIDataByTypeID(typeID);
    }
 
-   public getP1toP2TotalProfit(p: PIData): number {
-      let total: number = this.piCalcService.getP1toP2TotalProfit(
+   public getP2toP3TotalProfit(p: PIData): number {
+      let total: number = this.piCalcService.getP2toP3TotalProfit(
          this.piDataService.getPIDataByTypeID(p.input1).jitaSell,
          this.piDataService.getPIDataByTypeID(p.input2).jitaSell,
+         (p.input3 == undefined) ? undefined : this.piDataService.getPIDataByTypeID(p.input3).jitaSell,
          p.jitaBuy
       )
-
+      
       return total;
    }
 }

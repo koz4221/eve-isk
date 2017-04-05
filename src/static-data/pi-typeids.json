@@ -344,147 +344,153 @@
     "type_id": 2358,
     "type_name": "Biotech Research Reports",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 2463,
+    "input2_type_id": 3725,
+    "input3_type_id": 3828
   },
   {
     "type_id": 2345,
     "type_name": "Camera Drones",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 3697,
+    "input2_type_id": 9830
   },
   {
     "type_id": 2344,
     "type_name": "Condensates",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 2317,
+    "input2_type_id": 9832
   },
   {
     "type_id": 2367,
     "type_name": "Cryoprotectant Solution",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 2319,
+    "input2_type_id": 3691,
+    "input3_type_id": 3693
   },
   {
     "type_id": 17392,
     "type_name": "Data Chips",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 2312,
+    "input2_type_id": 2327
   },
   {
     "type_id": 2348,
     "type_name": "Gel-Matrix Biopaste",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 2317,
+    "input2_type_id": 2329,
+    "input3_type_id": 9838
   },
   {
     "type_id": 9834,
     "type_name": "Guidance Systems",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 2328,
+    "input2_type_id": 9840
   },
   {
     "type_id": 2366,
     "type_name": "Hazmat Detection Systems",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 3695,
+    "input2_type_id": 3775,
+    "input3_type_id": 9840
   },
   {
     "type_id": 2361,
     "type_name": "Hermetic Membranes",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 2321,
+    "input2_type_id": 15317
   },
   {
     "type_id": 17898,
     "type_name": "High-Tech Transmitters",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 2321,
+    "input2_type_id": 9840
   },
   {
     "type_id": 2360,
     "type_name": "Industrial Explosives",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 3693,
+    "input2_type_id": 3695
   },
   {
     "type_id": 2354,
     "type_name": "Neocoms",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 2329,
+    "input2_type_id": 3697
   },
   {
     "type_id": 2352,
     "type_name": "Nuclear Reactors",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 44,
+    "input2_type_id": 2327
   },
   {
     "type_id": 9846,
     "type_name": "Planetary Vehicles",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 2312,
+    "input2_type_id": 3689,
+    "input3_type_id": 9842
   },
   {
     "type_id": 9848,
     "type_name": "Robotics",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 3689,
+    "input2_type_id": 9836
   },
   {
     "type_id": 2351,
     "type_name": "Smartfab Units",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 3828,
+    "input2_type_id": 9842
   },
   {
     "type_id": 2349,
     "type_name": "Supercomputers",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 2328,
+    "input2_type_id": 9832,
+    "input3_type_id": 9836
   },
   {
     "type_id": 2346,
     "type_name": "Synthetic Synapses",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 2312,
+    "input2_type_id": 2319
   },
   {
     "type_id": 12836,
     "type_name": "Transcranial Microcontrollers",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 2329,
+    "input2_type_id": 2463
   },
   {
     "type_id": 17136,
     "type_name": "Ukomi Super Conductors",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 3691,
+    "input2_type_id": 9838
   },
   {
     "type_id": 28974,
     "type_name": "Vaccines",
     "p_class": 3,
-    "input1_type_id": 0,
-    "input2_type_id": 0
+    "input1_type_id": 3725,
+    "input2_type_id": 3775
   }
 ]

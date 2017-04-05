@@ -20,7 +20,7 @@ export class PICalcService {
    private numEtoP2EHeads_2P: number = 0;
    private numEtoP2BasFact_2P: number = 0;
    private numEtoP2AdvFact_2P: number = 0;
-   private numP1toP2AdvFact: number = 0;
+   private numFactPlanAdvFact: number = 0;
 
    formatNumberString(num: number): string {
       let fNum: string
@@ -51,7 +51,7 @@ export class PICalcService {
       this.numEtoP1EHeads = 0;
       this.numEtoP2AdvFact_1P = 0;
       this.numEtoP2AdvFact_2P = 0;
-      this.numP1toP2AdvFact = 0;
+      this.numFactPlanAdvFact = 0;
    }
 
    getTotalPlanetPower(): number {
@@ -258,14 +258,18 @@ export class PICalcService {
       return this.formatNumberString(this.getEtoP2FactoryProd_2P() * 24 * buyPrice);
    }
 
-   getP1toP2FactoryProd(): {input: number, output: number} {
-      if (this.numP1toP2AdvFact == 0) {
+   getFactoryPlanetAdvCount(): number {
+      if (this.numFactPlanAdvFact == 0) {
          let totalPower: number = this.getTotalPlanetPower();
          let advPwr: number = PI_BUILDING_STATS.find(b => b.code == "adv").power;
-         this.numP1toP2AdvFact = Math.floor(totalPower / advPwr)
+         this.numFactPlanAdvFact = Math.floor(totalPower / advPwr)
       }
 
-      return {input: 80 * this.numP1toP2AdvFact, output: 5 * this.numP1toP2AdvFact};
+      return this.numFactPlanAdvFact;
+   }
+
+   getP1toP2FactoryProd(): {input: number, output: number} {
+      return {input: 80 * this.getFactoryPlanetAdvCount(), output: 5 * this.getFactoryPlanetAdvCount()};
    }
 
    getP1toP2TotalCost(inpPrice1: number, inpPrice2: number): number {
@@ -282,5 +286,36 @@ export class PICalcService {
 
    getP1toP2TotalProfit(inpPrice1: number, inpPrice2: number, outPrice: number): number {
       return this.getP1toP2TotalValue(outPrice) - this.getP1toP2TotalCost(inpPrice1, inpPrice2);
+   }
+
+   getP2toP3FactoryProd(inp3: number): {input: number, output: number} {
+      if (inp3 != undefined) {
+         return {input: 30 * this.getFactoryPlanetAdvCount(), output: 3 * this.getFactoryPlanetAdvCount()};
+      }
+      else {
+         return {input: 20 * this.getFactoryPlanetAdvCount(), output: 3 * this.getFactoryPlanetAdvCount()};
+      }
+      
+   }
+
+   getP2toP3TotalCost(inpPrice1: number, inpPrice2: number, inpPrice3: number): number {
+      let inputProd: number = this.getP2toP3FactoryProd(inpPrice3).input;
+
+      if (inpPrice3 != undefined) {
+         return (inpPrice1 * inputProd * (1/3)) + (inpPrice2 * inputProd * (1/3)) + (inpPrice3 * inputProd * (1/3));
+      }
+      else {
+         return (inpPrice1 * inputProd * 0.5) + (inpPrice2 * inputProd * 0.5);
+      }
+   }
+
+   getP2toP3TotalValue(outPrice: number): number {
+      let outputProd: number = this.getP2toP3FactoryProd(0).output;
+
+      return outPrice * outputProd;
+   }
+
+   getP2toP3TotalProfit(inpPrice1: number, inpPrice2: number, inpPrice3: number, outPrice: number): number {
+      return this.getP2toP3TotalValue(outPrice) - this.getP2toP3TotalCost(inpPrice1, inpPrice2, inpPrice3);
    }
 }
