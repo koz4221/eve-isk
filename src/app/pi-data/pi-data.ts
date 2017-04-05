@@ -10,10 +10,6 @@ export class PIData {
       public input3?: number,
       public cssValue?: string
     ){}
-
-    public toString(): string {
-       return this.typeId + " " + this.name + " " + this.pClass + " " + this.jitaBuy + " " + this.jitaSell
-    }
 }
 
 export class PITypeID {
