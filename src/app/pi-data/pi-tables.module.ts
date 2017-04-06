@@ -10,6 +10,7 @@ import { P21PTableComponent } from './p2-1p-table.component';
 import { P22PTableComponent } from './p2-2p-table.component';
 import { P1toP2TableComponent } from './p1-p2-table.component';
 import { P2toP3TableComponent } from './p2-p3-table.component';
+import { P1toP3TableComponent } from './p1-p3-table.component';
 
 import { PIDataService } from './pi-data.service';
 import { PICalcService } from './pi-calc.service';
@@ -22,7 +23,8 @@ import { PICalcService } from './pi-calc.service';
       P21PTableComponent,
       P22PTableComponent,
       P1toP2TableComponent,
-      P2toP3TableComponent
+      P2toP3TableComponent,
+      P1toP3TableComponent
   ],
   imports: [
       BrowserModule,

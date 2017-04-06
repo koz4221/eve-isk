@@ -318,4 +318,38 @@ export class PICalcService {
    getP2toP3TotalProfit(inpPrice1: number, inpPrice2: number, inpPrice3: number, outPrice: number): number {
       return this.getP2toP3TotalValue(outPrice) - this.getP2toP3TotalCost(inpPrice1, inpPrice2, inpPrice3);
    }
+
+   getP1toP3FactoryProd(inp3: number): {input: number, output: number} {
+      if (inp3 != undefined) {
+         return {input: 240 * (2/3) * this.getFactoryPlanetAdvCount(), output: 3 * (1/3) * this.getFactoryPlanetAdvCount()};
+      }
+      else {
+         return {input: 160 * (2/3) * this.getFactoryPlanetAdvCount(), output: 3 * (1/3) * this.getFactoryPlanetAdvCount()};
+      }
+      
+   }
+
+   getP1toP3TotalCost(inpPrice1_1: number, inpPrice1_2: number, inpPrice2_1: number, inpPrice2_2: number, 
+      inpPrice3_1: number, inpPrice3_2: number): number {
+
+      let inputProd: number = this.getP1toP3FactoryProd(inpPrice3_1).input;
+
+      if (inpPrice3_1 != undefined) {
+         return (inpPrice1_1 * inputProd * (1/6)) + (inpPrice1_2 * inputProd * (1/6)) + (inpPrice2_1 * inputProd * (1/6)) +
+            (inpPrice2_2 * inputProd * (1/6)) + (inpPrice3_1 * inputProd * (1/6)) + (inpPrice3_2 * inputProd * (1/6));
+      }
+      else {
+         return (inpPrice1_1 * inputProd * 0.25) + (inpPrice1_2 * inputProd * 0.25) + (inpPrice2_1 * 0.25) + (inpPrice2_2 * 0.25);
+      }
+   }
+
+   getP1toP3TotalValue(outPrice: number): number {
+      let outputProd: number = this.getP1toP3FactoryProd(0).output;
+
+      return outPrice * outputProd;
+   }
+
+   getP1toP3TotalProfit(inpPrice1: number, inpPrice2: number, inpPrice3: number, outPrice: number): number {
+      return this.getP1toP3TotalValue(outPrice) - this.getP1toP3TotalCost(inpPrice1, inpPrice2, inpPrice3);
+   }
 }

@@ -1,0 +1,50 @@
+<h3>P1 to P3</h3>
+<div class="panel panel-default">
+   <div class="panel-heading">
+      <!--Advanced Factories: <b>{{this.piCalcService.numFactPlanAdvFact}}</b>,
+      P2 Production Per Hour: <b>{{this.piCalcService.getP2toP3FactoryProd(0).output}}</b>
+      <br>
+      Two Input m<sup>3</sup> Per Day: <b>{{(this.piCalcService.getP2toP3FactoryProd(undefined).input * 1.5 * 24).toFixed(0)}}</b>,
+      Three Input m<sup>3</sup> Per Day: <b>{{(this.piCalcService.getP2toP3FactoryProd(0).input * 1.5 * 24).toFixed(0)}}</b>,  
+      Output m<sup>3</sup> Per Day: <b>{{(this.piCalcService.getP2toP3FactoryProd(0).output * 6.0 * 24).toFixed(0)}}</b>-->
+   </div> 
+   <table class="table">
+      <!-- header row -->
+      <tr>
+         <th>Commodity</th>
+         <th>Jita Buy</th>
+         <th>Jita Sell</th>
+         <th>Input 1-1</th>
+         <!--<th>Sell</th>-->
+         <th>Input 1-2</th>
+         <!--<th>Sell</th>-->
+         <th>Input 2-1</th>
+         <th>Input 2-2</th>
+         <th>Input 3-1</th>
+         <th>Input 3-2</th>
+         <th>Total Cost Per Hour</th>
+         <th>Total Revenue Per Hour</th>
+         <th>Total Profit Per Hour</th>
+      </tr>
+      <tr *ngFor="let p of data">
+         <td>{{p.name}}</td>
+         <td>{{this.piCalcService.formatNumberString(p.jitaBuy)}}</td>
+         <td>{{this.piCalcService.formatNumberString(p.jitaSell)}}</td>
+         <td>{{this.getP1PIDataByTypeID(p.input1, 1).name}}</td>
+         <td>{{this.getP1PIDataByTypeID(p.input1, 2).name}}</td>
+         <td>{{this.getP1PIDataByTypeID(p.input2, 1).name}}</td>
+         <td>{{this.getP1PIDataByTypeID(p.input2, 2).name}}</td>
+         <td>{{(p.input3 == undefined) ? "" : this.getP1PIDataByTypeID(p.input3, 1).name}}</td>
+         <td>{{(p.input3 == undefined) ? "" : this.getP1PIDataByTypeID(p.input3, 2).name}}</td>
+         <td>{{this.piCalcService.formatNumberString(this.piCalcService.getP1toP3TotalCost(this.getP1PIDataByTypeID(p.input1).jitaSell, 
+               this.getP1PIDataByTypeID(p.input2).jitaSell,
+               (p.input3 == undefined) ? undefined : this.getP1PIDataByTypeID(p.input3).jitaSell))}}</td>
+         <!--<td>{{this.piCalcService.formatNumberString(this.piCalcService.getP1toP3TotalValue(p.jitaBuy))}}</td>
+         <td [ngClass]="{'posNumColor': this.isTotalPositive(p), 'negNumColor': this.isTotalNegative(p)}">
+               {{this.piCalcService.formatNumberString(this.getP1toP3TotalProfit(p))}}</td>-->
+      </tr>
+   </table>
+</div>
+
+
+<br/>
