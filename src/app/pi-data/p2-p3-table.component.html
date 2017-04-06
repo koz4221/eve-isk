@@ -2,7 +2,7 @@
 <div class="panel panel-default">
    <div class="panel-heading">
       Advanced Factories: <b>{{this.piCalcService.numFactPlanAdvFact}}</b>,
-      P2 Production Per Hour: <b>{{this.piCalcService.getP2toP3FactoryProd(0).output}}</b>
+      P3 Production Per Hour: <b>{{this.piCalcService.getP2toP3FactoryProd(0).output}}</b>
       <br>
       Two Input m<sup>3</sup> Per Day: <b>{{(this.piCalcService.getP2toP3FactoryProd(undefined).input * 1.5 * 24).toFixed(0)}}</b>,
       Three Input m<sup>3</sup> Per Day: <b>{{(this.piCalcService.getP2toP3FactoryProd(0).input * 1.5 * 24).toFixed(0)}}</b>,  
@@ -21,7 +21,7 @@
          <th>Input 3</th>
          <th>Total Cost Per Hour</th>
          <th>Total Revenue Per Hour</th>
-         <th>Total Profit Per Hour</th>
+         <th>Total Profit Per Day</th>
       </tr>
       <tr *ngFor="let p of data">
          <td>{{p.name}}</td>

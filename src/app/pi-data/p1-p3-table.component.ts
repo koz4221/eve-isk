@@ -71,9 +71,12 @@ export class P1toP3TableComponent implements OnInit {
 
    public getTotalProfit(p: PIData): number {
       let total: number = this.piCalcService.getP1toP3TotalProfit(
-         this.piDataService.getPIDataByTypeID(p.input1).jitaSell,
-         this.piDataService.getPIDataByTypeID(p.input2).jitaSell,
-         (p.input3 == undefined) ? undefined : this.piDataService.getPIDataByTypeID(p.input3).jitaSell,
+         this.getP1PIDataByTypeID(p.input1, 1).jitaSell,
+         this.getP1PIDataByTypeID(p.input1, 2).jitaSell,
+         this.getP1PIDataByTypeID(p.input2, 1).jitaSell,
+         this.getP1PIDataByTypeID(p.input2, 2).jitaSell,
+         (p.input3 == undefined) ? undefined : this.getP1PIDataByTypeID(p.input3, 1).jitaSell,
+         (p.input3 == undefined) ? undefined : this.getP1PIDataByTypeID(p.input3, 2).jitaSell,
          p.jitaBuy
       )
       

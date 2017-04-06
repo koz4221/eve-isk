@@ -4,6 +4,8 @@
       Extractor Heads: <b>{{this.piCalcService.numEtoP1EHeads}}</b>, 
       Basic Factories: <b>{{this.piCalcService.numEtoP1BasFact}}</b>, 
       P1 Per Hour: <b>{{this.piCalcService.getEtoP1FactoryProdDisp()}}</b>
+      <br>
+      Output m<sup>3</sup> Per Day: <b>{{this.piCalcService.getEtoP1TotalDayProd() * 0.38}}</b>
    </div> 
    <table class="table">
       <!-- header row -->
@@ -17,7 +19,7 @@
          <td>{{p1.name}}</td>
          <td>{{p1.jitaSell.toFixed(2)}}</td>
          <td>{{p1.jitaBuy.toFixed(2)}}</td>
-         <td>{{this.piCalcService.getEtoP1TotalDayProfit(p1.jitaBuy)}}</td>
+         <td class="posNumColor">{{this.piCalcService.getEtoP1TotalDayProfit(p1.jitaBuy)}}</td>
       </tr>
    </table>
 </div>

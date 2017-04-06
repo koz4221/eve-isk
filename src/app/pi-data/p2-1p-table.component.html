@@ -6,6 +6,8 @@
       Basic Factories: <b>{{this.piCalcService.numEtoP2BasFact_1P}}</b>, 
       Advanced Factories: <b>{{this.piCalcService.numEtoP2AdvFact_1P}}</b>,
       P2 Prod Per Hour: <b>{{this.piCalcService.getEtoP2FactoryProd_1PDisp()}}</b>
+      <br>
+      Output m<sup>3</sup> Per Day: <b>{{(this.piCalcService.getEtoP2FactoryProd_1P() * 24 * 1.5).toFixed(0)}}</b>
    </div> 
    <table class="table">
       <!-- header row -->
@@ -19,7 +21,7 @@
          <td>{{p1.name}}</td>
          <td>{{p1.jitaSell.toFixed(0)}}</td>
          <td>{{p1.jitaBuy.toFixed(0)}}</td>
-         <td>{{this.piCalcService.getEtoP2TotalDayProfit_1P(p1.jitaBuy)}}</td>
+         <td class="posNumColor">{{this.piCalcService.getEtoP2TotalDayProfit_1P(p1.jitaBuy)}}</td>
       </tr>
    </table>
 </div>

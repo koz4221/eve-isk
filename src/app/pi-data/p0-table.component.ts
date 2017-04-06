@@ -8,7 +8,8 @@ import { PICalcService } from './pi-calc.service';
 @Component({
    moduleId: module.id,
    selector: 'p0-table',
-   templateUrl: './p0-table.component.html'
+   templateUrl: './p0-table.component.html',
+   styleUrls: ['../css/pi-data.css']
 })
 
 export class P0TableComponent implements OnInit {

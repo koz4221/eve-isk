@@ -81,8 +81,8 @@ export class PICalcService {
       return this.formatNumberString(this.EHeadProdPerHour);
    }
 
-   getP0TotalDayProd(): string {
-      return this.formatNumberString(this.EHeadProdPerHour * this.getEHeadsPerPlanet() * 24);
+   getP0TotalDayProd(): number {
+      return this.EHeadProdPerHour * this.getEHeadsPerPlanet() * 24;
    }
 
    getP0TotalDayProfit(buyPrice: number): string {
@@ -138,8 +138,8 @@ export class PICalcService {
    //    return this.formatNumberString(this.getEtoP1FactoryProd());
    // }
 
-   getEtoP1TotalDayProd(): string {
-      return this.formatNumberString(this.getEtoP1FactoryProd() * 24);
+   getEtoP1TotalDayProd(): number {
+      return this.getEtoP1FactoryProd() * 24;
    }
 
    getEtoP1TotalDayProfit(buyPrice: number): string {
@@ -285,7 +285,7 @@ export class PICalcService {
    }
 
    getP1toP2TotalProfit(inpPrice1: number, inpPrice2: number, outPrice: number): number {
-      return this.getP1toP2TotalValue(outPrice) - this.getP1toP2TotalCost(inpPrice1, inpPrice2);
+      return 24 * (this.getP1toP2TotalValue(outPrice) - this.getP1toP2TotalCost(inpPrice1, inpPrice2));
    }
 
    getP2toP3FactoryProd(inp3: number): {input: number, output: number} {
@@ -316,7 +316,7 @@ export class PICalcService {
    }
 
    getP2toP3TotalProfit(inpPrice1: number, inpPrice2: number, inpPrice3: number, outPrice: number): number {
-      return this.getP2toP3TotalValue(outPrice) - this.getP2toP3TotalCost(inpPrice1, inpPrice2, inpPrice3);
+      return 24 * (this.getP2toP3TotalValue(outPrice) - this.getP2toP3TotalCost(inpPrice1, inpPrice2, inpPrice3));
    }
 
    getP1toP3FactoryProd(inp3: number): {input: number, output: number} {
@@ -349,7 +349,10 @@ export class PICalcService {
       return outPrice * outputProd;
    }
 
-   getP1toP3TotalProfit(inpPrice1: number, inpPrice2: number, inpPrice3: number, outPrice: number): number {
-      return this.getP1toP3TotalValue(outPrice) - this.getP1toP3TotalCost(inpPrice1, inpPrice2, inpPrice3);
+   getP1toP3TotalProfit(inpPrice1_1: number, inpPrice1_2: number, inpPrice2_1: number, inpPrice2_2: number, 
+      inpPrice3_1: number, inpPrice3_2: number, outPrice: number): number {
+      
+      return 24 * (this.getP1toP3TotalValue(outPrice) - this.getP1toP3TotalCost(inpPrice1_1, inpPrice1_2, inpPrice2_1, 
+         inpPrice2_2, inpPrice3_1, inpPrice3_2));
    }
 }
