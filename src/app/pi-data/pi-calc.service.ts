@@ -321,10 +321,10 @@ export class PICalcService {
 
    getP1toP3FactoryProd(inp3: number): {input: number, output: number} {
       if (inp3 != undefined) {
-         return {input: 240 * (2/3) * this.getFactoryPlanetAdvCount(), output: 3 * (1/3) * this.getFactoryPlanetAdvCount()};
+         return {input: 80 * (6/7) * this.getFactoryPlanetAdvCount(), output: 3 * (1/7) * this.getFactoryPlanetAdvCount()};
       }
       else {
-         return {input: 160 * (2/3) * this.getFactoryPlanetAdvCount(), output: 3 * (1/3) * this.getFactoryPlanetAdvCount()};
+         return {input: 80 * 0.8 * this.getFactoryPlanetAdvCount(), output: 3 * 0.2 * this.getFactoryPlanetAdvCount()};
       }
       
    }
