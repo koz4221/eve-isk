@@ -5,3 +5,7 @@
 .negNumColor {
    color: red;
 }
+
+.optionsTable td {
+   padding-right: 20px;
+}

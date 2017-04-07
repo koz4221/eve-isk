@@ -10,6 +10,8 @@ import { PI_BUILDING_STATS } from '../../static-data/pi-building-stats'
 export class PICalcService {
    public CCUpgradeSkill: number = 0;
    public EHeadProdPerHour: number = 1;
+   public numLaunchpads: number = 0;
+   public numStorage: number = 0;
 
    // calculated values
    private numEtoP1EHeads: number = 0;
@@ -57,8 +59,11 @@ export class PICalcService {
    getTotalPlanetPower(): number {
       let totalPwr: number = COMMAND_CENTER_STATS.find(cc => cc.level == this.CCUpgradeSkill).power;
 
-      // assume planet will have a spaceport/launchpad
-      totalPwr = totalPwr - PI_BUILDING_STATS.find(b => b.code == "launchpad").power;
+      // launchpads
+      totalPwr = totalPwr - this.numLaunchpads * PI_BUILDING_STATS.find(b => b.code == "launchpad").power;
+
+      // storage facilities
+      totalPwr = totalPwr - this.numStorage * PI_BUILDING_STATS.find(b => b.code == "storage").power;
 
       return totalPwr;
    }

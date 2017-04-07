@@ -1,13 +1,31 @@
-<form>
-   <label for="ddlCCU">Command Center Upgrade:</label> 
-   <select id="ddlCCU" name="ddlCCU" [(ngModel)]="CCUpgradeSkill" (change)="onCCUChange($event.target.value)">
-      <option *ngFor="let val of ddlCCUpgradeVals" [value]="val">{{val}}</option>
-   </select>
-   <br />
-   <input #eheadprod name="inpEHeadProd" [(ngModel)]="EHeadProdPerHour" (keyup.enter)="update(eheadprod.value)" 
-         (blur)="update(eheadprod.value)">{{value}}
-   <button type="submit" (click)="p0.loadData()">Recalculate</button>
-</form>
+<br>
+<table class="optionsTable">
+   <tr>
+      <td>
+         <label for="ddlCCU">Command Center Upgrade:</label> 
+         <select id="ddlCCU" name="ddlCCU" [(ngModel)]="piCalcService.CCUpgradeSkill" (change)="onCCUChange($event.target.value)">
+            <option *ngFor="let val of ddlCCUpgradeVals" [value]="val">{{val}}</option>
+         </select>
+      </td>
+      <td>
+         <label for="ddlLP">Number of Launchpads:</label> 
+         <select id="ddlLP" name="ddlLP" [(ngModel)]="piCalcService.numLaunchpads" (change)="onLPChange($event.target.value)">
+            <option *ngFor="let val of ddlLPVals" [value]="val">{{val}}</option>
+         </select>
+      </td>
+      <td>
+         <label for="ddlSF">Number of Storage:</label> 
+         <select id="ddlSF" name="ddlSF" [(ngModel)]="piCalcService.numStorage" (change)="onSFChange($event.target.value)">
+            <option *ngFor="let val of ddlSFVals" [value]="val">{{val}}</option>
+         </select>
+      </td>
+   </tr>
+</table>
+<label>Production Per Extractor Head:&nbsp;&nbsp;</label><input #eheadprod size="10" name="inpEHeadProd" [(ngModel)]="piCalcService.EHeadProdPerHour" 
+      (keyup.enter)="update(eheadprod.value)" (blur)="update(eheadprod.value)">{{value}}
+<br>
+<button type="submit" (click)="reloadPrices()">Reload Prices</button>
+
 <br /><br />
 <p0-table></p0-table>
 <p1-table></p1-table>
