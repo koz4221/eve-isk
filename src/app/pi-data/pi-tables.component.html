@@ -24,10 +24,10 @@
 <label>Production Per Extractor Head:&nbsp;&nbsp;</label><input #eheadprod size="10" name="inpEHeadProd" [(ngModel)]="piCalcService.EHeadProdPerHour" 
       (keyup.enter)="update(eheadprod.value)" (blur)="update(eheadprod.value)">{{value}}
 <br>
-<button type="submit" (click)="reloadPrices()">Reload Prices</button>
+<!--<button type="submit" (click)="reloadPrices(); p0.loadData()">Reload Prices</button>-->
 
 <br /><br />
-<p0-table></p0-table>
+<p0-table #p0></p0-table>
 <p1-table></p1-table>
 <p2-1p-table></p2-1p-table>
 <p2-2p-table></p2-2p-table>

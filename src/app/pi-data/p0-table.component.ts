@@ -23,4 +23,8 @@ export class P0TableComponent implements OnInit {
    ngOnInit(): void {
       this.data = this.piDataService.data.filter(tid => tid.pClass === 0);
    }
+
+   loadData(): void {
+      this.data = this.piDataService.data.filter(tid => tid.pClass === 0);
+   }
 }
