@@ -5,6 +5,7 @@ import { PIBuildingStat } from '../../static-data/pi-building-stats'
 
 import { COMMAND_CENTER_STATS } from '../../static-data/pi-building-stats'
 import { PI_BUILDING_STATS } from '../../static-data/pi-building-stats'
+import { POCOTax } from './pi-data';
 
 @Injectable()
 export class PICalcService {
@@ -12,6 +13,10 @@ export class PICalcService {
    public EHeadProdPerHour: number = 1;
    public numLaunchpads: number = 0;
    public numStorage: number = 0;
+   public numSalBroTax: number = 0;
+   public numPOCOTax: number = 0;
+   public numLinks: number = 0;
+   public numAvgLinkLength: number = 0;
 
    // calculated values
    private numEtoP1EHeads: number = 0;
@@ -23,6 +28,14 @@ export class PICalcService {
    private numEtoP2BasFact_2P: number = 0;
    private numEtoP2AdvFact_2P: number = 0;
    private numFactPlanAdvFact: number = 0;
+
+   private POCO_TAXES: POCOTax[] = [
+      { pClass: 0, tax: 5 },
+      { pClass: 1, tax: 400 },
+      { pClass: 2, tax: 7200 },
+      { pClass: 3, tax: 60000 },
+      { pClass: 4, tax: 1200000 }
+   ];
 
    formatNumberString(num: number): string {
       let fNum: string
@@ -65,7 +78,21 @@ export class PICalcService {
       // storage facilities
       totalPwr = totalPwr - this.numStorage * PI_BUILDING_STATS.find(b => b.code == "storage").power;
 
+      // links
+      totalPwr = totalPwr - this.numLinks * (10 + (this.numAvgLinkLength * 0.15))
+
+      console.log(totalPwr);
       return totalPwr;
+   }
+
+   includeImportFees(val: number, inputProd: number, pClass: number): number {
+      return val + (val * (this.numSalBroTax / 100)) + (inputProd * this.POCO_TAXES.filter(p => p.pClass == pClass)[0].tax 
+         * (this.numPOCOTax / 100) * 0.5);
+   }
+
+   includeExportFees(val: number, outputProd: number, pClass: number): number {
+      return val - (val * (this.numSalBroTax / 100)) - (outputProd * this.POCO_TAXES.filter(p => p.pClass == pClass)[0].tax 
+         * (this.numPOCOTax / 100));
    }
 
    // p0 calculations
@@ -305,19 +332,24 @@ export class PICalcService {
 
    getP2toP3TotalCost(inpPrice1: number, inpPrice2: number, inpPrice3: number): number {
       let inputProd: number = this.getP2toP3FactoryProd(inpPrice3).input;
+      let val: number;
 
       if (inpPrice3 != undefined) {
-         return (inpPrice1 * inputProd * (1/3)) + (inpPrice2 * inputProd * (1/3)) + (inpPrice3 * inputProd * (1/3));
+         val = (inpPrice1 * inputProd * (1/3)) + (inpPrice2 * inputProd * (1/3)) + (inpPrice3 * inputProd * (1/3));
       }
       else {
-         return (inpPrice1 * inputProd * 0.5) + (inpPrice2 * inputProd * 0.5);
+         val = (inpPrice1 * inputProd * 0.5) + (inpPrice2 * inputProd * 0.5);
       }
+
+      //console.log(val + " " + (val + (val * (this.numSalBroTax / 100))));
+      return this.includeImportFees(val, inputProd, 2);
    }
 
    getP2toP3TotalValue(outPrice: number): number {
       let outputProd: number = this.getP2toP3FactoryProd(0).output;
+      let val: number = outPrice * outputProd;
 
-      return outPrice * outputProd;
+      return this.includeExportFees(val, outputProd, 3);
    }
 
    getP2toP3TotalProfit(inpPrice1: number, inpPrice2: number, inpPrice3: number, outPrice: number): number {

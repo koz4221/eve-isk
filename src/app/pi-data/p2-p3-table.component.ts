@@ -24,18 +24,18 @@ export class P2toP3TableComponent implements OnInit {
       this.data = this.piDataService.data.filter(tid => tid.pClass === 3);
    }
 
-   public isTotalPositive(p: PIData): boolean {
+   public isTotalPositive(p: PIData, sellToBuyOrder: boolean): boolean {
       if (p.jitaBuy != 0 && p.jitaSell != 0) {
-         if (+this.getP2toP3TotalProfit(p) > 0) {
+         if (+this.getP2toP3TotalProfit(p, sellToBuyOrder) > 0) {
             return true;
          }
       }
       return false;
    }
 
-   isTotalNegative(p: PIData): boolean {
+   isTotalNegative(p: PIData, sellToBuyOrder: boolean): boolean {
       if (p.jitaBuy != 0 && p.jitaSell != 0) {
-         if (this.getP2toP3TotalProfit(p) < 0) {
+         if (this.getP2toP3TotalProfit(p, sellToBuyOrder) < 0) {
             return true;
          }
       }
@@ -48,12 +48,12 @@ export class P2toP3TableComponent implements OnInit {
       return this.piDataService.getPIDataByTypeID(typeID);
    }
 
-   public getP2toP3TotalProfit(p: PIData): number {
+   public getP2toP3TotalProfit(p: PIData, sellToBuyOrder: boolean): number {
       let total: number = this.piCalcService.getP2toP3TotalProfit(
          this.piDataService.getPIDataByTypeID(p.input1).jitaSell,
          this.piDataService.getPIDataByTypeID(p.input2).jitaSell,
          (p.input3 == undefined) ? undefined : this.piDataService.getPIDataByTypeID(p.input3).jitaSell,
-         p.jitaBuy
+         (sellToBuyOrder == true) ? p.jitaBuy : p.jitaSell
       )
       
       return total;

@@ -30,6 +30,7 @@ export class PIDataService {
 
          this.getPIPriceData(tid.type_id).subscribe(
             res => {
+               res = res.filter(p => p.location_id == 60003760) // jita
                let prices = this.extractMarketDataPrices(res);
                this.data.find(item => item.typeId == tid.type_id).jitaBuy = prices.buy;
                this.data.find(item => item.typeId == tid.type_id).jitaSell = prices.sell;

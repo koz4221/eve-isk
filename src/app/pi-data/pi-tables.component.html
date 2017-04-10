@@ -21,16 +21,46 @@
       </td>
    </tr>
 </table>
-<label>Production Per Extractor Head:&nbsp;&nbsp;</label><input #eheadprod size="10" name="inpEHeadProd" [(ngModel)]="piCalcService.EHeadProdPerHour" 
-      (keyup.enter)="update(eheadprod.value)" (blur)="update(eheadprod.value)">{{value}}
+<label>Production Per Extractor Head:&nbsp;&nbsp;</label>
+<input #eheadprod size="10" name="inpEHeadProd" [(ngModel)]="piCalcService.EHeadProdPerHour" 
+      (keyup.enter)="updateEHeadProdPerHour(eheadprod.value)" (blur)="updateEHeadProdPerHour(eheadprod.value)">
 <br>
+<table class="optionsTable">
+   <tr>
+      <td>
+         <label>Number of Links:&nbsp;</label>
+         <input #numlinks size="5" name="inpNumLinks" [(ngModel)]="piCalcService.numLinks" 
+            (keyup.enter)="updateNumLinks(numlinks.value)" (blur)="updateNumLinks(numlinks.value)">
+      </td>
+      <td>
+         <label>Average Link Length:&nbsp;</label>
+         <input #avglinklength size="5" name="inpAvgLinkLength" [(ngModel)]="piCalcService.numAvgLinkLength" 
+            (keyup.enter)="updateAvgLinkLength(avglinklength.value)" (blur)="updateAvgLinkLength(avglinklength.value)">km
+      </td>
+   </tr>
+</table>
+<table class="optionsTable">
+   <tr>
+      <td>
+         <label>Sales + Broker Tax:&nbsp;</label>
+         <input #salesbrokertax size="5" name="inpSalBroTax" [(ngModel)]="piCalcService.numSalBroTax" 
+            (keyup.enter)="updateSalBroTax(salesbrokertax.value)" (blur)="updateSalBroTax(salesbrokertax.value)">%
+      </td>
+      <td>
+         <label>POCO Tax:&nbsp;</label>
+         <input #pocotax size="5" name="inpPOCOTax" [(ngModel)]="piCalcService.numPOCOTax" 
+            (keyup.enter)="updatePOCOTax(pocotax.value)" (blur)="updatePOCOTax(pocotax.value)">%
+      </td>
+   </tr>
+</table>
+
 <!--<button type="submit" (click)="reloadPrices(); p0.loadData()">Reload Prices</button>-->
 
 <br /><br />
-<p0-table #p0></p0-table>
+<!--<p0-table #p0></p0-table>
 <p1-table></p1-table>
 <p2-1p-table></p2-1p-table>
 <p2-2p-table></p2-2p-table>
-<p1-p2-table></p1-p2-table>
+<p1-p2-table></p1-p2-table>-->
 <p2-p3-table></p2-p3-table>
-<p1-p3-table></p1-p3-table>
+<!--<p1-p3-table></p1-p3-table>-->

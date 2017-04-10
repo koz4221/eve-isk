@@ -25,6 +25,8 @@ export class PITablesComponent {
       piCalcService.EHeadProdPerHour = 6000;
       piCalcService.numLaunchpads = 1;
       piCalcService.numStorage = 0;
+      piCalcService.numSalBroTax = 4.2;
+      piCalcService.numPOCOTax = 10;
       piDataService.loadPIData(this.route.snapshot.data['typeIDs'].json());
    }
 
@@ -43,8 +45,28 @@ export class PITablesComponent {
       this.piCalcService.resetCalculatedValues();
    }
 
-   update(value: string): void {
+   updateEHeadProdPerHour(value: string): void {
       this.piCalcService.EHeadProdPerHour = +value;
+      this.piCalcService.resetCalculatedValues();
+   }
+
+   updateNumLinks(value: string): void {
+      this.piCalcService.numLinks = +value;
+      this.piCalcService.resetCalculatedValues();
+   }
+
+   updateAvgLinkLength(value: string): void {
+      this.piCalcService.numAvgLinkLength = +value;
+      this.piCalcService.resetCalculatedValues();
+   }
+
+   updateSalBroTax(value: string): void {
+      this.piCalcService.numSalBroTax = +value;
+      this.piCalcService.resetCalculatedValues();
+   }
+
+   updatePOCOTax(value: string): void {
+      this.piCalcService.numPOCOTax = +value;
       this.piCalcService.resetCalculatedValues();
    }
 
