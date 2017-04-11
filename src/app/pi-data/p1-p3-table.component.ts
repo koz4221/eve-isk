@@ -21,11 +21,15 @@ export class P1toP3TableComponent implements OnInit {
    ) {}
 
    ngOnInit(): void {
+      this.loadData();
+   }
+
+   public loadData(): void {
       this.data = this.piDataService.data.filter(tid => tid.pClass === 3);
    }
 
    public isTotalPositive(p: PIData, sellToBuyOrder: boolean): boolean {
-      if (p.jitaBuy != 0 && p.jitaSell != 0) {
+      if (p.buy != 0 && p.sell != 0) {
          if (this.getTotalProfit(p, sellToBuyOrder) > 0) {
             return true;
          }
@@ -34,7 +38,7 @@ export class P1toP3TableComponent implements OnInit {
    }
 
    isTotalNegative(p: PIData, sellToBuyOrder: boolean): boolean {
-      if (p.jitaBuy != 0 && p.jitaSell != 0) {
+      if (p.buy != 0 && p.sell != 0) {
          if (this.getTotalProfit(p, sellToBuyOrder) < 0) {
             return true;
          }
@@ -58,12 +62,12 @@ export class P1toP3TableComponent implements OnInit {
 
    public getTotalCost(p: PIData): number {
       let cost: number = this.piCalcService.getP1toP3TotalCost(
-         this.getP1PIDataByTypeID(p.input1, 1).jitaSell,
-         this.getP1PIDataByTypeID(p.input1, 2).jitaSell,
-         this.getP1PIDataByTypeID(p.input2, 1).jitaSell,
-         this.getP1PIDataByTypeID(p.input2, 2).jitaSell,
-         (p.input3 == undefined) ? undefined : this.getP1PIDataByTypeID(p.input3, 1).jitaSell,
-         (p.input3 == undefined) ? undefined : this.getP1PIDataByTypeID(p.input3, 2).jitaSell
+         this.getP1PIDataByTypeID(p.input1, 1).sell,
+         this.getP1PIDataByTypeID(p.input1, 2).sell,
+         this.getP1PIDataByTypeID(p.input2, 1).sell,
+         this.getP1PIDataByTypeID(p.input2, 2).sell,
+         (p.input3 == undefined) ? undefined : this.getP1PIDataByTypeID(p.input3, 1).sell,
+         (p.input3 == undefined) ? undefined : this.getP1PIDataByTypeID(p.input3, 2).sell
       )
 
       return cost;
@@ -71,13 +75,13 @@ export class P1toP3TableComponent implements OnInit {
 
    public getTotalProfit(p: PIData, sellToBuyOrder: boolean): number {
       let total: number = this.piCalcService.getP1toP3TotalProfit(
-         this.getP1PIDataByTypeID(p.input1, 1).jitaSell,
-         this.getP1PIDataByTypeID(p.input1, 2).jitaSell,
-         this.getP1PIDataByTypeID(p.input2, 1).jitaSell,
-         this.getP1PIDataByTypeID(p.input2, 2).jitaSell,
-         (p.input3 == undefined) ? undefined : this.getP1PIDataByTypeID(p.input3, 1).jitaSell,
-         (p.input3 == undefined) ? undefined : this.getP1PIDataByTypeID(p.input3, 2).jitaSell,
-         (sellToBuyOrder == true) ? p.jitaBuy : p.jitaSell
+         this.getP1PIDataByTypeID(p.input1, 1).sell,
+         this.getP1PIDataByTypeID(p.input1, 2).sell,
+         this.getP1PIDataByTypeID(p.input2, 1).sell,
+         this.getP1PIDataByTypeID(p.input2, 2).sell,
+         (p.input3 == undefined) ? undefined : this.getP1PIDataByTypeID(p.input3, 1).sell,
+         (p.input3 == undefined) ? undefined : this.getP1PIDataByTypeID(p.input3, 2).sell,
+         (sellToBuyOrder == true) ? p.buy : p.sell
       )
       
       return total;

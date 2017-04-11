@@ -11,15 +11,15 @@
       <!-- header row -->
       <tr>
          <th>Commodity</th>
-         <th>Jita Sell</th>
-         <th>Jita Buy</th>
+         <th>Sell</th>
+         <th>Buy</th>
          <th>Total Profit Per Day</th>
       </tr>
       <tr *ngFor="let p1 of data">
          <td>{{p1.name}}</td>
-         <td>{{p1.jitaSell.toFixed(2)}}</td>
-         <td>{{p1.jitaBuy.toFixed(2)}}</td>
-         <td class="posNumColor">{{this.piCalcService.getEtoP1TotalDayProfit(p1.jitaBuy)}}</td>
+         <td>{{p1.sell.toFixed(2)}}</td>
+         <td>{{p1.buy.toFixed(2)}}</td>
+         <td class="posNumColor">{{this.piCalcService.getEtoP1TotalDayProfit(p1.buy)}}</td>
       </tr>
    </table>
 </div>

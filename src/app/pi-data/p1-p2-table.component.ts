@@ -21,11 +21,15 @@ export class P1toP2TableComponent implements OnInit {
    ) {}
 
    ngOnInit(): void {
+      this.loadData();
+   }
+
+   public loadData(): void {
       this.data = this.piDataService.data.filter(tid => tid.pClass === 2);
    }
 
    isTotalPositive(p: PIData, sellToBuyOrder: boolean): boolean {
-      if (p.jitaBuy != 0 && p.jitaSell != 0) {
+      if (p.buy != 0 && p.sell != 0) {
          if (+this.getP1toP2TotalProfit(p, sellToBuyOrder) > 0) {
             return true;
          }
@@ -34,7 +38,7 @@ export class P1toP2TableComponent implements OnInit {
    }
 
    isTotalNegative(p: PIData, sellToBuyOrder: boolean): boolean {
-      if (p.jitaBuy != 0 && p.jitaSell != 0) {
+      if (p.buy != 0 && p.sell != 0) {
          if (this.getP1toP2TotalProfit(p, sellToBuyOrder) < 0) {
             return true;
          }
@@ -49,9 +53,9 @@ export class P1toP2TableComponent implements OnInit {
 
    public getP1toP2TotalProfit(p: PIData, sellToBuyOrder: boolean): number {
       let total: number = this.piCalcService.getP1toP2TotalProfit(
-         this.piDataService.getPIDataByTypeID(p.input1).jitaSell,
-         this.piDataService.getPIDataByTypeID(p.input2).jitaSell,
-         (sellToBuyOrder == true) ? p.jitaBuy : p.jitaSell
+         this.piDataService.getPIDataByTypeID(p.input1).sell,
+         this.piDataService.getPIDataByTypeID(p.input2).sell,
+         (sellToBuyOrder == true) ? p.buy : p.sell
       )
 
       return total;

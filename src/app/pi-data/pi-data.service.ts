@@ -2,16 +2,18 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
 import { PIData } from './pi-data';
+
+import { REGIONS } from '../../static-data/locations'
+import { LOCATIONS } from '../../static-data/locations'
+
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-const PI_P0_TYPEIDS: number[] = [
-    2073, 2287
-]
-
 @Injectable()
 export class PIDataService {
-   dataUrl: string = "https://esi.tech.ccp.is/latest/markets/10000002/orders/?datasource=tranquility&order_type=all&page=1&type_id=";
+   public prices: string;
+
+   urlBase: string = "https://esi.tech.ccp.is/latest/markets/"
    data: PIData[] = [];
 
    constructor(private http: Http) {}
@@ -24,24 +26,26 @@ export class PIDataService {
 
    loadPIData(typeIDs: any[]): void {
       this.data = [];
+      let url: string = this.urlBase + LOCATIONS.find(p => p.code == this.prices).regionID + "/orders/?datasource=tranquility&order_type=all&type_id="
+      console.log(url);
             
       for (let tid of typeIDs) {
          this.data.push(new PIData(tid.type_id, tid.type_name, tid.p_class, 0, 0, tid.input1_type_id, tid.input2_type_id, tid.input3_type_id));
 
-         this.getPIPriceData(tid.type_id).subscribe(
+         this.getPIPriceData(url, tid.type_id).subscribe(
             res => {
-               res = res.filter(p => p.location_id == 60003760) // jita
+               res = res.filter(p => p.location_id == LOCATIONS.find(p => p.code == this.prices).locationID)
                let prices = this.extractMarketDataPrices(res);
-               this.data.find(item => item.typeId == tid.type_id).jitaBuy = prices.buy;
-               this.data.find(item => item.typeId == tid.type_id).jitaSell = prices.sell;
+               this.data.find(item => item.typeId == tid.type_id).buy = prices.buy;
+               this.data.find(item => item.typeId == tid.type_id).sell = prices.sell;
             },
             error => console.log(error)   
          );
       }
    }
 
-   getPIPriceData(typeID: number): Observable<any> {
-      return this.http.get(this.dataUrl + typeID)
+   getPIPriceData(url: string, typeID: number): Observable<any> {
+      return this.http.get(url + typeID)
       .map(this.extractData);
    }
 

@@ -14,8 +14,8 @@
       <!-- header row -->
       <tr>
          <th>Commodity</th>
-         <th>Jita Buy</th>
-         <th>Jita Sell</th>
+         <th>Buy</th>
+         <th>Sell</th>
          <th>Inputs</th>
          <th>Total Cost Per Hour</th>
          <th>Total Revenue Per Hour</th>
@@ -24,11 +24,11 @@
       </tr>
       <tr *ngFor="let p of data">
          <td>{{p.name}}</td>
-         <td>{{this.piCalcService.formatNumberString(p.jitaBuy)}}</td>
-         <td>{{this.piCalcService.formatNumberString(p.jitaSell)}}</td>
+         <td>{{this.piCalcService.formatNumberString(p.buy)}}</td>
+         <td>{{this.piCalcService.formatNumberString(p.sell)}}</td>
          <td>{{this.getP1PIDataByTypeID(p.input1, 1).name}}, {{this.getP1PIDataByTypeID(p.input1, 2).name}}, {{this.getP1PIDataByTypeID(p.input2, 1).name}}, {{this.getP1PIDataByTypeID(p.input2, 2).name}}{{(p.input3 == undefined) ? "" : ", " + this.getP1PIDataByTypeID(p.input3, 1).name}}{{(p.input3 == undefined) ? "" : ", " + this.getP1PIDataByTypeID(p.input3, 2).name}}</td>
          <td>{{this.piCalcService.formatNumberString(this.getTotalCost(p))}}</td>
-         <td>{{this.piCalcService.formatNumberString(this.piCalcService.getP1toP3TotalValue(p.jitaBuy))}}</td>
+         <td>{{this.piCalcService.formatNumberString(this.piCalcService.getP1toP3TotalValue(p.buy))}}</td>
          <td [ngClass]="{'posNumColor': this.isTotalPositive(p, true), 'negNumColor': this.isTotalNegative(p, true)}">
                {{this.piCalcService.formatNumberString(this.getTotalProfit(p, true))}}</td>
          <td [ngClass]="{'posNumColor': this.isTotalPositive(p, false), 'negNumColor': this.isTotalNegative(p, false)}">

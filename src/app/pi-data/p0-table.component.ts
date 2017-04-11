@@ -21,10 +21,10 @@ export class P0TableComponent implements OnInit {
    ) {}
 
    ngOnInit(): void {
-      this.data = this.piDataService.data.filter(tid => tid.pClass === 0);
+      this.loadData();
    }
 
-   loadData(): void {
+   public loadData(): void {
       this.data = this.piDataService.data.filter(tid => tid.pClass === 0);
    }
 }

@@ -85,12 +85,12 @@ export class PICalcService {
    }
 
    includeImportFees(val: number, inputProd: number, pClass: number): number {
-      return val + (val * (this.numSalBroTax / 100)) + (inputProd * this.POCO_TAXES.filter(p => p.pClass == pClass)[0].tax 
+      return val + (val * (this.numSalBroTax / 100)) + (inputProd * this.POCO_TAXES.find(p => p.pClass == pClass).tax 
          * (this.numPOCOTax / 100) * 0.5);
    }
 
    includeExportFees(val: number, outputProd: number, pClass: number): number {
-      return val - (val * (this.numSalBroTax / 100)) - (outputProd * this.POCO_TAXES.filter(p => p.pClass == pClass)[0].tax 
+      return val - (val * (this.numSalBroTax / 100)) - (outputProd * this.POCO_TAXES.find(p => p.pClass == pClass).tax 
          * (this.numPOCOTax / 100));
    }
 

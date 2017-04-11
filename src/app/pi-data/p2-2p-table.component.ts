@@ -21,6 +21,10 @@ export class P22PTableComponent implements OnInit {
    ) {}
 
    ngOnInit(): void {
+      this.loadData();
+   }
+
+   public loadData(): void {
       this.data = this.piDataService.data.filter(tid => tid.pClass === 2);
    }
 }
