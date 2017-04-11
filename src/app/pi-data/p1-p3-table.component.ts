@@ -24,18 +24,18 @@ export class P1toP3TableComponent implements OnInit {
       this.data = this.piDataService.data.filter(tid => tid.pClass === 3);
    }
 
-   public isTotalPositive(p: PIData): boolean {
+   public isTotalPositive(p: PIData, sellToBuyOrder: boolean): boolean {
       if (p.jitaBuy != 0 && p.jitaSell != 0) {
-         if (this.getTotalProfit(p) > 0) {
+         if (this.getTotalProfit(p, sellToBuyOrder) > 0) {
             return true;
          }
       }
       return false;
    }
 
-   isTotalNegative(p: PIData): boolean {
+   isTotalNegative(p: PIData, sellToBuyOrder: boolean): boolean {
       if (p.jitaBuy != 0 && p.jitaSell != 0) {
-         if (this.getTotalProfit(p) < 0) {
+         if (this.getTotalProfit(p, sellToBuyOrder) < 0) {
             return true;
          }
       }
@@ -69,7 +69,7 @@ export class P1toP3TableComponent implements OnInit {
       return cost;
    }
 
-   public getTotalProfit(p: PIData): number {
+   public getTotalProfit(p: PIData, sellToBuyOrder: boolean): number {
       let total: number = this.piCalcService.getP1toP3TotalProfit(
          this.getP1PIDataByTypeID(p.input1, 1).jitaSell,
          this.getP1PIDataByTypeID(p.input1, 2).jitaSell,
@@ -77,7 +77,7 @@ export class P1toP3TableComponent implements OnInit {
          this.getP1PIDataByTypeID(p.input2, 2).jitaSell,
          (p.input3 == undefined) ? undefined : this.getP1PIDataByTypeID(p.input3, 1).jitaSell,
          (p.input3 == undefined) ? undefined : this.getP1PIDataByTypeID(p.input3, 2).jitaSell,
-         p.jitaBuy
+         (sellToBuyOrder == true) ? p.jitaBuy : p.jitaSell
       )
       
       return total;

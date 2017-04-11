@@ -25,8 +25,10 @@ export class PITablesComponent {
       piCalcService.EHeadProdPerHour = 6000;
       piCalcService.numLaunchpads = 1;
       piCalcService.numStorage = 0;
-      piCalcService.numSalBroTax = 4.2;
+      piCalcService.numSalBroTax = 5;
       piCalcService.numPOCOTax = 10;
+      piCalcService.numLinks = 0;
+      piCalcService.numAvgLinkLength = 0;
       piDataService.loadPIData(this.route.snapshot.data['typeIDs'].json());
    }
 
