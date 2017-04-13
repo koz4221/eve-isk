@@ -5,10 +5,10 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { PITablesComponent } from './pi-data/pi-tables.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { PITablesModule } from './pi-data/pi-tables.module';
+import { OrdersModule } from './orders/orders.module';
 
 import { TypeIdResolver } from './services/type-id-resolver.service'
 
@@ -22,7 +22,8 @@ import { TypeIdResolver } from './services/type-id-resolver.service'
     HttpModule,
     JsonpModule,
     AppRoutingModule,
-    PITablesModule
+    PITablesModule,
+    OrdersModule
   ],
   providers: [
     TypeIdResolver

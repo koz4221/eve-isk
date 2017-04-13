@@ -2,12 +2,17 @@
    <h1>
    {{title}}
    </h1>
-   <table class="choiceTabsTable">
+   <ul class="nav nav-tabs">
+      <li role="presentation"><a routerLink="/pi-tables">Planetary Interaction</a></li>
+      <li role="presentation"><a routerLink="/orders">Orders</a></li>
+      <li role="presentation"><a href="#">Industry Stuff</a></li>
+   </ul>
+   <!--<table class="choiceTabsTable">
    <tr>
-      <td><a routerLink="/pi-tables">Planetary Interaction</a></td>
+      <td></td>
       <td>Industry Stuff</td>
    </tr>
-   </table>
+   </table>-->
 
    <router-outlet></router-outlet>
 </div>

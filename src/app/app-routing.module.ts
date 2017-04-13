@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TypeIdResolver } from './services/type-id-resolver.service'
 
 import { PITablesComponent } from './pi-data/pi-tables.component';
+import { OrdersComponent } from './orders/orders.component';
 
 const appRoutes: Routes = [
    {
@@ -12,6 +13,10 @@ const appRoutes: Routes = [
       resolve: { 
          typeIDs: TypeIdResolver 
       }
+   },
+   {
+      path: 'orders',
+      component: OrdersComponent
    }
 ];
 
