@@ -1,1 +1,14 @@
-Orders be here
+<div class="container">
+   <table class="table">
+      <tr>
+         <th>Type ID</th>
+         <th>Price</th>
+         <th>Quantity</th>
+      </tr>
+      <tr *ngFor="let o of orders">
+         <td>{{o.typeID}}</td>
+         <td>{{o.price}}</td>
+         <td>{{o.volRemaining}}/{{o.volEntered}}</td>
+      </tr>
+   </table>
+</div>

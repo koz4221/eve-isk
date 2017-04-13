@@ -27,7 +27,6 @@ export class PIDataService {
    loadPIData(typeIDs: any[]): void {
       this.data = [];
       let url: string = this.urlBase + LOCATIONS.find(p => p.code == this.prices).regionID + "/orders/?datasource=tranquility&order_type=all&type_id="
-      console.log(url);
             
       for (let tid of typeIDs) {
          this.data.push(new PIData(tid.type_id, tid.type_name, tid.p_class, 0, 0, tid.input1_type_id, tid.input2_type_id, tid.input3_type_id));

@@ -5,6 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { OrdersComponent } from './orders.component';
 
+import { OrdersService } from './orders.service';
+
 @NgModule({
   declarations: [
       OrdersComponent
@@ -16,7 +18,7 @@ import { OrdersComponent } from './orders.component';
       JsonpModule
   ],
   providers: [
-
+      OrdersService
   ],
 })
 export class OrdersModule { }
