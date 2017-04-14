@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { MarketOrder } from './orders';
 
 import { OrdersService } from './orders.service';
+import { EveAPIService } from '../services/eve-api.service';
 
 @Component({
    selector: 'orders',
@@ -10,7 +11,12 @@ import { OrdersService } from './orders.service';
 })
 
 export class OrdersComponent {
-   constructor(public ordersService: OrdersService) {
+   constructor(public ordersService: OrdersService, protected eveAPIService: EveAPIService) {
       ordersService.loadOrders();
+      //eveAPIService.getTypeName(2305);
+   }
+
+   getTypeName(val: number): string {
+      return this.eveAPIService.getTypeName(val);
    }
 }

@@ -48,7 +48,7 @@ export class PIDataService {
       .map(this.extractData);
    }
 
-    extractData(res: Response) {
+   extractData(res: Response) {
       let body = res.json();
       return body || { };
    }

@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { OrdersComponent } from './orders.component';
 
 import { OrdersService } from './orders.service';
+import { EveAPIService } from '../services/eve-api.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { OrdersService } from './orders.service';
       JsonpModule
   ],
   providers: [
-      OrdersService
+      OrdersService,
+      EveAPIService
   ],
 })
 export class OrdersModule { }

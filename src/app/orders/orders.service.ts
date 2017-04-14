@@ -5,7 +5,6 @@ import { MarketOrder } from './orders';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import 'xml2js';
 
 @Injectable()
 export class OrdersService {
