@@ -22,23 +22,23 @@ export class OrdersService {
          res => {
             this.xml2js(res._body, (err, res) => {
                res.eveapi.result[0].rowset[0].row.map(p => {
-                  this.orders.push(new MarketOrder(
-                     p.$.orderID,
-                     p.$.charID,
-                     p.$.stationID,
-                     p.$.volEntered,
-                     p.$.volRemaining,
-                     p.$.orderState,
-                     p.$.typeID,
-                     p.$.price,
-                     p.$.duration,
-                     p.$.issued,
-                     p.$.bid
-                  ))
+                  if (p.$.orderState == 0) {
+                     this.orders.push(new MarketOrder(
+                        p.$.orderID,
+                        p.$.charID,
+                        p.$.stationID,
+                        p.$.volEntered,
+                        p.$.volRemaining,
+                        p.$.orderState,
+                        p.$.typeID,
+                        p.$.price,
+                        p.$.duration,
+                        p.$.issued,
+                        p.$.bid
+                     ))
+                  }  
                })
             });
-
-            //console.log(this.orders);
          },
          error => console.log(error)
       )

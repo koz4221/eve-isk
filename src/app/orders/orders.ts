@@ -5,7 +5,7 @@ export class MarketOrder {
       public stationID: number,
       public volEntered: number,
       public volRemaining: number,
-      public orderState: string,
+      public orderState: number,
       public typeID: number,
       public price: number,
       public duration: number,

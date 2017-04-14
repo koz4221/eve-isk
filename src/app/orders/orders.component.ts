@@ -10,10 +10,7 @@ import { OrdersService } from './orders.service';
 })
 
 export class OrdersComponent {
-   public orders: MarketOrder[]
-
    constructor(public ordersService: OrdersService) {
       ordersService.loadOrders();
-      this.orders = ordersService.orders;
    }
 }
