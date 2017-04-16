@@ -19,12 +19,12 @@ export class EveAPIService {
          secretAccessKey: "lh/BznjoByqY/QKZKRRp5xb2USwEeBjbvd3a0bTy"
       });
 
-      console.log(111);
-      //this.dynamoClient = new AWS.DynamoDB.DocumentClient();
+      this.dynamoClient = new AWS.DynamoDB.DocumentClient();
    }
 
-   public getTypeName(typeID: number): string {
+   public getTypeName(typeID: number, callback: (name: string) => void): void {
       // step 1: check cache
+      //console.log(typeID);
 
       // step 2: check AWS DynamoDB
       let params = {
@@ -34,41 +34,59 @@ export class EveAPIService {
             "#TypeID": "TypeID"
          },
          ExpressionAttributeValues: {
-            ":tid":typeID
+            ":tid": +typeID
          }
       }
 
       this.dynamoClient.query(params, (err, data) => {
          if (err) {
             console.log(err);
-         } else {
-            console.log(data);
+         } 
+         else {
             if (data.Items.length > 0) {
-               return data.Items[0].Name;
+               callback(data.Items[0].Name);
+            }
+            else {
+               // step 3: pull from ESI
+               let url: string = ESI_BASE_URL + "/universe/types/" + typeID + "/?datasource=tranquility&language=en-us"
+               this.getTypeData(url).subscribe(
+                  res => {
+                     callback(res.name);
+                     // add to dynamoDB
+                     this.saveNewDynamoItem(typeID, res.name);
+                  },
+                  error => { 
+                     console.log(error);
+                     callback("!ERROR");
+                  }
+               )
             }
          }
       })
-      
-      // step 3: pull from ESI
-      let url: string = ESI_BASE_URL + "/v2/universe/types/"
-      this.getTypeData(url, typeID).subscribe(
-         res => {
-
-         },
-         error => { console.log(error); }
-      )
-
-      return "" + typeID;
    }
 
-   getTypeData(url: string, typeID: number): Observable<any> {
-      return this.http.get(url + typeID)
+   getTypeData(url: string): Observable<any> {
+      return this.http.get(url)
          .map(this.extractData);
    } 
 
    extractData(res: Response) {
       let body = res.json();
       return body || { };
+   }
+
+   private saveNewDynamoItem(typeID: number, typeName: string): void {
+      let params = {
+         TableName: "EveTypeIDs",
+         Item: {
+            "TypeID": +typeID,
+            "Name": typeName
+         }
+      };
+
+      this.dynamoClient.put(params, (err, data) => {
+         if (err) { console.log(err); }
+      })
    }
 
 

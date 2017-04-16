@@ -3,15 +3,37 @@ import { Http, Response } from '@angular/http';
 
 import { MarketOrder } from './orders';
 
+import { EveAPIService } from '../services/eve-api.service';
+
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class OrdersService {
    public orders: MarketOrder[];
+
+   private typeNames: { typeID: number, typeName: string }[] = [];
+
    private xml2js = require('xml2js').parseString;
 
-   constructor(private http: Http) {}
+   constructor(private http: Http, private eveAPI: EveAPIService) {}
+
+   formatNumberString(num: number): string {      
+      let fNum: string
+      num = +num;
+
+      // decimal precision
+      if (num < 1000 && num > -1000) {
+         fNum = num.toFixed(2);
+      } else {
+         fNum = num.toFixed(0);
+      }
+
+      // add commas for big numbers
+      fNum = fNum.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+      return fNum;
+   }
 
    loadOrders(): void {
       this.orders = [];
@@ -30,14 +52,23 @@ export class OrdersService {
                         p.$.volRemaining,
                         p.$.orderState,
                         p.$.typeID,
+                        "", // type name
                         p.$.price,
                         p.$.duration,
                         p.$.issued,
                         p.$.bid
                      ))
                   }  
-               })
+               })         
             });
+
+            this.orders.map(o => {
+               this.setTypeName(o);
+               
+            })
+
+            // get market data and highlight rows
+
          },
          error => console.log(error)
       )
@@ -45,5 +76,23 @@ export class OrdersService {
 
    private getOrderData(url: string): Observable<any> {
       return this.http.get(url).map((res:Response) => res);
+   }
+
+   private setTypeName(order: MarketOrder): void {
+      let val;
+      let name: string
+
+      val = this.typeNames.find(p => p.typeID == order.typeID)
+
+      if (val) { 
+         this.orders.find(o => o.orderID == order.orderID).typeName = val.typeName;
+      }
+      else {
+         this.eveAPI.getTypeName(order.typeID, (data) => {
+            this.orders.find(o => o.orderID == order.orderID).typeName = data;
+            this.typeNames.push({ typeID: order.typeID, typeName: data });
+         })
+      }
+
    }
 }

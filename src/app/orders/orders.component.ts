@@ -15,8 +15,4 @@ export class OrdersComponent {
       ordersService.loadOrders();
       //eveAPIService.getTypeName(2305);
    }
-
-   getTypeName(val: number): string {
-      return this.eveAPIService.getTypeName(val);
-   }
 }
