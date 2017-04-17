@@ -56,7 +56,7 @@ export class OrdersService {
                         p.$.price,
                         p.$.duration,
                         p.$.issued,
-                        p.$.bid
+                        (p.$.bid == "1")
                      ))
                   }  
                })         
@@ -64,11 +64,9 @@ export class OrdersService {
 
             this.orders.map(o => {
                this.setTypeName(o);
-               
+               // get market data
+               this.setTopMarketStats(o);
             })
-
-            // get market data and highlight rows
-
          },
          error => console.log(error)
       )
@@ -93,6 +91,9 @@ export class OrdersService {
             this.typeNames.push({ typeID: order.typeID, typeName: data });
          })
       }
+   }
 
+   private setTopMarketStats(order: MarketOrder): void {
+      this.eveAPI.setTopMarketStats(order);
    }
 }

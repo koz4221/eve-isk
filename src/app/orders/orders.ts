@@ -19,14 +19,14 @@ export class MarketOrder {
     ){}
 }
 
-export class MarketStat {
-   constructor(
-      public typeID: number,
-      public locationID: number,
-      public isBuyOrder: boolean,
-      public topPrice: number,
-      public topVolume: number,
-      public topNumOrders: number,
-      public topOrderID: number
-   ){}
-}
+// export class MarketStat {
+//    constructor(
+//       public typeID: number,
+//       public locationID: number,
+//       public isBuyOrder: boolean,
+//       public topPrice: number,
+//       public topVolume: number,
+//       public topNumOrders: number,
+//       public topOrderID: number
+//    ){}
+// }

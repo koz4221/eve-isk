@@ -13,6 +13,9 @@ import { EveAPIService } from '../services/eve-api.service';
 export class OrdersComponent {
    constructor(public ordersService: OrdersService, protected eveAPIService: EveAPIService) {
       ordersService.loadOrders();
-      //eveAPIService.getTypeName(2305);
+   }
+
+   thisIsTopOrder(order: MarketOrder): boolean {
+      return (order.orderID == order.topOrderID)
    }
 }

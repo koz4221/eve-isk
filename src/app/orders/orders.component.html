@@ -6,11 +6,15 @@
             <th>Type ID</th>
             <th>Price</th>
             <th>Quantity</th>
+            <th>Top Price</th>
+            <th>Volume Behind</th>
          </tr>
-         <tr *ngFor="let o of this.ordersService.orders">
+         <tr [ngClass]="{'success': this.thisIsTopOrder(o), 'danger': !this.thisIsTopOrder(o)}" *ngFor="let o of this.ordersService.orders">
             <td>{{o.typeName}}</td>
             <td>{{this.ordersService.formatNumberString(o.price)}}</td>
             <td>{{o.volRemaining}}/{{o.volEntered}}</td>
+            <td>{{this.ordersService.formatNumberString(o.topPrice)}}</td>
+            <td>{{o.topVolume}} ({{o.topNumOrders}})</td>
          </tr>
       </table>
    </div>

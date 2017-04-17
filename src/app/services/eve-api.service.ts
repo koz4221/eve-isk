@@ -4,6 +4,11 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
+import { MarketOrder } from '../orders/orders';
+
+import { REGIONS } from '../../static-data/locations'
+import { LOCATIONS } from '../../static-data/locations'
+
 declare const AWS: any;
 
 export const ESI_BASE_URL: string = "https://esi.tech.ccp.is/latest";
@@ -87,6 +92,62 @@ export class EveAPIService {
       this.dynamoClient.put(params, (err, data) => {
          if (err) { console.log(err); }
       })
+   }
+
+   public setTopMarketStats(order: MarketOrder): void {
+      let regionID: number = LOCATIONS.find(p => p.locationID == order.stationID).regionID;
+      let url: string = ESI_BASE_URL + "/markets/" + regionID + "/orders/?datasource=tranquility&order_type=all&type_id=" + order.typeID
+
+      this.http.get(url).map((data) => {
+         let body = data.json();
+         return body || { };
+      }).subscribe(
+         res => {
+            this.parseAndSetMarketStatData(res, order);
+         },
+         error => {
+            console.log(error);
+         }
+      )
+   }
+
+   private parseAndSetMarketStatData(data: any, order: MarketOrder): void {
+      let topOrderID: number = order.orderID;
+      let topPrice: number = order.price;
+      let topNumOrders: number = 0;
+      let topVol: number = 0;
+
+      data = data.filter(f => f.is_buy_order === order.isBuyOrder);
+
+      for (let stat of data) {
+         if (order.isBuyOrder == true) {
+            if (stat.price > order.price) {
+               topNumOrders++;
+               topVol += stat.volume_remain;
+            }
+
+            if (stat.price > topPrice) {
+               topOrderID = stat.order_id;
+               topPrice = stat.price;
+            }
+         }
+         else {
+            if (stat.price < order.price) {
+               topNumOrders++;
+               topVol += stat.volume_remain;
+            }
+
+            if (stat.price < topPrice) {
+               topOrderID = stat.order_id;
+               topPrice = stat.price;
+            }
+         }
+      }
+
+      order.topOrderID = topOrderID;
+      order.topPrice = topPrice;
+      order.topNumOrders = topNumOrders;
+      order.topVolume = topVol;
    }
 
 
