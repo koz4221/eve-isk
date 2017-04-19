@@ -5,6 +5,7 @@ import { TypeIdResolver } from './services/type-id-resolver.service'
 
 import { PITablesComponent } from './pi-data/pi-tables.component';
 import { OrdersComponent } from './orders/orders.component';
+import { MarketComponent } from './market/market.component';
 
 const appRoutes: Routes = [
    {
@@ -17,6 +18,10 @@ const appRoutes: Routes = [
    {
       path: 'orders',
       component: OrdersComponent
+   },
+   {
+      path: 'market',
+      component: MarketComponent
    }
 ];
 

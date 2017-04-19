@@ -14,6 +14,11 @@ export const REGIONS: Region[] = [
       name: "Domain",
       regionID: 10000043,
       code: "domain"
+   },
+   {
+      name: "Catch",
+      regionID: 10000014,
+      code: "catch"
    }
 ]
 
@@ -39,5 +44,12 @@ export const LOCATIONS: Location[] = [
       locationID: 60008494,
       regionID: 10000043,
       code: "amarr"
+   },
+   {
+      name: "GE-8JV",
+      fullname: "GE-8JV VII - Parroto Sanctuary",
+      locationID: 61000182,
+      regionID: 10000014,
+      code: "catch"
    }
 ]
