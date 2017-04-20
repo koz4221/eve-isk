@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { MarketComponent } from './market.component';
 
+import { MarketService } from './market.service';
 import { EveAPIService } from '../services/eve-api.service';
 
 @NgModule({
@@ -18,7 +19,8 @@ import { EveAPIService } from '../services/eve-api.service';
       JsonpModule
   ],
   providers: [
-      EveAPIService
+      EveAPIService,
+      MarketService
   ],
 })
 export class MarketModule { }

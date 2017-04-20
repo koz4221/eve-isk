@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { EveAPIService } from '../services/eve-api.service';
+import { MarketService } from './market.service';
 
 @Component({
    selector: 'market',
@@ -8,6 +8,11 @@ import { EveAPIService } from '../services/eve-api.service';
 })
 
 export class MarketComponent {
-   constructor() {
+   constructor(public marketService: MarketService) {
+      marketService.LoadMarketData([2205]);
+   }
+
+   getNumLocations(): number {
+      return this.marketService.locations.length;
    }
 }

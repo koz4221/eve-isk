@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PITablesModule } from './pi-data/pi-tables.module';
 import { OrdersModule } from './orders/orders.module';
+import { MarketModule } from './market/market.module';
 
 import { TypeIdResolver } from './services/type-id-resolver.service'
 
@@ -23,7 +24,8 @@ import { TypeIdResolver } from './services/type-id-resolver.service'
     JsonpModule,
     AppRoutingModule,
     PITablesModule,
-    OrdersModule
+    OrdersModule,
+    MarketModule
   ],
   providers: [
     TypeIdResolver

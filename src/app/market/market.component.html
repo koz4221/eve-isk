@@ -1,4 +1,11 @@
 <br>
 <div class="container">
-
+   <div class="panel panel-default">
+      <table class="table">
+         <tr *ngFor="let ms of this.marketService.data">
+            <td rowspan="{{getNumLocations()}}">{{ms.typeID}}</td>
+            
+         </tr>
+      </table>
+   </div>
 </div>
