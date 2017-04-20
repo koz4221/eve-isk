@@ -85,7 +85,7 @@ export class PICalcService {
    }
 
    includeImportFees(val: number, inputProd: number, pClass: number): number {
-      return val + (val * (this.numSalBroTax / 100)) + (inputProd * this.POCO_TAXES.find(p => p.pClass == pClass).tax 
+      return val + (inputProd * this.POCO_TAXES.find(p => p.pClass == pClass).tax 
          * (this.numPOCOTax / 100) * 0.5);
    }
 
