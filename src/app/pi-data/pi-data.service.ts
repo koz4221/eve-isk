@@ -5,6 +5,7 @@ import { PIData } from './pi-data';
 
 import { REGIONS } from '../../static-data/locations'
 import { LOCATIONS } from '../../static-data/locations'
+import { POCOTax } from './pi-data';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -15,6 +16,14 @@ export class PIDataService {
 
    urlBase: string = "https://esi.tech.ccp.is/latest/markets/"
    data: PIData[] = [];
+
+   public POCO_TAXES: POCOTax[] = [
+      { pClass: 0, tax: 5 },
+      { pClass: 1, tax: 400 },
+      { pClass: 2, tax: 7200 },
+      { pClass: 3, tax: 60000 },
+      { pClass: 4, tax: 1200000 }
+   ];
 
    constructor(private http: Http) {}
 

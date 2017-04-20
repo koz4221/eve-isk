@@ -492,5 +492,13 @@
     "p_class": 3,
     "input1_type_id": 3725,
     "input2_type_id": 3775
+  },
+  {
+    "type_id": 2867,
+    "type_name": "Broadcast Node",
+    "p_class": 4,
+    "input1_type_id": 2354,
+    "input2_type_id": 17392,
+    "input3_type_id": 17898
   }
 ]

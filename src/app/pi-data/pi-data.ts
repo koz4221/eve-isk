@@ -11,6 +11,36 @@ export class PIData {
     ){}
 }
 
+export class PIData2 {
+   public inputCost: number
+   public POCOCost: number
+   public taxCost: number
+   public totalCost: number
+
+   constructor(
+      public typeId: number,
+      public name: string,
+      public pClass: number,
+      public price: number,
+      public quantity: number,
+      public subdata: SubPIData[]
+   ){}
+}
+
+export class SubPIData {
+   public inputCost: number
+   public POCOCost: number
+   public taxCost: number
+
+   constructor(
+      public typeId: number,
+      public name: string,
+      public pClass: number,
+      public price: number,
+      public quantity: number,
+   ){}
+}
+
 export class PITypeID {
    constructor (
       public typeID: number,
