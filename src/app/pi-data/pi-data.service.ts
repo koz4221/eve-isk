@@ -52,6 +52,37 @@ export class PIDataService {
       }
    }
 
+   loadPIDataByCallback(typeIDs: any[], callback: (data: PIData[]) => void): void {
+      let data: PIData[] = [];
+      let url: string = this.urlBase + LOCATIONS.find(p => p.code == this.prices).regionID + "/orders/?datasource=tranquility&order_type=all&type_id="
+      let iter: number = 0;
+            
+      for (let tid of typeIDs) {
+         data.push(new PIData(tid.type_id, tid.type_name, tid.p_class, 0, 0, tid.input1_type_id, tid.input2_type_id, tid.input3_type_id));
+
+         this.getPIPriceData(url, tid.type_id).subscribe(
+            res => {
+               res = res.filter(p => p.location_id == LOCATIONS.find(p => p.code == this.prices).locationID)
+               let prices = this.extractMarketDataPrices(res);
+               data.find(item => item.typeId == tid.type_id).buy = prices.buy;
+               data.find(item => item.typeId == tid.type_id).sell = prices.sell;
+
+               iter++;
+               if (iter >= typeIDs.length) {
+                  callback(data);
+               }
+            },
+            error => {
+               console.log(error)
+               iter++;
+               if (iter >= typeIDs.length) {
+                  callback(data);
+               }
+            }   
+         );
+      }
+   }
+
    getPIPriceData(url: string, typeID: number): Observable<any> {
       return this.http.get(url + typeID)
       .map(this.extractData);

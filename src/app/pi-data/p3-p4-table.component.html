@@ -13,17 +13,32 @@
          <th>Profit/Loss</th>
          <th>Margin</th>
       </tr>
-      <tr *ngFor="let p of data">
-         <td>{{p.name}}</td>
-         <td>{{p.quantity}}</td>
-         <td>{{p.inputCost}}</td>
-         <td>{{p.POCOCost}}</td>
-         <td>{{p.taxCost}}</td>
-         <td></td>
-         <td></td>
-         <td></td>
-         <td></td>
-      </tr>
+      <template ngFor let-p [ngForOf]="data">
+         <tr>
+            <td>{{p.name}}</td>
+            <td>{{p.quantity}}</td>
+            <td>{{formatNumberString(p.inputCost)}}</td>
+            <td>{{formatNumberString(p.POCOCost)}}</td>
+            <td>{{formatNumberString(p.taxCost)}}</td>
+            <td>{{formatNumberString(p.totalCost)}}</td>
+            <td>{{formatNumberString(p.price)}}</td>
+            <td>{{formatNumberString(p.price - p.totalCost)}}</td>
+            <td>{{((p.price - p.totalCost) / p.price * 100).toFixed(2)}}%</td>
+         </tr>
+         <template ngFor let-s [ngForOf]="p.subdata">
+            <tr>
+               <td>{{s.name}}</td>
+               <td>{{s.quantity}}</td>
+               <td>{{formatNumberString(s.inputCost)}}</td>
+               <td>{{formatNumberString(s.POCOCost)}}</td>
+               <td>{{formatNumberString(s.taxCost)}}</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+         </template>
+      </template>
    </table>
 </div>
 
