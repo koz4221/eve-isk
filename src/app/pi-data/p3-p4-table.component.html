@@ -14,7 +14,7 @@
          <th>Margin</th>
       </tr>
       <template ngFor let-p [ngForOf]="data">
-         <tr>
+         <tr (click)="show = (show == p.typeId) ? 0 : p.typeId">
             <td>{{p.name}}</td>
             <td>{{p.quantity}}</td>
             <td>{{formatNumberString(p.inputCost)}}</td>
@@ -26,8 +26,8 @@
             <td>{{((p.price - p.totalCost) / p.price * 100).toFixed(2)}}%</td>
          </tr>
          <template ngFor let-s [ngForOf]="p.subdata">
-            <tr>
-               <td>{{s.name}}</td>
+            <tr *ngIf="show == p.typeId" class="noTopBorder">
+               <td style="padding-left: 30px">{{s.name}}</td>
                <td>{{s.quantity}}</td>
                <td>{{formatNumberString(s.inputCost)}}</td>
                <td>{{formatNumberString(s.POCOCost)}}</td>

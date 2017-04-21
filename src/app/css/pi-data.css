@@ -9,3 +9,7 @@
 .optionsTable td {
    padding-right: 20px;
 }
+
+.noTopBorder td {
+   border-top: 0px;
+}

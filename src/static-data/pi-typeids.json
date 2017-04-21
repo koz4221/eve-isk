@@ -500,5 +500,37 @@
     "input1_type_id": 2354,
     "input2_type_id": 17392,
     "input3_type_id": 17898
+  },
+  {
+    "type_id": 2868,
+    "type_name": "Integrity Response Drones",
+    "p_class": 4,
+    "input1_type_id": 2348,
+    "input2_type_id": 2366,
+    "input3_type_id": 9846
+  },
+  {
+    "type_id": 2871,
+    "type_name": "Recursive Computing Module",
+    "p_class": 4,
+    "input1_type_id": 9834,
+    "input2_type_id": 2346,
+    "input3_type_id": 12836
+  },
+  {
+    "type_id": 2872,
+    "type_name": "Self-Harmonizing Power Core",
+    "p_class": 4,
+    "input1_type_id": 2345,
+    "input2_type_id": 2361,
+    "input3_type_id": 2352
+  },
+  {
+    "type_id": 2876,
+    "type_name": "Wetware Mainframe",
+    "p_class": 4,
+    "input1_type_id": 2358,
+    "input2_type_id": 2367,
+    "input3_type_id": 2349
   }
 ]

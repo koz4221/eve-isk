@@ -18,10 +18,12 @@ import { POCOTax } from './pi-data';
 export class P3toP4TableComponent implements OnInit {
    data: PIData2[] = [];
    sourceData: PIData[];
+   typeIDs: any;
    topPClass: number = 4;
    subPClass: number = 3;
    ratioP3toP4: number = 18; // 18:1
    ratioP3Single: number = 6; // 18 / 3
+   show: number = 0;
 
    constructor(
       public piDataService: PIDataService, 
@@ -30,11 +32,14 @@ export class P3toP4TableComponent implements OnInit {
    ) {}
 
    ngOnInit(): void {
-      let typeIDs = this.route.snapshot.data['typeIDs'].json();
-      this.piDataService.loadPIDataByCallback(typeIDs, (data) => {
+      this.typeIDs = this.route.snapshot.data['typeIDs'].json();
+      this.fullLoadData();
+   }
+
+   public fullLoadData(): void {
+      this.piDataService.loadPIDataByCallback(this.typeIDs, (data) => {
          this.sourceData = data;
          this.loadData();
-         this.calculateCosts();
       });
    }
 
@@ -42,11 +47,12 @@ export class P3toP4TableComponent implements OnInit {
       let topData: PIData[] = this.sourceData.filter(tid => tid.pClass === this.topPClass);
       let subData: PIData[] = this.sourceData.filter(tid => tid.pClass === this.subPClass);
 
-      let newSub: SubPIData[] = [];
+      let newSub: SubPIData[];
       this.data = [];
 
       for (let d of topData) {
          let inpP3: PIData = subData.filter(tid => tid.typeId == d.input1)[0];
+         newSub = [];
          newSub.push(new SubPIData(
             inpP3.typeId,
             inpP3.name,
@@ -91,6 +97,8 @@ export class P3toP4TableComponent implements OnInit {
             newSub
          ))
       }
+
+      this.calculateCosts();
    }
 
    public calculateCosts(): void {

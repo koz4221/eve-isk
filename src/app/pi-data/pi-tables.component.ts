@@ -12,6 +12,7 @@ import { P22PTableComponent } from './p2-2p-table.component';
 import { P1toP2TableComponent } from './p1-p2-table.component';
 import { P2toP3TableComponent } from './p2-p3-table.component';
 import { P1toP3TableComponent } from './p1-p3-table.component';
+import { P3toP4TableComponent } from './p3-p4-table.component';
 
 @Component({
    selector: 'pi-tables',
@@ -42,6 +43,8 @@ export class PITablesComponent {
    private p2p3Comp: P2toP3TableComponent
    @ViewChild(P1toP3TableComponent)
    private p1p3Comp: P1toP3TableComponent
+   @ViewChild(P3toP4TableComponent)
+   private p3p4Comp: P3toP4TableComponent
 
    constructor(protected piCalcService: PICalcService, private piDataService: PIDataService, private route: ActivatedRoute) {
       piCalcService.CCUpgradeSkill = 3;
@@ -59,42 +62,42 @@ export class PITablesComponent {
 
    onCCUChange(value: string) {
       this.piCalcService.CCUpgradeSkill = +value;
-      this.piCalcService.resetCalculatedValues();
+      this.recalculateValues()
    }
 
    onLPChange(value: string) {
       this.piCalcService.numLaunchpads = +value;
-      this.piCalcService.resetCalculatedValues();
+      this.recalculateValues()
    }
 
    onSFChange(value: string) {
       this.piCalcService.numStorage = +value;
-      this.piCalcService.resetCalculatedValues();
+      this.recalculateValues()
    }
 
    updateEHeadProdPerHour(value: string): void {
       this.piCalcService.EHeadProdPerHour = +value;
-      this.piCalcService.resetCalculatedValues();
+      this.recalculateValues()
    }
 
    updateNumLinks(value: string): void {
       this.piCalcService.numLinks = +value;
-      this.piCalcService.resetCalculatedValues();
+      this.recalculateValues()
    }
 
    updateAvgLinkLength(value: string): void {
       this.piCalcService.numAvgLinkLength = +value;
-      this.piCalcService.resetCalculatedValues();
+      this.recalculateValues()
    }
 
    updateSalBroTax(value: string): void {
       this.piCalcService.numSalBroTax = +value;
-      this.piCalcService.resetCalculatedValues();
+      this.recalculateValues()
    }
 
    updatePOCOTax(value: string): void {
       this.piCalcService.numPOCOTax = +value;
-      this.piCalcService.resetCalculatedValues();
+      this.recalculateValues()
    }
 
    onPricesChange(value: string): void {
@@ -104,12 +107,18 @@ export class PITablesComponent {
 
    reloadPrices(): void {
       this.piDataService.loadPIData(this.route.snapshot.data['typeIDs'].json());
-      this.p0Comp.loadData();
-      this.p1Comp.loadData();
-      this.p21pComp.loadData();
-      this.p22pComp.loadData();
-      this.p1p2Comp.loadData();
-      this.p2p3Comp.loadData();
-      this.p1p3Comp.loadData();
+      if (this.p0Comp) this.p0Comp.loadData();
+      if (this.p1Comp) this.p1Comp.loadData();
+      if (this.p21pComp) this.p21pComp.loadData();
+      if (this.p22pComp) this.p22pComp.loadData();
+      if (this.p1p2Comp) this.p1p2Comp.loadData();
+      if (this.p2p3Comp) this.p2p3Comp.loadData();
+      if (this.p1p3Comp) this.p1p3Comp.loadData();
+      if (this.p3p4Comp) this.p3p4Comp.fullLoadData();
+   }
+
+   recalculateValues(): void {
+      this.piCalcService.resetCalculatedValues();
+      this.p3p4Comp.loadData();
    }
 }
