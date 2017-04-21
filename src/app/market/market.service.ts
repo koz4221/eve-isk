@@ -51,7 +51,8 @@ export class MarketService {
    }
 
    private parseAndCreateMarketStatData(data: any, lid: number, rid: number): MarketLocationStat {
-      let mls: MarketLocationStat = new MarketLocationStat(lid, rid, 0);
+      let locName: string = LOCATIONS.find(l => l.locationID == lid).name
+      let mls: MarketLocationStat = new MarketLocationStat(lid, locName, rid, 0);
       let price: number = 0;
 
       data = data.filter(f => f.is_buy_order == false);

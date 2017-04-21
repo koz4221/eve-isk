@@ -2,10 +2,19 @@
 <div class="container">
    <div class="panel panel-default">
       <table class="table">
-         <tr *ngFor="let ms of this.marketService.data">
-            <!--<td rowspan="{{getNumLocations()}}">{{ms.typeID}}</td>-->
-            
-         </tr>
+         <template ngFor let-ms [ngForOf]="this.marketService.data">
+            <tr>
+               <td [attr.rowspan]="getNumLocations()">{{ms.typeID}}</td>
+               <td>{{ms.stats[0]?.locationName}}</td>
+               <td>2</td>
+            </tr>
+            <template ngFor let-mls [ngForOf]="ms.stats" let-i="index">
+               <tr *ngIf="i > 0">
+                  <td>{{mls.locationName}}</td>
+                  <td>4</td>
+               </tr>
+            </template>
+         </template>
       </table>
    </div>
 </div>

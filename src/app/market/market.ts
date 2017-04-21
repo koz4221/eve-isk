@@ -9,6 +9,7 @@ export class MarketStat {
 export class MarketLocationStat {
    constructor(
       public locationID: number,
+      public locationName: string,
       public regionID: number,
       public price: number
    ){}

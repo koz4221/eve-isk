@@ -15,4 +15,9 @@ export class MarketComponent {
    getNumLocations(): number {
       return this.marketService.locations.length;
    }
+
+   test(): number {
+      console.log(this.marketService.data);
+      return 1;
+   }
 }
