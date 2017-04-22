@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { PIData, PIData2, SubPIData } from './pi-data';
+
 import { CommandCenterStat } from '../../static-data/pi-building-stats'
 import { PIBuildingStat } from '../../static-data/pi-building-stats'
 
@@ -398,5 +400,34 @@ export class PICalcService {
       
       return 24 * (this.getP1toP3TotalValue(outPrice) - this.getP1toP3TotalCost(inpPrice1_1, inpPrice1_2, inpPrice2_1, 
          inpPrice2_2, inpPrice3_1, inpPrice3_2));
+   }
+
+   calculateP4Costs(p4data: PIData2[], topPClass: number, subPClass: number[]): void {
+      let POCOtax: number
+
+      for (let d of p4data) {
+         d.inputCost = 0;
+         for (let s of d.subdata.filter(p => subPClass.includes(p.pClass))) {
+            s.inputCost = (s.price * s.quantity);
+            d.inputCost += s.inputCost
+         }
+
+         d.POCOCost = 0;
+         for (let s of d.subdata) {
+            POCOtax = this.POCO_TAXES.find(p => p.pClass == s.pClass).tax
+            s.POCOCost = s.quantity * POCOtax * (this.numPOCOTax / 100)
+            if (subPClass.includes(s.pClass)) { s.POCOCost /= 2 }
+            d.POCOCost += s.POCOCost
+         }
+
+         // only tax the end product because only the seller gets taxed
+         d.taxCost = 0;
+         for (let s of d.subdata.filter(p => p.pClass == topPClass)) {
+            s.taxCost = s.price * s.quantity * (this.numSalBroTax / 100);
+            d.taxCost += s.taxCost
+         }
+
+         d.totalCost = d.inputCost + d.POCOCost + d.taxCost;
+      }
    }
 }

@@ -12,6 +12,7 @@ import { P22PTableComponent } from './p2-2p-table.component';
 import { P1toP2TableComponent } from './p1-p2-table.component';
 import { P2toP3TableComponent } from './p2-p3-table.component';
 import { P1toP3TableComponent } from './p1-p3-table.component';
+import { P2toP4TableComponent } from './p2-p4-table.component';
 import { P3toP4TableComponent } from './p3-p4-table.component';
 
 @Component({
@@ -43,6 +44,8 @@ export class PITablesComponent {
    private p2p3Comp: P2toP3TableComponent
    @ViewChild(P1toP3TableComponent)
    private p1p3Comp: P1toP3TableComponent
+   @ViewChild(P2toP4TableComponent)
+   private p2p4Comp: P2toP4TableComponent
    @ViewChild(P3toP4TableComponent)
    private p3p4Comp: P3toP4TableComponent
 
@@ -114,11 +117,13 @@ export class PITablesComponent {
       if (this.p1p2Comp) this.p1p2Comp.loadData();
       if (this.p2p3Comp) this.p2p3Comp.loadData();
       if (this.p1p3Comp) this.p1p3Comp.loadData();
+      if (this.p2p4Comp) this.p2p4Comp.fullLoadData();
       if (this.p3p4Comp) this.p3p4Comp.fullLoadData();
    }
 
    recalculateValues(): void {
       this.piCalcService.resetCalculatedValues();
+      this.p2p4Comp.loadData();
       this.p3p4Comp.loadData();
    }
 }

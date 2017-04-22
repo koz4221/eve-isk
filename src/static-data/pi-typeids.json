@@ -510,6 +510,22 @@
     "input3_type_id": 9846
   },
   {
+    "type_id": 2869,
+    "type_name": "Nano-Factory",
+    "p_class": 4,
+    "input1_type_id": 2360,
+    "input2_type_id": 17136,
+    "input3_type_id": 2398
+  },
+  {
+    "type_id": 2870,
+    "type_name": "Organic Mortar Applicators",
+    "p_class": 4,
+    "input1_type_id": 2344,
+    "input2_type_id": 9848,
+    "input3_type_id": 2393
+  },
+  {
     "type_id": 2871,
     "type_name": "Recursive Computing Module",
     "p_class": 4,
@@ -524,6 +540,14 @@
     "input1_type_id": 2345,
     "input2_type_id": 2361,
     "input3_type_id": 2352
+  },
+  {
+    "type_id": 2875,
+    "type_name": "Sterile Conduits",
+    "p_class": 4,
+    "input1_type_id": 2351,
+    "input2_type_id": 28974,
+    "input3_type_id": 3645
   },
   {
     "type_id": 2876,

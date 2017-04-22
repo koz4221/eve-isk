@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
-import { PIData } from './pi-data';
+import { PIData, PIData2, SubPIData } from './pi-data';
 
 import { REGIONS } from '../../static-data/locations'
 import { LOCATIONS } from '../../static-data/locations'
@@ -81,6 +81,65 @@ export class PIDataService {
             }   
          );
       }
+   }
+
+   loadP4Data(topPClass: number, subPClass: number[], ratio1: number, ratio2: number): PIData2[] {
+      let topData: PIData[] = this.data.filter(tid => tid.pClass === topPClass);
+      let subData: PIData[] = this.data.filter(tid => subPClass.includes(tid.pClass));
+
+      let newSub: SubPIData[];
+      let newData: PIData2[] = [];
+
+      for (let d of topData) {
+         let inpP3: PIData = subData.filter(tid => tid.typeId == d.input1)[0];
+         newSub = [];
+         newSub.push(new SubPIData(
+            inpP3.typeId,
+            inpP3.name,
+            inpP3.pClass,
+            inpP3.sell,
+            ratio1
+         ));
+
+         inpP3 = subData.filter(tid => tid.typeId == d.input2)[0];
+         newSub.push(new SubPIData(
+            inpP3.typeId,
+            inpP3.name,
+            inpP3.pClass,
+            inpP3.sell,
+            ratio1
+         ));
+
+         // input3 could be a P3 or a P1
+         inpP3 = subData.filter(tid => tid.typeId == d.input3)[0];
+         newSub.push(new SubPIData(
+            inpP3.typeId,
+            inpP3.name,
+            inpP3.pClass,
+            inpP3.sell,
+            (inpP3.pClass == 3) ? ratio1 : ratio2
+         ));
+
+         // now add a sub for the costs of the product (sales and POCO taxes)
+         newSub.push(new SubPIData(
+            d.typeId,
+            d.name,
+            d.pClass,
+            d.sell,
+            1
+         ))
+
+         newData.push(new PIData2(
+            d.typeId,
+            d.name,
+            d.pClass,
+            d.sell,
+            1,
+            newSub
+         ))
+      }
+
+      return newData;
    }
 
    getPIPriceData(url: string, typeID: number): Observable<any> {

@@ -11,6 +11,7 @@ import { P22PTableComponent } from './p2-2p-table.component';
 import { P1toP2TableComponent } from './p1-p2-table.component';
 import { P2toP3TableComponent } from './p2-p3-table.component';
 import { P1toP3TableComponent } from './p1-p3-table.component';
+import { P2toP4TableComponent } from './p2-p4-table.component';
 import { P3toP4TableComponent } from './p3-p4-table.component';
 
 import { PIDataService } from './pi-data.service';
@@ -26,6 +27,7 @@ import { PICalcService } from './pi-calc.service';
       P1toP2TableComponent,
       P2toP3TableComponent,
       P1toP3TableComponent,
+      P2toP4TableComponent,
       P3toP4TableComponent
   ],
   imports: [
