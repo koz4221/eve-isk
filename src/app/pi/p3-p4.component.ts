@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { PIData, PIData2, SubPIData } from './pi-data';
+import { PIDataRaw, PIData, SubPIData } from './pi-data';
 
 import { PIDataService } from './pi-data.service';
 import { PICalcService } from './pi-calc.service';
@@ -15,9 +15,9 @@ import { POCOTax } from './pi-data';
    styleUrls: ['../css/pi-data.css']
 })
 
-export class P3toP4Component implements OnInit {
-   data: PIData2[] = [];
-   sourceData: PIData[];
+export class P3toP4Component {
+   data: PIData[] = [];
+   sourceData: PIDataRaw[];
    typeIDs: any;
    topPClass: number = 4;
    subPClass: number[] = [1,3];
@@ -31,27 +31,17 @@ export class P3toP4Component implements OnInit {
       private route: ActivatedRoute
    ) {}
 
-   ngOnInit(): void {
-      this.typeIDs = this.route.snapshot.data['typeIDs'].json();
-      this.fullLoadData();
-   }
+   public loadData(data?: PIDataRaw[]): void {
+      if (data) this.sourceData = data;
 
-   public fullLoadData(): void {
-      this.piDataService.loadPIDataByCallback(this.typeIDs, (data) => {
-         this.sourceData = data;
-         this.loadData();
-      });
-   }
-
-   public loadData(): void {
-      let topData: PIData[] = this.sourceData.filter(tid => tid.pClass === this.topPClass);
-      let subData: PIData[] = this.sourceData.filter(tid => this.subPClass.includes(tid.pClass));
+      let topData: PIDataRaw[] = this.sourceData.filter(tid => tid.pClass === this.topPClass);
+      let subData: PIDataRaw[] = this.sourceData.filter(tid => this.subPClass.includes(tid.pClass));
 
       let newSub: SubPIData[];
       this.data = [];
 
       for (let d of topData) {
-         let inpP3: PIData = subData.filter(tid => tid.typeId == d.input1)[0];
+         let inpP3: PIDataRaw = subData.filter(tid => tid.typeId == d.input1)[0];
          newSub = [];
          newSub.push(new SubPIData(
             inpP3.typeId,
@@ -89,7 +79,7 @@ export class P3toP4Component implements OnInit {
             1
          ))
 
-         this.data.push(new PIData2(
+         this.data.push(new PIData(
             d.typeId,
             d.name,
             d.pClass,
@@ -99,7 +89,7 @@ export class P3toP4Component implements OnInit {
          ))
       }
 
-      this.piCalcService.calculateP4Costs(this.data, this.topPClass, this.subPClass);
+      this.piCalcService.calculateCosts(this.data, this.topPClass, this.subPClass);
    }
 
    public formatNumberString(num: number): string {

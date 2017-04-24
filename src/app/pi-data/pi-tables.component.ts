@@ -23,7 +23,7 @@ import { P1toP3Component } from'./p1-p3.component';
    styleUrls: ['../css/pi-data.css']
 })
 
-export class PITablesComponent {
+export class PITablesComponentOld {
    CCUpgradeSkill: number;
    EHeadProdPerHour: number;
    numLaunchpads: number;

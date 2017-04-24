@@ -1,4 +1,4 @@
-export class PIData {
+export class PIDataRaw {
     constructor (
       public typeId: number,
       public name: string,
@@ -11,7 +11,7 @@ export class PIData {
     ){}
 }
 
-export class PIData2 {
+export class PIData {
    public inputCost: number
    public POCOCost: number
    public taxCost: number

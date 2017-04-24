@@ -7,7 +7,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 
 import { AppRoutingModule } from './app-routing.module';
-import { PITablesModule } from './pi-data/pi-tables.module';
+import { PITablesModuleOld } from './pi-data/pi-tables.module';
+import { PITablesModule } from './pi/pi-tables.module'
 import { OrdersModule } from './orders/orders.module';
 import { MarketModule } from './market/market.module';
 
@@ -23,6 +24,7 @@ import { TypeIdResolver } from './services/type-id-resolver.service'
     HttpModule,
     JsonpModule,
     AppRoutingModule,
+    PITablesModuleOld,
     PITablesModule,
     OrdersModule,
     MarketModule

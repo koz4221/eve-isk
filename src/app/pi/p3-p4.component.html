@@ -14,8 +14,8 @@
          <th>Margin</th>
       </tr>
       <template ngFor let-p [ngForOf]="data">
-         <tr (click)="show = (show == p.typeId) ? 0 : p.typeId">
-            <td>{{p.name}}</td>
+         <tr>
+            <td (click)="show = (show == p.typeId) ? 0 : p.typeId">{{p.name}}</td>
             <td>{{p.quantity}}</td>
             <td>{{formatNumberString(p.inputCost)}}</td>
             <td>{{formatNumberString(p.POCOCost)}}</td>

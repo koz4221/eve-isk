@@ -29,4 +29,4 @@ import { PICalcService } from './pi-calc.service';
       PICalcService
   ],
 })
-export class PIModule { }
+export class PITablesModule { }

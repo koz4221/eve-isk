@@ -42,7 +42,8 @@ export class PITablesComponent {
       piCalcService.numAvgLinkLength = 0;
 
       piDataService.prices = "jita";
-      piDataService.loadPIData(this.route.snapshot.data['typeIDs'].json());
+
+      this.loadData();
    }
 
    onCCUChange(value: string) {
@@ -87,18 +88,18 @@ export class PITablesComponent {
 
    onPricesChange(value: string): void {
       this.piDataService.prices = value;
-      this.reloadPrices();
+      this.loadData();
    }
 
-   reloadPrices(): void {
-      this.piDataService.loadPIData(this.route.snapshot.data['typeIDs'].json());
-      if (this.p2p4Comp) this.p2p4Comp.fullLoadData();
-      if (this.p3p4Comp) this.p3p4Comp.fullLoadData();
-      if (this.p1p3Comp) this.p1p3Comp.fullLoadData();
+   loadData(): void {
+      this.piDataService.loadPIDataByCallback(this.route.snapshot.data['typeIDs'].json(), (data) => {
+         if (this.p1p3Comp) this.p1p3Comp.loadData(data);
+         if (this.p2p4Comp) this.p2p4Comp.loadData(data);
+         if (this.p3p4Comp) this.p3p4Comp.loadData(data);
+      });
    }
 
    recalculateValues(): void {
-      this.piCalcService.resetCalculatedValues();
       this.p2p4Comp.loadData();
       this.p3p4Comp.loadData();
       this.p1p3Comp.loadData();

@@ -1,5 +1,9 @@
 <h3>P1 to P3</h3>
 <div class="panel panel-default">
+   <div class="panel-heading">
+      Output P3 Per Hour:&nbsp;<input #inpP1P3 style="width: 50px" name="inpP1P3" [(ngModel)]="piCalcService.p1p3Output"
+         (keyup.enter)="updateProd(inpP1P3.value)" (blur)="updateProd(inpP1P3.value)">
+   </div>
    <table class="table">
       <!-- header row -->
       <tr>
@@ -14,8 +18,8 @@
          <th>Margin</th>
       </tr>
       <template ngFor let-p [ngForOf]="data">
-         <tr (click)="show = (show == p.typeId) ? 0 : p.typeId">
-            <td>{{p.name}}</td>
+         <tr>
+            <td (click)="show = (show == p.typeId) ? 0 : p.typeId">{{p.name}}</td>
             <td>{{p.quantity}}</td>
             <td>{{formatNumberString(p.inputCost)}}</td>
             <td>{{formatNumberString(p.POCOCost)}}</td>

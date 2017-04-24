@@ -1,67 +1,31 @@
 <br>
 <table class="optionsTable">
    <tr>
+      <td><label>Sales + Broker Tax:&nbsp;</label></td>
       <td>
-         <label for="ddlCCU">Command Center Upgrade:</label> 
-         <select id="ddlCCU" name="ddlCCU" [(ngModel)]="piCalcService.CCUpgradeSkill" (change)="onCCUChange($event.target.value)">
-            <option *ngFor="let val of ddlCCUpgradeVals" [value]="val">{{val}}</option>
-         </select>
-      </td>
-      <td>
-         <label for="ddlLP">Number of Launchpads:</label> 
-         <select id="ddlLP" name="ddlLP" [(ngModel)]="piCalcService.numLaunchpads" (change)="onLPChange($event.target.value)">
-            <option *ngFor="let val of ddlLPVals" [value]="val">{{val}}</option>
-         </select>
-      </td>
-      <td>
-         <label for="ddlSF">Number of Storage:</label> 
-         <select id="ddlSF" name="ddlSF" [(ngModel)]="piCalcService.numStorage" (change)="onSFChange($event.target.value)">
-            <option *ngFor="let val of ddlSFVals" [value]="val">{{val}}</option>
-         </select>
-      </td>
-   </tr>
-</table>
-<label>Production Per Extractor Head:&nbsp;&nbsp;</label>
-<input #eheadprod size="10" name="inpEHeadProd" [(ngModel)]="piCalcService.EHeadProdPerHour" 
-      (keyup.enter)="updateEHeadProdPerHour(eheadprod.value)" (blur)="updateEHeadProdPerHour(eheadprod.value)">
-<br>
-<table class="optionsTable">
-   <tr>
-      <td>
-         <label>Number of Links:&nbsp;</label>
-         <input #numlinks size="5" name="inpNumLinks" [(ngModel)]="piCalcService.numLinks" 
-            (keyup.enter)="updateNumLinks(numlinks.value)" (blur)="updateNumLinks(numlinks.value)">
-      </td>
-      <td>
-         <label>Average Link Length:&nbsp;</label>
-         <input #avglinklength size="5" name="inpAvgLinkLength" [(ngModel)]="piCalcService.numAvgLinkLength" 
-            (keyup.enter)="updateAvgLinkLength(avglinklength.value)" (blur)="updateAvgLinkLength(avglinklength.value)">km
-      </td>
-   </tr>
-</table>
-<table class="optionsTable">
-   <tr>
-      <td>
-         <label>Sales + Broker Tax:&nbsp;</label>
-         <input #salesbrokertax size="5" name="inpSalBroTax" [(ngModel)]="piCalcService.numSalBroTax" 
+         <input #salesbrokertax name="inpSalBroTax" [(ngModel)]="piCalcService.numSalBroTax" style="width: 70px"
             (keyup.enter)="updateSalBroTax(salesbrokertax.value)" (blur)="updateSalBroTax(salesbrokertax.value)">%
       </td>
+   </tr>
+   <tr>
+      <td><label>POCO Tax:&nbsp;</label></td>
       <td>
-         <label>POCO Tax:&nbsp;</label>
-         <input #pocotax size="5" name="inpPOCOTax" [(ngModel)]="piCalcService.numPOCOTax" 
+         <input #pocotax name="inpPOCOTax" [(ngModel)]="piCalcService.numPOCOTax" style="width: 70px"
             (keyup.enter)="updatePOCOTax(pocotax.value)" (blur)="updatePOCOTax(pocotax.value)">%
       </td>
    </tr>
+   <tr>
+      <td><label>Prices:</label></td>
+      <td>
+         <select id="ddlPrices" name="ddlPrices" (change)="onPricesChange($event.target.value)" style="width: 70px">
+            <option value="jita" selected="true">Jita</option>
+            <option value="amarr">Amarr</option>
+         </select>
+      </td>
+   </tr>
 </table>
-<label>Prices: </label>
-<select id="ddlPrices" name="ddlPrices" (change)="onPricesChange($event.target.value)">
-   <option value="jita" selected="true">Jita</option>
-   <option value="amarr">Amarr</option>
-</select>
 
-<!--<button type="submit" (click)="reloadPrices(); p0.loadData()">Reload Prices</button>-->
-
-<br /><br />
+<br />
 <p1-p3></p1-p3>
-<!--<p2-p4-table></p2-p4-table>-->
-<!--<p3-p4-table></p3-p4-table>-->
+<p2-p4></p2-p4>
+<p3-p4></p3-p4>
