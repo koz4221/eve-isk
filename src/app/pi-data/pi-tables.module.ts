@@ -14,6 +14,8 @@ import { P1toP3TableComponent } from './p1-p3-table.component';
 import { P2toP4TableComponent } from './p2-p4-table.component';
 import { P3toP4TableComponent } from './p3-p4-table.component';
 
+import { P1toP3Component } from'./p1-p3.component';
+
 import { PIDataService } from './pi-data.service';
 import { PICalcService } from './pi-calc.service';
 
@@ -28,7 +30,8 @@ import { PICalcService } from './pi-calc.service';
       P2toP3TableComponent,
       P1toP3TableComponent,
       P2toP4TableComponent,
-      P3toP4TableComponent
+      P3toP4TableComponent,
+      P1toP3Component
   ],
   imports: [
       BrowserModule,

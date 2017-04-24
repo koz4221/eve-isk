@@ -1,0 +1,48 @@
+<h3>P2 to P4</h3>
+<div class="panel panel-default">
+   <table class="table">
+      <!-- header row -->
+      <tr>
+         <th>Commodity</th>
+         <th>Quantity</th>
+         <th>Input Cost</th>
+         <th>POCO Cost</th>
+         <th>Taxes</th>
+         <th>Total Cost</th>
+         <th>Total Revenue</th>
+         <th>Profit/Loss</th>
+         <th>Margin</th>
+      </tr>
+      <template ngFor let-p [ngForOf]="data">
+         <tr (click)="show = (show == p.typeId) ? 0 : p.typeId">
+            <td>{{p.name}}</td>
+            <td>{{p.quantity}}</td>
+            <td>{{formatNumberString(p.inputCost)}}</td>
+            <td>{{formatNumberString(p.POCOCost)}}</td>
+            <td>{{formatNumberString(p.taxCost)}}</td>
+            <td>{{formatNumberString(p.totalCost)}}</td>
+            <td>{{formatNumberString(p.price)}}</td>
+            <td [ngClass]="(p.price - p.totalCost) > 0 ? 'posNumColor' : 'negNumColor'">
+               {{formatNumberString(p.price - p.totalCost)}}</td>
+            <td [ngClass]="(p.price - p.totalCost) > 0 ? 'posNumColor' : 'negNumColor'">
+               {{((p.price - p.totalCost) / p.price * 100).toFixed(2)}}%</td>
+         </tr>
+         <template ngFor let-s [ngForOf]="p.subdata">
+            <tr *ngIf="show == p.typeId" class="noTopBorder">
+               <td style="padding-left: 30px">{{s.name}}</td>
+               <td>{{s.quantity}}</td>
+               <td>{{formatNumberString(s.inputCost)}}</td>
+               <td>{{formatNumberString(s.POCOCost)}}</td>
+               <td>{{formatNumberString(s.taxCost)}}</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+         </template>
+      </template>
+   </table>
+</div>
+
+
+<br/>
