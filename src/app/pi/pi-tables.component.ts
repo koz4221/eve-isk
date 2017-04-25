@@ -17,18 +17,12 @@ import { P3toP4Component } from './p3-p4.component';
 })
 
 export class PITablesComponent {
-   CCUpgradeSkill: number;
-   EHeadProdPerHour: number;
-   numLaunchpads: number;
-   numStorage: number;
-   ddlCCUpgradeVals: number[] = [0, 1, 2, 3, 4, 5];
-   ddlLPVals: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-   ddlSFVals: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+   public loaded: boolean = false;
 
    @ViewChild(P1toP3Component)
    private p1p3Comp: P1toP3Component
    @ViewChild(P2toP3Component)
-   private p2p3Comp: P1toP3Component
+   private p2p3Comp: P2toP3Component
    @ViewChild(P3toP4Component)
    private p2p4Comp: P2toP4Component
    @ViewChild(P2toP4Component)
@@ -69,7 +63,9 @@ export class PITablesComponent {
    }
 
    loadData(): void {
+      this.loaded = false;
       this.piDataService.loadPIDataByCallback(this.route.snapshot.data['typeIDs'].json(), (data) => {
+         this.loaded = true;
          if (this.p1p3Comp) this.p1p3Comp.loadData(data);
          if (this.p2p3Comp) this.p2p3Comp.loadData(data);
          if (this.p2p4Comp) this.p2p4Comp.loadData(data);
