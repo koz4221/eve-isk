@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { PIDataRaw, PIData, SubPIData } from './pi-data';
+import { PIDataRaw, PIData, SubPIData, MarketOrderType } from './pi-data';
 
 import { CommandCenterStat } from '../../static-data/pi-building-stats'
 import { PIBuildingStat } from '../../static-data/pi-building-stats'
@@ -11,16 +11,10 @@ import { POCOTax } from './pi-data';
 
 @Injectable()
 export class PICalcService {
-   public CCUpgradeSkill: number = 0;
-   public EHeadProdPerHour: number = 1;
-   public numLaunchpads: number = 0;
-   public numStorage: number = 0;
    public numSalBroTax: number = 0;
    public numPOCOTax: number = 0;
-   public numLinks: number = 0;
-   public numAvgLinkLength: number = 0;
-
-   public p1p3Output: number = 0;
+   public buyFromType: MarketOrderType = MarketOrderType.sell;
+   public sellToType: MarketOrderType = MarketOrderType.sell;
 
    private POCO_TAXES: POCOTax[] = [
       { pClass: 0, tax: 5 },

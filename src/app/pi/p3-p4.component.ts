@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { PIDataRaw, PIData, SubPIData } from './pi-data';
+import { PIDataRaw, PIData, SubPIData, MarketOrderType } from './pi-data';
 
 import { PIDataService } from './pi-data.service';
 import { PICalcService } from './pi-calc.service';
@@ -23,7 +23,11 @@ export class P3toP4Component {
    subPClass: number[] = [1,3];
    ratioP3Single: number = 6; // 18 / 3
    ratioP1Single: number = 40;
+
    show: number = 0;
+   prodOutput: number = 0;
+   buyFromType: MarketOrderType
+   sellToType: MarketOrderType
 
    constructor(
       public piDataService: PIDataService, 
@@ -33,6 +37,9 @@ export class P3toP4Component {
 
    public loadData(data?: PIDataRaw[]): void {
       if (data) this.sourceData = data;
+
+      this.buyFromType = this.piCalcService.buyFromType;
+      this.sellToType = this.piCalcService.sellToType;
 
       let topData: PIDataRaw[] = this.sourceData.filter(tid => tid.pClass === this.topPClass);
       let subData: PIDataRaw[] = this.sourceData.filter(tid => this.subPClass.includes(tid.pClass));
@@ -47,7 +54,7 @@ export class P3toP4Component {
             inpP3.typeId,
             inpP3.name,
             inpP3.pClass,
-            inpP3.sell,
+            (this.buyFromType == MarketOrderType.buy) ? inpP3.buy : inpP3.sell,
             this.ratioP3Single
          ));
 
@@ -56,7 +63,7 @@ export class P3toP4Component {
             inpP3.typeId,
             inpP3.name,
             inpP3.pClass,
-            inpP3.sell,
+            (this.buyFromType == MarketOrderType.buy) ? inpP3.buy : inpP3.sell,
             this.ratioP3Single
          ));
 
@@ -66,7 +73,7 @@ export class P3toP4Component {
             inpP3.typeId,
             inpP3.name,
             inpP3.pClass,
-            inpP3.sell,
+            (this.buyFromType == MarketOrderType.buy) ? inpP3.buy : inpP3.sell,
             (inpP3.pClass == 3) ? this.ratioP3Single : this.ratioP1Single
          ));
 
@@ -75,7 +82,7 @@ export class P3toP4Component {
             d.typeId,
             d.name,
             d.pClass,
-            d.sell,
+            (this.sellToType == MarketOrderType.buy) ? d.buy : d.sell,
             1
          ))
 
@@ -83,7 +90,7 @@ export class P3toP4Component {
             d.typeId,
             d.name,
             d.pClass,
-            d.sell,
+            (this.sellToType == MarketOrderType.buy) ? d.buy : d.sell,
             1,
             newSub
          ))

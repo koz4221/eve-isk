@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { PITablesComponent } from './pi-tables.component';
 import { P1toP3Component } from'./p1-p3.component';
+import { P2toP3Component } from'./p2-p3.component';
 import { P2toP4Component } from './p2-p4.component';
 import { P3toP4Component } from './p3-p4.component';
 
@@ -15,6 +16,7 @@ import { PICalcService } from './pi-calc.service';
   declarations: [
       PITablesComponent,
       P1toP3Component,
+      P2toP3Component,
       P2toP4Component,
       P3toP4Component
   ],

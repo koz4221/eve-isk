@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { PIDataRaw, PIData, SubPIData } from './pi-data';
+import { PIDataRaw, PIData, SubPIData, MarketOrderType } from './pi-data';
 
 import { PIDataService } from './pi-data.service';
 import { PICalcService } from './pi-calc.service';
@@ -24,7 +24,11 @@ export class P2toP4Component {
    subPClass: number[] = [1,2];
    ratioP2Single: number = 20; // 120 / 6
    ratioP1Single: number = 40;
+
    show: number = 0;
+   prodOutput: number = 0;
+   buyFromType: MarketOrderType
+   sellToType: MarketOrderType
 
    constructor(
       public piDataService: PIDataService, 
@@ -34,6 +38,9 @@ export class P2toP4Component {
 
    public loadData(data?: PIDataRaw[]): void {
       if (data) this.sourceData = data;
+
+      this.buyFromType = this.piCalcService.buyFromType;
+      this.sellToType = this.piCalcService.sellToType;
 
       let topData: PIDataRaw[] = this.sourceData.filter(tid => tid.pClass === this.topPClass);
       let midData: PIDataRaw[] = this.sourceData.filter(tid => tid.pClass === this.midPClass);
@@ -52,7 +59,7 @@ export class P2toP4Component {
             inpP2.typeId,
             inpP2.name,
             inpP2.pClass,
-            inpP2.sell,
+            (this.buyFromType == MarketOrderType.buy) ? inpP2.buy : inpP2.sell,
             this.ratioP2Single
          ));
 
@@ -62,7 +69,7 @@ export class P2toP4Component {
             inpP2.typeId,
             inpP2.name,
             inpP2.pClass,
-            inpP2.sell,
+            (this.buyFromType == MarketOrderType.buy) ? inpP2.buy : inpP2.sell,
             this.ratioP2Single
          ));
 
@@ -73,7 +80,7 @@ export class P2toP4Component {
                inpP2.typeId,
                inpP2.name,
                inpP2.pClass,
-               inpP2.sell,
+               (this.buyFromType == MarketOrderType.buy) ? inpP2.buy : inpP2.sell,
                this.ratioP2Single
             ));
          }
@@ -85,7 +92,7 @@ export class P2toP4Component {
             inpP2.typeId,
             inpP2.name,
             inpP2.pClass,
-            inpP2.sell,
+            (this.buyFromType == MarketOrderType.buy) ? inpP2.buy : inpP2.sell,
             this.ratioP2Single
          ));
 
@@ -95,7 +102,7 @@ export class P2toP4Component {
             inpP2.typeId,
             inpP2.name,
             inpP2.pClass,
-            inpP2.sell,
+            (this.buyFromType == MarketOrderType.buy) ? inpP2.buy : inpP2.sell,
             this.ratioP2Single
          ));
 
@@ -106,7 +113,7 @@ export class P2toP4Component {
                inpP2.typeId,
                inpP2.name,
                inpP2.pClass,
-               inpP2.sell,
+               (this.buyFromType == MarketOrderType.buy) ? inpP2.buy : inpP2.sell,
                this.ratioP2Single
             ));
          }
@@ -121,7 +128,7 @@ export class P2toP4Component {
                inpP2.typeId,
                inpP2.name,
                inpP2.pClass,
-               inpP2.sell,
+               (this.buyFromType == MarketOrderType.buy) ? inpP2.buy : inpP2.sell,
                this.ratioP2Single
             ));
 
@@ -131,7 +138,7 @@ export class P2toP4Component {
                inpP2.typeId,
                inpP2.name,
                inpP2.pClass,
-               inpP2.sell,
+               (this.buyFromType == MarketOrderType.buy) ? inpP2.buy : inpP2.sell,
                this.ratioP2Single
             ));
 
@@ -142,7 +149,7 @@ export class P2toP4Component {
                   inpP2.typeId,
                   inpP2.name,
                   inpP2.pClass,
-                  inpP2.sell,
+                  (this.buyFromType == MarketOrderType.buy) ? inpP2.buy : inpP2.sell,
                   this.ratioP2Single
                ));
             }
@@ -153,7 +160,7 @@ export class P2toP4Component {
                inpP1.typeId,
                inpP1.name,
                inpP1.pClass,
-               inpP1.sell,
+               (this.buyFromType == MarketOrderType.buy) ? inpP1.buy : inpP1.sell,
                this.ratioP1Single
             ));
          }
@@ -163,7 +170,7 @@ export class P2toP4Component {
             d.typeId,
             d.name,
             d.pClass,
-            d.sell,
+            (this.sellToType == MarketOrderType.buy) ? d.buy : d.sell,
             1
          ))
 
@@ -171,7 +178,7 @@ export class P2toP4Component {
             d.typeId,
             d.name,
             d.pClass,
-            d.sell,
+            (this.sellToType == MarketOrderType.buy) ? d.buy : d.sell,
             1,
             newSub
          ))

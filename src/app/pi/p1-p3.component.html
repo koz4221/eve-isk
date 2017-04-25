@@ -1,7 +1,7 @@
 <h3>P1 to P3</h3>
 <div class="panel panel-default">
    <div class="panel-heading">
-      Output P3 Per Hour:&nbsp;<input #inpP1P3 style="width: 50px" name="inpP1P3" [(ngModel)]="piCalcService.p1p3Output"
+      Output P3 Per Hour:&nbsp;<input #inpP1P3 style="width: 50px" name="inpP1P3" [(ngModel)]="prodOutput"
          (keyup.enter)="updateProd(inpP1P3.value)" (blur)="updateProd(inpP1P3.value)">
    </div>
    <table class="table">
@@ -16,6 +16,7 @@
          <th>Total Revenue</th>
          <th>Profit/Loss</th>
          <th>Margin</th>
+         <th>Profit/Loss Per Day</th>
       </tr>
       <template ngFor let-p [ngForOf]="data">
          <tr>
@@ -30,6 +31,8 @@
                {{formatNumberString(p.price - p.totalCost)}}</td>
             <td [ngClass]="(p.price - p.totalCost) > 0 ? 'posNumColor' : 'negNumColor'">
                {{((p.price - p.totalCost) / p.price * 100).toFixed(2)}}%</td>
+            <td [ngClass]="(p.price - p.totalCost) > 0 ? 'posNumColor' : 'negNumColor'">
+               {{formatNumberString((p.price - p.totalCost) * prodOutput * 24)}}</td>
          </tr>
          <template ngFor let-s [ngForOf]="p.subdata">
             <tr *ngIf="show == p.typeId" class="noTopBorder">
@@ -38,6 +41,7 @@
                <td>{{formatNumberString(s.inputCost)}}</td>
                <td>{{formatNumberString(s.POCOCost)}}</td>
                <td>{{formatNumberString(s.taxCost)}}</td>
+               <td></td>
                <td></td>
                <td></td>
                <td></td>

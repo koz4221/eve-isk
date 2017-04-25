@@ -18,21 +18,22 @@ export class OrdersService {
 
    constructor(private http: Http, private eveAPI: EveAPIService) {}
 
-   formatNumberString(num: number): string {      
-      let fNum: string
-      num = +num;
+   formatNumberString(num: number): string {    
+      return (+num).toFixed(2);  
+      // let fNum: string
+      // num = +num;
 
-      // decimal precision
-      if (num < 1000 && num > -1000) {
-         fNum = num.toFixed(2);
-      } else {
-         fNum = num.toFixed(0);
-      }
+      // // decimal precision
+      // if (num < 1000 && num > -1000) {
+      //    fNum = num.toFixed(2);
+      // } else {
+      //    fNum = num.toFixed(0);
+      // }
 
-      // add commas for big numbers
-      fNum = fNum.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      // // add commas for big numbers
+      // fNum = fNum.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-      return fNum;
+      // return fNum;
    }
 
    loadOrders(): void {

@@ -1,6 +1,13 @@
 <br>
 <table class="optionsTable">
    <tr>
+      <td><label>Buying From:</label></td>
+      <td>
+         <select id="ddlBuy" name="ddlBuy" (change)="onBuyFromChange($event.target.value)" style="width: 110px">
+            <option value="1">Buy Orders</option>
+            <option value="2" selected="true">Sell Orders</option>
+         </select>
+      </td>
       <td><label>Sales + Broker Tax:&nbsp;</label></td>
       <td>
          <input #salesbrokertax name="inpSalBroTax" [(ngModel)]="piCalcService.numSalBroTax" style="width: 70px"
@@ -8,6 +15,13 @@
       </td>
    </tr>
    <tr>
+      <td><label>Selling To:</label></td>
+      <td>
+         <select id="ddlSell" name="ddlSell" (change)="onSellToChange($event.target.value)" style="width: 110px">
+            <option value="1">Buy Orders</option>
+            <option value="2" selected="true">Sell Orders</option>
+         </select>
+      </td>
       <td><label>POCO Tax:&nbsp;</label></td>
       <td>
          <input #pocotax name="inpPOCOTax" [(ngModel)]="piCalcService.numPOCOTax" style="width: 70px"
@@ -17,7 +31,7 @@
    <tr>
       <td><label>Prices:</label></td>
       <td>
-         <select id="ddlPrices" name="ddlPrices" (change)="onPricesChange($event.target.value)" style="width: 70px">
+         <select id="ddlPrices" name="ddlPrices" (change)="onPricesChange($event.target.value)" style="width: 110px">
             <option value="jita" selected="true">Jita</option>
             <option value="amarr">Amarr</option>
          </select>
@@ -26,6 +40,7 @@
 </table>
 
 <br />
-<p1-p3></p1-p3>
-<p2-p4></p2-p4>
-<p3-p4></p3-p4>
+<!--<p1-p3></p1-p3>-->
+<p2-p3></p2-p3>
+<!--<p2-p4></p2-p4>
+<p3-p4></p3-p4>-->

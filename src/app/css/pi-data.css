@@ -6,8 +6,12 @@
    color: red;
 }
 
+.optionsTable td {
+   padding-right: 15px;
+}
+
 .optionsTable input {
-   height: 90%
+   height: 90%;
 }
 
 .noTopBorder td {

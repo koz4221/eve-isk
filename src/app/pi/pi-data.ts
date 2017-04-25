@@ -55,3 +55,8 @@ export class POCOTax {
       public tax: number
    ) {}
 }
+
+export enum MarketOrderType {
+   buy = 1,
+   sell = 2
+}

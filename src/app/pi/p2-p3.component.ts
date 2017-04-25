@@ -10,22 +10,21 @@ import { POCOTax } from './pi-data';
 
 @Component({
    moduleId: module.id,
-   selector: 'p1-p3',
-   templateUrl: './p1-p3.component.html',
+   selector: 'p2-p3',
+   templateUrl: './p2-p3.component.html',
    styleUrls: ['../css/pi-data.css']
 })
 
-export class P1toP3Component {
+export class P2toP3Component {
    data: PIData[] = [];
    sourceData: PIDataRaw[];
    typeIDs: any;
    topPClass: number = 3;
-   midPClass: number = 2;
-   subPClass: number[] = [1];
-   ratioP1Single: number = 26.67; // 120 / 6
+   subPClass: number[] = [2];
+   ratioP2Single: number = 3.33; // 10 / 3
 
    show: number = 0;
-   prodOutput: number = 9;
+   prodOutput: number = 0;
    buyFromType: MarketOrderType
    sellToType: MarketOrderType
 
@@ -42,80 +41,42 @@ export class P1toP3Component {
       this.sellToType = this.piCalcService.sellToType;
 
       let topData: PIDataRaw[] = this.sourceData.filter(tid => tid.pClass === this.topPClass);
-      let midData: PIDataRaw[] = this.sourceData.filter(tid => tid.pClass === this.midPClass);
       let subData: PIDataRaw[] = this.sourceData.filter(tid => this.subPClass.includes(tid.pClass));
 
       let newSub: SubPIData[];
       this.data = [];
 
       for (let d of topData) {
+         let inpP2: PIDataRaw = subData.find(tid => tid.typeId == d.input1);
          newSub = [];
-
-         // input P2-1.P1-1
-         let inpP3: PIDataRaw = midData.find(tid => tid.typeId == d.input1);
-         let inpP2: PIDataRaw = subData.find(tid => tid.typeId == inpP3.input1);
          newSub.push(new SubPIData(
             inpP2.typeId,
             inpP2.name,
             inpP2.pClass,
             (this.buyFromType == MarketOrderType.buy) ? inpP2.buy : inpP2.sell,
-            this.ratioP1Single
+            this.ratioP2Single
          ));
 
-         // input P2-1.P1-2
-         inpP2 = subData.find(tid => tid.typeId == inpP3.input2);
+         inpP2 = subData.find(tid => tid.typeId == d.input2);
          newSub.push(new SubPIData(
             inpP2.typeId,
             inpP2.name,
             inpP2.pClass,
             (this.buyFromType == MarketOrderType.buy) ? inpP2.buy : inpP2.sell,
-            this.ratioP1Single
+            this.ratioP2Single
          ));
 
-         // input P2-2.P1-1
-         inpP3 = midData.find(tid => tid.typeId == d.input2);
-         inpP2 = subData.find(tid => tid.typeId == inpP3.input1);
-         newSub.push(new SubPIData(
-            inpP2.typeId,
-            inpP2.name,
-            inpP2.pClass,
-            (this.buyFromType == MarketOrderType.buy) ? inpP2.buy : inpP2.sell,
-            this.ratioP1Single
-         ));
-
-         // input P2-2.P1-2
-         inpP2 = subData.find(tid => tid.typeId == inpP3.input2);
-         newSub.push(new SubPIData(
-            inpP2.typeId,
-            inpP2.name,
-            inpP2.pClass,
-            (this.buyFromType == MarketOrderType.buy) ? inpP2.buy : inpP2.sell,
-            this.ratioP1Single
-         ));
-
-         // input P2-3.P1-1 if it exists
-         inpP3 = midData.find(tid => tid.typeId == d.input3);
-         if (inpP3) {
-            inpP2 = subData.find(tid => tid.typeId == inpP3.input1);
+         inpP2 = subData.find(tid => tid.typeId == d.input3);
+         if (inpP2) {
             newSub.push(new SubPIData(
                inpP2.typeId,
                inpP2.name,
                inpP2.pClass,
                (this.buyFromType == MarketOrderType.buy) ? inpP2.buy : inpP2.sell,
-               this.ratioP1Single
-            ));
-
-            // input P2-3.P1-2
-            inpP2 = subData.find(tid => tid.typeId == inpP3.input2);
-            newSub.push(new SubPIData(
-               inpP2.typeId,
-               inpP2.name,
-               inpP2.pClass,
-               (this.buyFromType == MarketOrderType.buy) ? inpP2.buy : inpP2.sell,
-               this.ratioP1Single
+               this.ratioP2Single
             ));
          }
-
+         
          // now add a sub for the costs of the product (sales and POCO taxes)
          newSub.push(new SubPIData(
             d.typeId,
