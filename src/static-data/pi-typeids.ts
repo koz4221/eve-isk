@@ -1,3 +1,14 @@
+export class PITypeID {
+  type_id: number;
+  type_name: string;
+  p_class: number;
+  input1_type_id?: number;
+  input2_type_id?: number;
+  input3_type_id?: number;
+  single_planet?: boolean;
+}
+
+export const PI_TYPE_IDS: PITypeID[] =
 [
   {
     "type_id": 2268,
@@ -31,7 +42,8 @@
   },
   {
     "type_id": 2272,
-    "type_name": "Heavy Metals"
+    "type_name": "Heavy Metals",
+    "p_class": 0
   },
   {
     "type_id": 2309,

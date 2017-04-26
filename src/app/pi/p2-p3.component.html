@@ -1,60 +1,54 @@
-<h3>P2 to P3</h3>
-<a class="btn btn-primary" role="button" data-toggle="collapse" href="#p2p3collapse" aria-expanded="false" aria-controls="p2p3collapse">
-  Link with href
-</a>
-<div id="p2p3collapse" class="collapse">
-<div class="panel panel-default">
-   <div class="panel-heading">
-      Output P3 Per Hour:&nbsp;<input #inpProd style="width: 50px" name="inpProd" [(ngModel)]="prodOutput">
-   </div>
-   <table class="table">
-      <!-- header row -->
-      <tr>
-         <th>Commodity</th>
-         <th>Quantity</th>
-         <th>Input Cost</th>
-         <th>POCO Cost</th>
-         <th>Taxes</th>
-         <th>Total Cost</th>
-         <th>Total Revenue</th>
-         <th>Profit/Loss</th>
-         <th>Margin</th>
-         <th>Profit/Loss Per Day</th>
-      </tr>
-      <template ngFor let-p [ngForOf]="data">
+<a role="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="divCollapse"><h3>P2 to P3</h3></a>
+<div id="divCollapse" [ngbCollapse]="isCollapsed">
+   <div class="panel panel-default">
+      <div class="panel-heading">
+         Output P3 Per Hour:&nbsp;<input #inpProd style="width: 50px" name="inpProd" [(ngModel)]="prodOutput">
+      </div>
+      <table class="table">
+         <!-- header row -->
          <tr>
-            <td (click)="show = (show == p.typeId) ? 0 : p.typeId">{{p.name}}</td>
-            <td>{{p.quantity}}</td>
-            <td>{{formatNumberString(p.inputCost)}}</td>
-            <td>{{formatNumberString(p.POCOCost)}}</td>
-            <td>{{formatNumberString(p.taxCost)}}</td>
-            <td>{{formatNumberString(p.totalCost)}}</td>
-            <td>{{formatNumberString(p.price)}}</td>
-            <td [ngClass]="(p.price - p.totalCost) > 0 ? 'posNumColor' : 'negNumColor'">
-               {{formatNumberString(p.price - p.totalCost)}}</td>
-            <td [ngClass]="(p.price - p.totalCost) > 0 ? 'posNumColor' : 'negNumColor'">
-               {{((p.price - p.totalCost) / p.price * 100).toFixed(2)}}%</td>
-            <td [ngClass]="(p.price - p.totalCost) > 0 ? 'posNumColor' : 'negNumColor'">
-               {{formatNumberString((p.price - p.totalCost) * prodOutput * 24)}}</td>
+            <th>Commodity</th>
+            <th>Quantity</th>
+            <th>Input Cost</th>
+            <th>POCO Cost</th>
+            <th>Taxes</th>
+            <th>Total Cost</th>
+            <th>Total Revenue</th>
+            <th>Profit/Loss</th>
+            <th>Margin</th>
+            <th>Profit/Loss Per Day</th>
          </tr>
-         <template ngFor let-s [ngForOf]="p.subdata">
-            <tr *ngIf="show == p.typeId" class="noTopBorder">
-               <td style="padding-left: 30px">{{s.name}}</td>
-               <td>{{s.quantity}}</td>
-               <td>{{formatNumberString(s.inputCost)}}</td>
-               <td>{{formatNumberString(s.POCOCost)}}</td>
-               <td>{{formatNumberString(s.taxCost)}}</td>
-               <td></td>
-               <td></td>
-               <td></td>
-               <td></td>
-               <td></td>
+         <template ngFor let-p [ngForOf]="data">
+            <tr>
+               <td (click)="show = (show == p.typeId) ? 0 : p.typeId">{{p.name}}</td>
+               <td>{{p.quantity}}</td>
+               <td>{{formatNumberString(p.inputCost)}}</td>
+               <td>{{formatNumberString(p.POCOCost)}}</td>
+               <td>{{formatNumberString(p.taxCost)}}</td>
+               <td>{{formatNumberString(p.totalCost)}}</td>
+               <td>{{formatNumberString(p.price)}}</td>
+               <td [ngClass]="(p.price - p.totalCost) > 0 ? 'posNumColor' : 'negNumColor'">
+                  {{formatNumberString(p.price - p.totalCost)}}</td>
+               <td [ngClass]="(p.price - p.totalCost) > 0 ? 'posNumColor' : 'negNumColor'">
+                  {{((p.price - p.totalCost) / p.price * 100).toFixed(2)}}%</td>
+               <td [ngClass]="(p.price - p.totalCost) > 0 ? 'posNumColor' : 'negNumColor'">
+                  {{formatNumberString((p.price - p.totalCost) * prodOutput * 24)}}</td>
             </tr>
+            <template ngFor let-s [ngForOf]="p.subdata">
+               <tr *ngIf="show == p.typeId" class="noTopBorder">
+                  <td style="padding-left: 30px">{{s.name}}</td>
+                  <td>{{s.quantity}}</td>
+                  <td>{{formatNumberString(s.inputCost)}}</td>
+                  <td>{{formatNumberString(s.POCOCost)}}</td>
+                  <td>{{formatNumberString(s.taxCost)}}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+            </template>
          </template>
-      </template>
-   </table>
+      </table>
+   </div>
 </div>
-</div>
-
-
-<br/>

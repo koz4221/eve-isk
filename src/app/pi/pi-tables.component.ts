@@ -10,6 +10,8 @@ import { P2toP3Component } from './p2-p3.component';
 import { P2toP4Component } from './p2-p4.component';
 import { P3toP4Component } from './p3-p4.component';
 
+import { PI_TYPE_IDS } from '../../static-data/pi-typeids';
+
 @Component({
    selector: 'pi-tables',
    templateUrl: './pi-tables.component.html',
@@ -28,9 +30,9 @@ export class PITablesComponent {
    @ViewChild(P2toP4Component)
    private p3p4Comp: P3toP4Component
 
-   constructor(protected piCalcService: PICalcService, private piDataService: PIDataService, private route: ActivatedRoute) {
-      piCalcService.numSalBroTax = 5;
-      piCalcService.numPOCOTax = 10;
+   constructor(protected piCalcService: PICalcService, private piDataService: PIDataService) {
+      piCalcService.numSalBroTax = 4.4;
+      piCalcService.numPOCOTax = 7;
 
       piDataService.prices = "jita";
 
@@ -64,7 +66,7 @@ export class PITablesComponent {
 
    loadData(): void {
       this.loaded = false;
-      this.piDataService.loadPIDataByCallback(this.route.snapshot.data['typeIDs'].json(), (data) => {
+      this.piDataService.loadPIDataByCallback((data) => {
          this.loaded = true;
          if (this.p1p3Comp) this.p1p3Comp.loadData(data);
          if (this.p2p3Comp) this.p2p3Comp.loadData(data);

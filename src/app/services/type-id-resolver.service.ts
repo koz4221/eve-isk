@@ -7,6 +7,6 @@ export class TypeIdResolver implements Resolve<any> {
    constructor(private router: Router, private http: Http) {}
 
    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-      return this.http.get('./static-data/pi-typeids.json');
+      return this.http.get('/static-data/pi-typeids.json');
    }
 }

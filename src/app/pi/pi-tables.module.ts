@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { PITablesComponent } from './pi-tables.component';
 import { P1toP3Component } from'./p1-p3.component';
@@ -24,7 +25,8 @@ import { PICalcService } from './pi-calc.service';
       BrowserModule,
       FormsModule,
       HttpModule,
-      JsonpModule
+      JsonpModule,
+      NgbModule
   ],
   providers: [
       PIDataService,

@@ -24,10 +24,11 @@ export class P2toP3Component {
    ratioP2Single: number = 3.33; // 10 / 3
 
    show: number = 0;
-   prodOutput: number = 0;
+   isCollapsed: boolean = true;
+   prodOutput: number = 60;
    buyFromType: MarketOrderType
    sellToType: MarketOrderType
-
+   
    constructor(
       public piDataService: PIDataService, 
       public piCalcService: PICalcService,

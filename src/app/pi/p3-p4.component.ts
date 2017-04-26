@@ -25,6 +25,7 @@ export class P3toP4Component {
    ratioP1Single: number = 40;
 
    show: number = 0;
+   isCollapsed: boolean = true;
    prodOutput: number = 0;
    buyFromType: MarketOrderType
    sellToType: MarketOrderType

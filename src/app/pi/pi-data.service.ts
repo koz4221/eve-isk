@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
-import { PIDataRaw, PIData, SubPIData } from './pi-data';
+import { PIDataRaw, PIData, SubPIData, POCOTax } from './pi-data';
 
 import { REGIONS } from '../../static-data/locations'
 import { LOCATIONS } from '../../static-data/locations'
-import { POCOTax } from './pi-data';
+import { PI_TYPE_IDS, PITypeID } from '../../static-data/pi-typeids';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -33,7 +33,8 @@ export class PIDataService {
    //    return this.data.filter(tid => tid.typeId === typeID)[0];
    // }
 
-   loadPIDataByCallback(typeIDs: any[], callback: (data: PIDataRaw[]) => void): void {
+   loadPIDataByCallback(callback: (data: PIDataRaw[]) => void): void {
+      let typeIDs: PITypeID[] = PI_TYPE_IDS;
       let data: PIDataRaw[] = [];
       let url: string = this.urlBase + LOCATIONS.find(p => p.code == this.prices).regionID + "/orders/?datasource=tranquility&order_type=all&type_id="
       let iter: number = 0;
