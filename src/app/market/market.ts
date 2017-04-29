@@ -11,6 +11,8 @@ export class MarketLocationStat {
       public locationID: number,
       public locationName: string,
       public regionID: number,
-      public price: number
+      public price: number,
+      public totVolume: number,
+      public totOrders: number,
    ){}
 }

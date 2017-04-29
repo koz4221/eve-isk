@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class MarketService {
    public data: MarketStat[] = [];
-   public locations: string[] = ["jita", "amarr", "catch"];
+   public locations: string[] = ["catch"]//, "jita"];
 
    private urlBase: string = "https://esi.tech.ccp.is/latest/markets/"
 
@@ -24,20 +24,28 @@ export class MarketService {
       let url: string = this.urlBase// + LOCATIONS.find(p => p.code == this.prices).regionID + "/orders/?datasource=tranquility&order_type=all&type_id="
 
       for (let tid of typeIDs) {
-         let ms: MarketStat = new MarketStat(tid, "", new Array<MarketLocationStat>());
+         let ms: MarketStat = new MarketStat(tid, String(tid), new Array<MarketLocationStat>());
 
          for (let loc of this.locations) {
             let regionID: number = LOCATIONS.find(p => p.code == loc).regionID;
             let locationID: number = LOCATIONS.find(p => p.code == loc).locationID;
+            let mls: MarketLocationStat = new MarketLocationStat(locationID, "", regionID, 0, 0, 0);
+            let stat: MarketLocationStat;
             url = this.urlBase + regionID + "/orders/?datasource=tranquility&order_type=all&type_id=" + tid
+
+            ms.stats.push(mls);
 
             this.http.get(url).map((data) => {
                let body = data.json();
                return body || { };
             }).subscribe(
                res => {
-                  mls = this.parseAndCreateMarketStatData(res, locationID, regionID);
-                  ms.stats.push(mls);
+                  stat = this.parseAndCreateMarketStatData(res, locationID, regionID);
+                  mls = ms.stats.find(item => item.locationID == stat.locationID);
+                  mls.locationName = stat.locationName;
+                  mls.price = stat.price;
+                  mls.totVolume = stat.totVolume;
+                  mls.totOrders = stat.totOrders;
                },
                error => {
                   console.log(error);
@@ -52,16 +60,22 @@ export class MarketService {
 
    private parseAndCreateMarketStatData(data: any, lid: number, rid: number): MarketLocationStat {
       let locName: string = LOCATIONS.find(l => l.locationID == lid).name
-      let mls: MarketLocationStat = new MarketLocationStat(lid, locName, rid, 0);
+      let locCode: string = LOCATIONS.find(l => l.locationID == lid).code
       let price: number = 0;
+      let volume: number = 0;
+      let orders: number = 0;
 
       data = data.filter(f => f.is_buy_order == false);
 
       for (let stat of data) {
-         if (stat.price > price) { price = stat.price; };
+         if (stat.price < price || price == 0) { price = stat.price; };
+         
+         if (locCode == "catch") {
+            volume += +(stat.volRemaining);
+            orders++;
+         }
       }
 
-      mls.price = price;
-      return mls;
+      return new MarketLocationStat(lid, locName, rid, price, volume, orders);
    }
 }

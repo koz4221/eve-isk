@@ -2,7 +2,7 @@
 <div class="container">
    <div class="panel panel-default">
       <table class="table">
-         <template ngFor let-ms [ngForOf]="this.marketService.data">
+         <!--<template ngFor let-ms [ngForOf]="this.marketService.data">
             <tr>
                <td [attr.rowspan]="getNumLocations()">{{ms.typeID}}</td>
                <td>{{ms.stats[0]?.locationName}}</td>
@@ -14,7 +14,13 @@
                   <td>4</td>
                </tr>
             </template>
-         </template>
+         </template>-->
+         <tr *ngFor="let ms of this.marketService.data">
+            <td>{{ms.typeName}}</td>
+            <td>{{ms.stats[0].price}}</td>
+            <td>{{ms.stats[0].totVolume}}</td>
+         </tr>
+
       </table>
    </div>
 </div>
