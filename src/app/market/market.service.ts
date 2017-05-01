@@ -40,6 +40,7 @@ export class MarketService {
                return body || { };
             }).subscribe(
                res => {
+                  res = res.filter(p => p.location_id == locationID);
                   stat = this.parseAndCreateMarketStatData(res, locationID, regionID);
                   mls = ms.stats.find(item => item.locationID == stat.locationID);
                   mls.locationName = stat.locationName;
@@ -71,7 +72,7 @@ export class MarketService {
          if (stat.price < price || price == 0) { price = stat.price; };
          
          if (locCode == "catch") {
-            volume += +(stat.volRemaining);
+            volume += Number(stat.volume_remain);
             orders++;
          }
       }
