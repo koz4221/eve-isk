@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 
 import { MarketService } from './market.service';
+import { EveAPIService } from '../services/eve-api.service';
+
+import { MarketItemCalc, MarketStat, MarketLocationStat } from './market';
 
 @Component({
    selector: 'market',
@@ -16,8 +19,11 @@ export class MarketComponent {
       return this.marketService.locations.length;
    }
 
-   test(): number {
-      console.log(this.marketService.data);
-      return 1;
+   calc(ms: MarketStat): MarketItemCalc {
+      let calc: MarketItemCalc = new MarketItemCalc();
+      calc.profit = this.marketService.formatNumberString(ms.stats[0].price - ms.stats[1].price)
+      calc.margin = this.marketService.formatNumberString(((ms.stats[0].price - ms.stats[1].price) / ms.stats[1].price) * 100);
+
+      return calc;
    }
 }

@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class MarketService {
    public data: MarketStat[] = [];
-   public locations: string[] = ["catch"]//, "jita"];
+   public locations: string[] = ["catch", "jita"];
 
    private urlBase: string = "https://esi.tech.ccp.is/latest/markets/"
 
@@ -78,5 +78,21 @@ export class MarketService {
       }
 
       return new MarketLocationStat(lid, locName, rid, price, volume, orders);
+   }
+
+   formatNumberString(num: number): string {
+      let fNum: string
+
+      // decimal precision
+      if (num < 1000 && num > -1000) {
+         fNum = num.toFixed(2);
+      } else {
+         fNum = num.toFixed(0);
+      }
+
+      // add commas for big numbers
+      fNum = fNum.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+      return fNum;
    }
 }

@@ -16,3 +16,8 @@ export class MarketLocationStat {
       public totOrders: number,
    ){}
 }
+
+export class MarketItemCalc {
+   public profit: string;
+   public margin: string;
+}

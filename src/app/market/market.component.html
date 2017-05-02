@@ -2,23 +2,34 @@
 <div class="container">
    <div class="panel panel-default">
       <table class="table">
-         <!--<template ngFor let-ms [ngForOf]="this.marketService.data">
+         <!--<ng-template ngFor let-ms [ngForOf]="this.marketService.data">
             <tr>
                <td [attr.rowspan]="getNumLocations()">{{ms.typeID}}</td>
                <td>{{ms.stats[0]?.locationName}}</td>
                <td>2</td>
             </tr>
-            <template ngFor let-mls [ngForOf]="ms.stats" let-i="index">
+            <ng-template ngFor let-mls [ngForOf]="ms.stats" let-i="index">
                <tr *ngIf="i > 0">
                   <td>{{mls.locationName}}</td>
                   <td>4</td>
                </tr>
-            </template>
-         </template>-->
+            </ng-template>
+         </ng-template>-->
+         <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Jita Price</th>
+            <th>Profit</th>
+            <th>Margin</th>
+         </tr>
          <tr *ngFor="let ms of this.marketService.data">
             <td>{{ms.typeName}}</td>
             <td>{{ms.stats[0].price}}</td>
-            <td>{{ms.stats[0].totVolume}}</td>
+            <td>{{ms.stats[0].totVolume}} ({{ms.stats[0].totOrders}})</td>
+            <td>{{ms.stats[1].price}}</td>
+            <td>{{this.calc(ms).profit}}</td>
+            <td>{{this.calc(ms).margin}}%</td>
          </tr>
 
       </table>
