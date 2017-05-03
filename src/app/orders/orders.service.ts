@@ -87,9 +87,9 @@ export class OrdersService {
          this.orders.find(o => o.orderID == order.orderID).typeName = val.typeName;
       }
       else {
-         this.eveAPI.getTypeName(order.typeID, (data) => {
-            this.orders.find(o => o.orderID == order.orderID).typeName = data;
-            this.typeNames.push({ typeID: order.typeID, typeName: data });
+         this.eveAPI.getType(order.typeID, (data) => {
+            this.orders.find(o => o.orderID == order.orderID).typeName = data.typeName;
+            this.typeNames.push({ typeID: order.typeID, typeName: data.typeName });
          })
       }
    }

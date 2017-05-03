@@ -13,6 +13,20 @@ declare const AWS: any;
 
 export const ESI_BASE_URL: string = "https://esi.tech.ccp.is/latest";
 
+export class EveType {
+   constructor(
+      public typeID: number,
+      public typeName: string,
+      public volume: number
+   ){}
+}
+
+export class ItemMarketHistory {
+   constructor (
+
+   ){}
+}
+
 @Injectable()
 export class EveAPIService {
    private dynamoClient;
@@ -27,7 +41,7 @@ export class EveAPIService {
       this.dynamoClient = new AWS.DynamoDB.DocumentClient();
    }
 
-   public getTypeName(typeID: number, callback: (name: string) => void): void {
+   public getType(typeID: number, callback: (type: EveType) => void): void {
       // step 1: check cache
       //console.log(typeID);
 
@@ -49,20 +63,28 @@ export class EveAPIService {
          } 
          else {
             if (data.Items.length > 0) {
-               callback(data.Items[0].Name);
+               callback(new EveType(
+                  data.Items[0].TypeID,
+                  data.Items[0].Name,
+                  data.Items[0].Volume
+               ));
             }
             else {
                // step 3: pull from ESI
                let url: string = ESI_BASE_URL + "/universe/types/" + typeID + "/?datasource=tranquility&language=en-us"
                this.getTypeData(url).subscribe(
                   res => {
-                     callback(res.name);
+                     callback(new EveType(
+                        res.type_id,
+                        res.name,
+                        res.volume
+                     ));
                      // add to dynamoDB
-                     this.saveNewDynamoItem(typeID, res.name);
+                     this.saveNewDynamoItem(res);
                   },
                   error => { 
                      console.log(error);
-                     callback("!ERROR");
+                     callback(undefined);
                   }
                )
             }
@@ -80,12 +102,13 @@ export class EveAPIService {
       return body || { };
    }
 
-   private saveNewDynamoItem(typeID: number, typeName: string): void {
+   private saveNewDynamoItem(res: any): void {
       let params = {
          TableName: "EveTypeIDs",
          Item: {
-            "TypeID": +typeID,
-            "Name": typeName
+            "TypeID": +res.type_id,
+            "Name": res.name,
+            "Volume": +res.volume
          }
       };
 
@@ -148,6 +171,10 @@ export class EveAPIService {
       order.topPrice = topPrice;
       order.topNumOrders = topNumOrders;
       order.topVolume = topVol;
+   }
+
+   public CreateMarketHistoryStats(typeIDs: number[]): void {
+      
    }
 
 

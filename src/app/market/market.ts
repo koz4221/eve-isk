@@ -2,6 +2,7 @@ export class MarketStat {
    constructor(
       public typeID: number,
       public typeName: string,
+      public itemVolume: number,
       public stats: MarketLocationStat[],
    ){}
 }
@@ -20,4 +21,5 @@ export class MarketLocationStat {
 export class MarketItemCalc {
    public profit: string;
    public margin: string;
+   public profitPerM3: string;
 }

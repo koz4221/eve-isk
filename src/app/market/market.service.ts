@@ -24,39 +24,45 @@ export class MarketService {
       let url: string = this.urlBase// + LOCATIONS.find(p => p.code == this.prices).regionID + "/orders/?datasource=tranquility&order_type=all&type_id="
 
       for (let tid of typeIDs) {
-         let ms: MarketStat = new MarketStat(tid, String(tid), new Array<MarketLocationStat>());
+         if (this.data.filter(f => f.typeID == tid).length == 0) {
+            let ms: MarketStat = new MarketStat(tid, "", 1, new Array<MarketLocationStat>());
 
-         for (let loc of this.locations) {
-            let regionID: number = LOCATIONS.find(p => p.code == loc).regionID;
-            let locationID: number = LOCATIONS.find(p => p.code == loc).locationID;
-            let mls: MarketLocationStat = new MarketLocationStat(locationID, "", regionID, 0, 0, 0);
-            let stat: MarketLocationStat;
-            url = this.urlBase + regionID + "/orders/?datasource=tranquility&order_type=all&type_id=" + tid
+            for (let loc of this.locations) {
+               let regionID: number = LOCATIONS.find(p => p.code == loc).regionID;
+               let locationID: number = LOCATIONS.find(p => p.code == loc).locationID;
+               let mls: MarketLocationStat = new MarketLocationStat(locationID, "", regionID, 0, 0, 0);
+               let stat: MarketLocationStat;
+               url = this.urlBase + regionID + "/orders/?datasource=tranquility&order_type=all&type_id=" + tid
 
-            ms.stats.push(mls);
+               ms.stats.push(mls);
 
-            this.http.get(url).map((data) => {
-               let body = data.json();
-               return body || { };
-            }).subscribe(
-               res => {
-                  res = res.filter(p => p.location_id == locationID);
-                  stat = this.parseAndCreateMarketStatData(res, locationID, regionID);
-                  mls = ms.stats.find(item => item.locationID == stat.locationID);
-                  mls.locationName = stat.locationName;
-                  mls.price = stat.price;
-                  mls.totVolume = stat.totVolume;
-                  mls.totOrders = stat.totOrders;
-               },
-               error => {
-                  console.log(error);
-               }
-            )
+               this.http.get(url).map((data) => {
+                  let body = data.json();
+                  return body || { };
+               }).subscribe(
+                  res => {
+                     res = res.filter(p => p.location_id == locationID);
+                     stat = this.parseAndCreateMarketStatData(res, locationID, regionID);
+                     mls = ms.stats.find(item => item.locationID == stat.locationID);
+                     mls.locationName = stat.locationName;
+                     mls.price = stat.price;
+                     mls.totVolume = stat.totVolume;
+                     mls.totOrders = stat.totOrders;
+                  },
+                  error => {
+                     console.log(error);
+                  }
+               )
+            }
+
+            this.eveAPI.getType(tid, (data) => {
+               ms.typeName = data.typeName;
+               ms.itemVolume = data.volume;
+            })
+
+            this.data.push(ms);
          }
-
-         this.data.push(ms);
       }
-
    }
 
    private parseAndCreateMarketStatData(data: any, lid: number, rid: number): MarketLocationStat {
