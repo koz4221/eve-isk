@@ -36,6 +36,10 @@ export class MarketComponent {
       return calc;
    }
 
+   fmt(val: number) {
+      return this.marketService.formatNumberString(val);
+   }
+
    getItem(typeID: number): MarketStat {
       return this.marketService.data.find(f => f.typeID == typeID);
    }

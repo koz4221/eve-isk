@@ -23,7 +23,9 @@ export class EveType {
 
 export class ItemMarketHistory {
    constructor (
-
+      public typeID: number,
+      public avgVol7Day: number,
+      public avgVol30Day: number
    ){}
 }
 
@@ -173,9 +175,38 @@ export class EveAPIService {
       order.topVolume = topVol;
    }
 
-   public CreateMarketHistoryStats(typeIDs: number[]): void {
+   public createMarketHistoryStats(typeID: number, callback: (data: ItemMarketHistory) => void): void {
+      let regionID: number = LOCATIONS.find(f => f.code == "catch").regionID
+      let url: string = ESI_BASE_URL + "/markets/" + regionID + "/history/?datasource=tranquility&type_id=" + typeID
+
+      let date: Date
+      let vol7day: number = 0;
       
+      this.http.get(url).map((data) => {
+         let body = data.json();
+         return body || { };
+      }).subscribe(
+         res => {
+            for (let r of res) {
+               date = new Date(r.date);
+               if ((date.getTime() + this.daysInMiliseconds(7)) >= (Date.now() - this.daysInMiliseconds(1))) {
+                  vol7day += r.volume;
+               }
+            }
+
+            callback(new ItemMarketHistory(
+               2205,
+               vol7day / 7,
+               0
+            ));
+         },
+         error => {
+            console.log(error);
+         }
+      )
    }
 
-
+   private daysInMiliseconds(days: number): number {
+      return days * 24 * 60 * 60 * 1000;
+   }
 }

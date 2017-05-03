@@ -4,7 +4,7 @@
       <tr *ngFor="let g of this.importItems">
          <div class="panel panel-default">
             <div class="panel-heading">
-               {{g.group}}
+               <label>{{g.group}}</label>
             </div>
             <table class="table">
                <!--<ng-template ngFor let-ms [ngForOf]="this.marketService.data">
@@ -24,16 +24,18 @@
                   <th>Item</th>
                   <th>Price</th>
                   <th>Quantity</th>
-                  <th>Jita Price</th>
+                  <th>Avg 7 Day Quantity</th>
+                  <th>Export Price</th>
                   <th>Profit</th>
                   <th>Profit per m<sup>3</sup></th>
                   <th>Margin</th>
                </tr>
-               <tr *ngFor="let i of g.items">
+               <tr *ngFor="let i of g.items" [ngClass]="{'danger': getItem(i)?.stats[0].totVolume == 0}">
                   <td>{{getItem(i)?.typeName}}</td>
-                  <td>{{getItem(i)?.stats[0].price}}</td>
+                  <td>{{this.fmt(getItem(i)?.stats[0].price)}}</td>
                   <td>{{getItem(i)?.stats[0].totVolume}} ({{getItem(i)?.stats[0].totOrders}})</td>
-                  <td>{{getItem(i)?.stats[1].price}}</td>
+                  <td>{{getItem(i)?.avgVol7Day.toFixed(0)}}</td>
+                  <td>{{this.fmt(getItem(i)?.stats[1].price)}}</td>
                   <td>{{this.calc(i).profit}}</td>
                   <td>{{this.calc(i).profitPerM3}}</td>
                   <td>{{this.calc(i).margin}}%</td>

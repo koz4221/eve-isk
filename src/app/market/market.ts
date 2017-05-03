@@ -3,6 +3,8 @@ export class MarketStat {
       public typeID: number,
       public typeName: string,
       public itemVolume: number,
+      public avgVol7Day: number,
+      public avgVol30Day: number,
       public stats: MarketLocationStat[],
    ){}
 }

@@ -16,16 +16,17 @@ export class MarketService {
 
    private urlBase: string = "https://esi.tech.ccp.is/latest/markets/"
 
-   constructor(private http: Http, private eveAPI: EveAPIService) {}
+   constructor(private http: Http, private eveAPI: EveAPIService) {
+      this.data = [];
+   }
 
    public LoadMarketData(typeIDs: number[]): void {
-      this.data = [];
       let mls: MarketLocationStat;
       let url: string = this.urlBase// + LOCATIONS.find(p => p.code == this.prices).regionID + "/orders/?datasource=tranquility&order_type=all&type_id="
 
       for (let tid of typeIDs) {
          if (this.data.filter(f => f.typeID == tid).length == 0) {
-            let ms: MarketStat = new MarketStat(tid, "", 1, new Array<MarketLocationStat>());
+            let ms: MarketStat = new MarketStat(tid, "", 1, 0, 0, new Array<MarketLocationStat>());
 
             for (let loc of this.locations) {
                let regionID: number = LOCATIONS.find(p => p.code == loc).regionID;
@@ -58,6 +59,10 @@ export class MarketService {
             this.eveAPI.getType(tid, (data) => {
                ms.typeName = data.typeName;
                ms.itemVolume = data.volume;
+            })
+
+            this.eveAPI.createMarketHistoryStats(tid, (data) => {
+               ms.avgVol7Day = data.avgVol7Day;
             })
 
             this.data.push(ms);
