@@ -38,7 +38,7 @@ export class OrdersService {
 
    loadOrders(): void {
       this.orders = [];
-      let url: string = "https://api.eveonline.com/char/MarketOrders.xml.aspx?keyID=6138010&vCode=hsyZWl5yV8HGG7oz2QZW6z1QA1juV4y2BkwUGQQ1uRkdhm2Z1PUmrmigsLpDGkSm"
+      let url: string = "https://api.eveonline.com/char/MarketOrders.xml.aspx?keyID=6138010&vCode=hsyZWl5yV8HGG7oz2QZW6z1QA1juV4y2BkwUGQQ1uRkdhm2Z1PUmrmigsLpDGkSm&characterID=2112070262"
 
       this.getOrderData(url).subscribe(
          res => {
