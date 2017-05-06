@@ -26,7 +26,7 @@ export class MarketService {
 
       for (let tid of typeIDs) {
          if (this.data.filter(f => f.typeID == tid).length == 0) {
-            let ms: MarketStat = new MarketStat(tid, "", 1, 0, 0, new Array<MarketLocationStat>());
+            let ms: MarketStat = new MarketStat(tid, "", 1, 0, 0, 0, new Array<MarketLocationStat>());
 
             for (let loc of this.locations) {
                let regionID: number = LOCATIONS.find(p => p.code == loc).regionID;
@@ -63,6 +63,7 @@ export class MarketService {
 
             this.eveAPI.createMarketHistoryStats(tid, (data) => {
                ms.avgVol7Day = data.avgVol7Day;
+               ms.avgPrice = data.avgPrice;
             })
 
             this.data.push(ms);

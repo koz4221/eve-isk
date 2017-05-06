@@ -25,7 +25,8 @@ export class ItemMarketHistory {
    constructor (
       public typeID: number,
       public avgVol7Day: number,
-      public avgVol30Day: number
+      public avgVol30Day: number,
+      public avgPrice: number
    ){}
 }
 
@@ -181,6 +182,7 @@ export class EveAPIService {
 
       let date: Date
       let vol7day: number = 0;
+      let avgPrice: number = 0;
       
       this.http.get(url).map((data) => {
          let body = data.json();
@@ -191,13 +193,15 @@ export class EveAPIService {
                date = new Date(r.date);
                if ((date.getTime() + this.daysInMiliseconds(7)) >= (Date.now() - this.daysInMiliseconds(1))) {
                   vol7day += r.volume;
+                  avgPrice += r.average;
                }
             }
 
             callback(new ItemMarketHistory(
                2205,
                vol7day / 7,
-               0
+               0,
+               avgPrice / 7
             ));
          },
          error => {

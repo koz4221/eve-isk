@@ -5,6 +5,7 @@ export class MarketStat {
       public itemVolume: number,
       public avgVol7Day: number,
       public avgVol30Day: number,
+      public avgPrice: number,
       public stats: MarketLocationStat[],
    ){}
 }

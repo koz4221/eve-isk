@@ -40,6 +40,10 @@ export class MarketComponent {
       return this.marketService.formatNumberString(val);
    }
 
+   fmtBig(val: number) {
+      return (val / 1000000).toFixed(2) + "m";
+   }
+
    getItem(typeID: number): MarketStat {
       return this.marketService.data.find(f => f.typeID == typeID);
    }

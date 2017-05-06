@@ -24,7 +24,8 @@
                   <th>Item</th>
                   <th>Price</th>
                   <th>Quantity</th>
-                  <th>Avg 7 Day Quantity</th>
+                  <th>Avg Quan 7D</th>
+                  <th>Market Rev</th>
                   <th>Export Price</th>
                   <th>Profit</th>
                   <th>Profit per m<sup>3</sup></th>
@@ -35,6 +36,7 @@
                   <td>{{this.fmt(getItem(i)?.stats[0].price)}}</td>
                   <td>{{getItem(i)?.stats[0].totVolume}} ({{getItem(i)?.stats[0].totOrders}})</td>
                   <td>{{getItem(i)?.avgVol7Day.toFixed(0)}}</td>
+                  <td>{{this.fmtBig(getItem(i)?.avgVol7Day * getItem(i)?.avgPrice)}}</td>
                   <td>{{this.fmt(getItem(i)?.stats[1].price)}}</td>
                   <td>{{this.calc(i).profit}}</td>
                   <td>{{this.calc(i).profitPerM3}}</td>
