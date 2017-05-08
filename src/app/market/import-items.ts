@@ -73,44 +73,6 @@ export const IMPORT_ITEMS: any[] = [
       ]
    },
    {
-      group: "ANIs",
-      items: [
-         29337,       // Augoror Navy Issue
-         2048,        // Damage Control II
-         20353,       // 1600mm Reinforced Steel Plates II
-         11648,       // Armor Thermic Hardener II
-         11644,       // Armor Kinetic Hardener II
-         11646,       // Armor Explosive Hardener II
-         2364,        // Heat Sink II
-         3568,        // Small Capacitor Booster II
-         3025,        // Heavy Beam Laser II
-         6963,        // Heavy Modulated Energy Beam I
-         31055,       // Medium Trimark Armor Pump I
-         30999,       // Medium Anti-EM Pump I
-         12822,       // Aurora M
-         23089,       // Imperial Navy Multifrequency M
-         23097,       // Imperial Navy Standard M
-         28668,       // Nanite Repair Paste
-         32006,       // Navy Cap Booster 400
-      ]
-   },
-   {
-      group: "Guardians",
-      items: [
-         11987,       // Guardian
-         20353,       // 1600mm Reinforced Steel Plates II
-         2048,        // Damage Control II
-         11269,       // Energized Adaptive Nano Membrane II
-         11648,       // Armor Thermic Hardener II
-         11642,       // Armor EM Hardener II
-         12058,       // 10MN Afterburner II
-         16487,       // Large 'Regard' Remote Capacitor Transmitter
-         16451,       // Large Coaxial Remote Armor Repairer
-         26913,       // Medium Remote Armor Repairer II
-         31055,       // Medium Trimark Armor Pump I
-      ]
-   },
-   {
       group: "Caracals",
       items: [
          621,         // Caracal
@@ -149,6 +111,60 @@ export const IMPORT_ITEMS: any[] = [
          24497,       // Nova Fury Light Missile
          24499,       // Inferno Fury Light Missile
          2613,        // Mjolnir Fury Light Missile
+      ]
+   },
+   {
+      group: "VNIs",
+      items: [
+         17843,       // Vexor Navy Issue
+         23527,       // Drone Link Augmentor I
+         3841,        // Large Shield Extender II
+         24417,       // Drone Navigation Computer II
+         33824,       // Omnidirectional Tracking Enhancer II
+         1447,        // Capacitor Power Relay II
+         4405,        // Drone Damage Amplifier II
+         31718,       // Medium Anti-EM Screen Reinforcer I
+         31754,       // Medium Anti-Thermal Screen Reinforcer I
+         2195,        // Praetor II
+         31870,       // Imperial Navy Praetor
+               ]
+   },
+   {
+      group: "ANIs",
+      items: [
+         29337,       // Augoror Navy Issue
+         2048,        // Damage Control II
+         20353,       // 1600mm Reinforced Steel Plates II
+         11648,       // Armor Thermic Hardener II
+         11644,       // Armor Kinetic Hardener II
+         11646,       // Armor Explosive Hardener II
+         2364,        // Heat Sink II
+         3568,        // Small Capacitor Booster II
+         3025,        // Heavy Beam Laser II
+         6963,        // Heavy Modulated Energy Beam I
+         31055,       // Medium Trimark Armor Pump I
+         30999,       // Medium Anti-EM Pump I
+         12822,       // Aurora M
+         23089,       // Imperial Navy Multifrequency M
+         23097,       // Imperial Navy Standard M
+         28668,       // Nanite Repair Paste
+         32006,       // Navy Cap Booster 400
+      ]
+   },
+   {
+      group: "Guardians",
+      items: [
+         11987,       // Guardian
+         20353,       // 1600mm Reinforced Steel Plates II
+         2048,        // Damage Control II
+         11269,       // Energized Adaptive Nano Membrane II
+         11648,       // Armor Thermic Hardener II
+         11642,       // Armor EM Hardener II
+         12058,       // 10MN Afterburner II
+         16487,       // Large 'Regard' Remote Capacitor Transmitter
+         16451,       // Large Coaxial Remote Armor Repairer
+         26913,       // Medium Remote Armor Repairer II
+         31055,       // Medium Trimark Armor Pump I
       ]
    }
 ]
