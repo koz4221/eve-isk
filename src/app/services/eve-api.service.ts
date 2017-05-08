@@ -17,7 +17,9 @@ export class EveType {
    constructor(
       public typeID: number,
       public typeName: string,
-      public volume: number
+      public volume: number,
+      public groupID: number,
+      public categoryID: number
    ){}
 }
 
@@ -69,7 +71,9 @@ export class EveAPIService {
                callback(new EveType(
                   data.Items[0].TypeID,
                   data.Items[0].Name,
-                  data.Items[0].Volume
+                  data.Items[0].Volume,
+                  data.Items[0].GroupID,
+                  data.Items[0].CategoryID
                ));
             }
             else {
@@ -77,13 +81,29 @@ export class EveAPIService {
                let url: string = ESI_BASE_URL + "/universe/types/" + typeID + "/?datasource=tranquility&language=en-us"
                this.getTypeData(url).subscribe(
                   res => {
-                     callback(new EveType(
+                     let et = new EveType(
                         res.type_id,
                         res.name,
-                        res.volume
-                     ));
-                     // add to dynamoDB
-                     this.saveNewDynamoItem(res);
+                        res.volume,
+                        res.group_id,
+                        0
+                     );
+
+                     // need to get categoryID which requires a separate call
+                     url = ESI_BASE_URL + "/universe/groups/" + res.group_id + "/?datasource=tranquility&language=en-us"
+                     this.getTypeData(url).subscribe(
+                        res => {
+                           et.categoryID = res.category_id;
+
+                           callback(et);
+                           // add to dynamoDB
+                           this.saveNewDynamoItem(et);
+                        },
+                        error => {
+                           console.log(error);
+                           callback(undefined);
+                        }
+                     )
                   },
                   error => { 
                      console.log(error);
@@ -105,13 +125,15 @@ export class EveAPIService {
       return body || { };
    }
 
-   private saveNewDynamoItem(res: any): void {
+   private saveNewDynamoItem(et: EveType): void {
       let params = {
          TableName: "EveTypeIDs",
          Item: {
-            "TypeID": +res.type_id,
-            "Name": res.name,
-            "Volume": +res.volume
+            "TypeID": et.typeID,
+            "Name": et.typeName,
+            "Volume": et.volume,
+            "GroupID": et.groupID,
+            "CategoryID": et.categoryID
          }
       };
 

@@ -1,15 +1,15 @@
 <br>
 <div class="container">
    <div class="panel panel-default">
-      <table class="table">
+      <table class="table" [mfData]="ordersService.orders" #mf="mfDataTable">
          <tr>
-            <th>Type ID</th>
+            <th><mfDefaultSorter by="typeName">Type</mfDefaultSorter></th>
             <th>Price</th>
             <th>Quantity</th>
             <th>Top Price</th>
             <th>Volume Behind</th>
          </tr>
-         <tr [ngClass]="{'success': this.thisIsTopOrder(o), 'danger': !this.thisIsTopOrder(o)}" *ngFor="let o of this.ordersService.orders">
+         <tr [ngClass]="{'success': this.thisIsTopOrder(o), 'danger': !this.thisIsTopOrder(o)}" *ngFor="let o of mf.data">
             <td>{{o.typeName}}</td>
             <td>{{this.ordersService.formatNumberString(o.price)}}</td>
             <td>{{o.volRemaining}} / {{o.volEntered}}</td>

@@ -25,6 +25,7 @@
     "@angular/router": "^4.0.3",
     "@angular/tsc-wrapped": "^4.0.3",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.25",
+    "angular2-datatable": "^0.6.0",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "rxjs": "^5.0.1",

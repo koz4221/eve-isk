@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataTableModule } from "angular2-datatable";
 
 import { MarketOrder } from './orders';
 

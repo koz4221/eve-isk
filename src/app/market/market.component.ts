@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { DataTableModule } from "angular2-datatable";
 
 import { MarketService } from './market.service';
 import { EveAPIService } from '../services/eve-api.service';
 
 import { MarketItemCalc, MarketStat, MarketLocationStat } from './market';
 
-import { IMPORT_ITEMS } from './import-items';
+import { IMPORT_ITEMS_ALL, IMPORT_ITEMS_DOCTRINE } from './import-items';
 
 @Component({
    selector: 'market',
@@ -13,11 +14,12 @@ import { IMPORT_ITEMS } from './import-items';
 })
 
 export class MarketComponent {
-   importItems = IMPORT_ITEMS;
+   //importItems = IMPORT_ITEMS_DOCTRINE;
+   importItems = IMPORT_ITEMS_ALL;
 
    constructor(public marketService: MarketService) {
       for (let g of this.importItems) {
-         marketService.LoadMarketData(g.items);
+         marketService.LoadMarketData(this.importItems);
       }
    }
 
@@ -29,15 +31,16 @@ export class MarketComponent {
       let ms: MarketStat = this.getItem(typeID);
       let calc: MarketItemCalc = new MarketItemCalc();
 
-      calc.profit = this.marketService.formatNumberString(ms.stats[0].price - ms.stats[1].price)
-      calc.margin = this.marketService.formatNumberString(((ms.stats[0].price - ms.stats[1].price) / ms.stats[1].price) * 100);
-      calc.profitPerM3 = this.marketService.formatNumberString((ms.stats[0].price - ms.stats[1].price) / ms.itemVolume);
+      calc.profit = this.marketService.formatNumberString(ms.impPrice - ms.expPrice)
+      calc.margin = this.marketService.formatNumberString(((ms.impPrice - ms.expPrice) / ms.expPrice) * 100);
+      calc.profitPerM3 = this.marketService.formatNumberString((ms.impPrice - ms.expPrice) / ms.itemVolume);
 
       return calc;
    }
 
-   fmt(val: number) {
-      return this.marketService.formatNumberString(val);
+   fmt(val: number): String {
+      if (val) return this.marketService.formatNumberString(val);
+      return "";
    }
 
    fmtBig(val: number) {

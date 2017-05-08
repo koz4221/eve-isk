@@ -26,16 +26,21 @@ export class MarketService {
 
       for (let tid of typeIDs) {
          if (this.data.filter(f => f.typeID == tid).length == 0) {
-            let ms: MarketStat = new MarketStat(tid, "", 1, 0, 0, 0, new Array<MarketLocationStat>());
+            let ms: MarketStat = new MarketStat(tid);
+            
+            for (let i = 0; i < this.locations.length; i++) {
+               let isImport: boolean;
+               let loc: string = this.locations[i];
 
-            for (let loc of this.locations) {
+               // import = 0, export = 1
+               if (i == 0) { isImport = true; }
+               else { isImport = false; }
+
                let regionID: number = LOCATIONS.find(p => p.code == loc).regionID;
                let locationID: number = LOCATIONS.find(p => p.code == loc).locationID;
                let mls: MarketLocationStat = new MarketLocationStat(locationID, "", regionID, 0, 0, 0);
                let stat: MarketLocationStat;
                url = this.urlBase + regionID + "/orders/?datasource=tranquility&order_type=all&type_id=" + tid
-
-               ms.stats.push(mls);
 
                this.http.get(url).map((data) => {
                   let body = data.json();
@@ -44,11 +49,15 @@ export class MarketService {
                   res => {
                      res = res.filter(p => p.location_id == locationID);
                      stat = this.parseAndCreateMarketStatData(res, locationID, regionID);
-                     mls = ms.stats.find(item => item.locationID == stat.locationID);
-                     mls.locationName = stat.locationName;
-                     mls.price = stat.price;
-                     mls.totVolume = stat.totVolume;
-                     mls.totOrders = stat.totOrders;
+
+                     if (isImport) {
+                        ms.impPrice = stat.price;
+                        ms.impVolume = stat.totVolume;
+                        ms.impOrders = stat.totOrders;
+                     }
+                     else {
+                        ms.expPrice = stat.price;
+                     }
                   },
                   error => {
                      console.log(error);
