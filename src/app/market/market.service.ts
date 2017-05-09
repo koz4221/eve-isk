@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 
 import { MarketStat, MarketLocationStat } from './market'
 import { LOCATIONS } from '../../static-data/locations'
+import { IMPORT_ITEMS_DOCTRINE } from './import-items';
 
 import { EveAPIService } from '../services/eve-api.service';
 
@@ -54,9 +55,15 @@ export class MarketService {
                         ms.impPrice = stat.price;
                         ms.impVolume = stat.totVolume;
                         ms.impOrders = stat.totOrders;
+                        ms.profit = ms.impPrice - ms.expPrice;
+                        ms.profitPerM3 = (ms.impPrice - ms.expPrice) / ms.itemVolume;
+                        ms.margin = ((ms.impPrice - ms.expPrice) / ms.expPrice) * 100;
                      }
                      else {
                         ms.expPrice = stat.price;
+                        ms.profit = ms.impPrice - ms.expPrice;
+                        ms.profitPerM3 = (ms.impPrice - ms.expPrice) / ms.itemVolume;
+                        ms.margin = ((ms.impPrice - ms.expPrice) / ms.expPrice) * 100;
                      }
                   },
                   error => {
@@ -68,12 +75,24 @@ export class MarketService {
             this.eveAPI.getType(tid, (data) => {
                ms.typeName = data.typeName;
                ms.itemVolume = data.volume;
+               ms.profitPerM3 = (ms.impPrice - ms.expPrice) / ms.itemVolume;
             })
 
             this.eveAPI.createMarketHistoryStats(tid, (data) => {
                ms.avgVol7Day = data.avgVol7Day;
                ms.avgPrice = data.avgPrice;
+               ms.avgRevenue = data.avgVol7Day * data.avgPrice;
             })
+
+            // populate doctrines string
+            for (let doc of IMPORT_ITEMS_DOCTRINE) {
+               if (doc.items.some(s => s == ms.typeID)) {
+                  ms.doctrines += doc.nickname + ", ";
+               }
+            }
+            if (ms.doctrines.length > 0) {
+               ms.doctrines = ms.doctrines.slice(0, ms.doctrines.length - 2);
+            }
 
             this.data.push(ms);
          }

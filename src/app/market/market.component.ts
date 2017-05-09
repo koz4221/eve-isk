@@ -27,15 +27,12 @@ export class MarketComponent {
       return this.marketService.locations.length;
    }
 
-   calc(typeID: number): MarketItemCalc {
-      let ms: MarketStat = this.getItem(typeID);
+   calc(ms: MarketStat): void {
       let calc: MarketItemCalc = new MarketItemCalc();
 
-      calc.profit = this.marketService.formatNumberString(ms.impPrice - ms.expPrice)
-      calc.margin = this.marketService.formatNumberString(((ms.impPrice - ms.expPrice) / ms.expPrice) * 100);
-      calc.profitPerM3 = this.marketService.formatNumberString((ms.impPrice - ms.expPrice) / ms.itemVolume);
-
-      return calc;
+      this.marketService.data.find(f => f.typeID == ms.typeID).profit = ms.impPrice - ms.expPrice
+      ms.margin = ((ms.impPrice - ms.expPrice) / ms.expPrice) * 100;
+      ms.profitPerM3 = (ms.impPrice - ms.expPrice) / ms.itemVolume;
    }
 
    fmt(val: number): String {
@@ -44,7 +41,8 @@ export class MarketComponent {
    }
 
    fmtBig(val: number) {
-      return (val / 1000000).toFixed(2) + "m";
+      if (val) return (val / 1000000).toFixed(2) + "m";
+      return "";
    }
 
    getItem(typeID: number): MarketStat {

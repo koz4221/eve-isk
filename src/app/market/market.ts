@@ -2,7 +2,7 @@ export class MarketStat {
    public typeName: string;
    public groupID: number = 0;
    public categoryID: number = 0;
-   public itemVolume: number;
+   public itemVolume: number = 1;
    public avgVol7Day: number;
    public avgVol30Day: number;
    public avgPrice: number;
@@ -10,10 +10,15 @@ export class MarketStat {
    public impPrice: number;
    public impVolume: number;
    public impOrders: number;
+   public avgRevenue: number;
+   public doctrines: string = "";
+
+   public profit: number = this.impPrice - this.expPrice;
+   public profitPerM3: number = 0;
+   public margin: number = 0;
 
    constructor(
-      public typeID: number,
-      //public stats: MarketLocationStat[],
+      public typeID: number
    ){}
 }
 

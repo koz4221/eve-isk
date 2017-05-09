@@ -89,6 +89,7 @@ export const IMPORT_ITEMS_ALL: number[] = [
 export const IMPORT_ITEMS_DOCTRINE: any[] = [
    {
       group: "Hurricanes",
+      nickname: "Canes",
       items: [
          24702,       // Hurricane
          2048,        // Damage Control II
@@ -112,6 +113,7 @@ export const IMPORT_ITEMS_DOCTRINE: any[] = [
    },
    {
       group: "Scimitars and Scythes",
+      nickname: "S Logi",
       items: [
          11978,       // Scimitar
          631,         // Scythe
@@ -134,6 +136,7 @@ export const IMPORT_ITEMS_DOCTRINE: any[] = [
    },
    {
       group: "Maelstroms",
+      nickname: "Maels",
       items: [
          24694,       // Maelstrom
          2048,        // Damage Control II
@@ -162,6 +165,7 @@ export const IMPORT_ITEMS_DOCTRINE: any[] = [
    },
    {
       group: "Caracals",
+      nickname: "Caracals",
       items: [
          621,         // Caracal
          2048,        // Damage Control II
@@ -181,6 +185,7 @@ export const IMPORT_ITEMS_DOCTRINE: any[] = [
    },
    {
       group: "Jackdaws",
+      nickname: "JDaws",
       items: [
          34828,       // Jackdaw
          1541,        // Power Diagnostic System II
@@ -203,6 +208,7 @@ export const IMPORT_ITEMS_DOCTRINE: any[] = [
    },
    {
       group: "VNIs",
+      nickname: "VNIs",
       items: [
          17843,       // Vexor Navy Issue
          23527,       // Drone Link Augmentor I
@@ -219,6 +225,7 @@ export const IMPORT_ITEMS_DOCTRINE: any[] = [
    },
    {
       group: "ANIs",
+      nickname: "ANIs",
       items: [
          29337,       // Augoror Navy Issue
          2048,        // Damage Control II
@@ -241,6 +248,7 @@ export const IMPORT_ITEMS_DOCTRINE: any[] = [
    },
    {
       group: "Guardians",
+      nickname: "A Logi",
       items: [
          11987,       // Guardian
          20353,       // 1600mm Reinforced Steel Plates II

@@ -1,72 +1,30 @@
 <br>
-<div class="container">
+<div class="container-fluid">
    <div class="panel panel-default">
       <table class="table" [mfData]="marketService.data" #mf="mfDataTable">
-      <!--<tr *ngFor="let g of this.importItems">
-         <div class="panel panel-default">
-            <div class="panel-heading">
-               <label>{{g.group}}</label>
-            </div>
-            <table class="table">-->
-               <!--<ng-template ngFor let-ms [ngForOf]="this.marketService.data">
-                  <tr>
-                     <td [attr.rowspan]="getNumLocations()">{{ms.typeID}}</td>
-                     <td>{{ms.stats[0]?.locationName}}</td>
-                     <td>2</td>
-                  </tr>
-                  <ng-template ngFor let-mls [ngForOf]="ms.stats" let-i="index">
-                     <tr *ngIf="i > 0">
-                        <td>{{mls.locationName}}</td>
-                        <td>4</td>
-                     </tr>
-                  </ng-template>
-               </ng-template>-->
-               <!--<tr>
-                  <th>Item</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Avg Quan 7D</th>
-                  <th>Market Rev</th>
-                  <th>Export Price</th>
-                  <th>Profit</th>
-                  <th>Profit per m<sup>3</sup></th>
-                  <th>Margin</th>
-               </tr>
-               <tr *ngFor="let i of g.items" [ngClass]="{'danger': getItem(i)?.stats[0].totVolume == 0}">
-                  <td>{{getItem(i)?.typeName}}</td>
-                  <td>{{this.fmt(getItem(i)?.stats[0].price)}}</td>
-                  <td>{{getItem(i)?.stats[0].totVolume}} ({{getItem(i)?.stats[0].totOrders}})</td>
-                  <td>{{getItem(i)?.avgVol7Day.toFixed(0)}}</td>
-                  <td>{{this.fmtBig(getItem(i)?.avgVol7Day * getItem(i)?.avgPrice)}}</td>
-                  <td>{{this.fmt(getItem(i)?.stats[1].price)}}</td>
-                  <td>{{this.calc(i).profit}}</td>
-                  <td>{{this.calc(i).profitPerM3}}</td>
-                  <td>{{this.calc(i).margin}}%</td>
-               </tr>
-            </table>
-         </div>
-      </tr>-->
          <tr>
             <th><mfDefaultSorter by="typeName">Item</mfDefaultSorter></th>
             <th><mfDefaultSorter by="impPrice">Price</mfDefaultSorter></th>
             <th><mfDefaultSorter by="impVolume">Quantity</mfDefaultSorter></th>
             <th><mfDefaultSorter by="avgVol7Day">Avg Quan 7D</mfDefaultSorter></th>
-            <th>Market Rev</th>
-            <th>Export Price</th>
-            <th>Profit</th>
-            <th>Profit per m<sup>3</sup></th>
-            <th>Margin</th>
+            <th><mfDefaultSorter by="avgRevenue">Market Rev</mfDefaultSorter></th>
+            <th><mfDefaultSorter by="expPrice">Export Price</mfDefaultSorter></th>
+            <th><mfDefaultSorter by="profit">Profit</mfDefaultSorter></th>
+            <th><mfDefaultSorter by="profitPerM3">Profit per m<sup>3</sup></mfDefaultSorter></th>
+            <th><mfDefaultSorter by="margin">Margin</mfDefaultSorter></th>
+            <th>Doctrines</th>
          </tr>
-         <tr *ngFor="let item of mf.data">
+         <tr *ngFor="let item of mf.data" [ngClass]="{'danger': item.impVolume == 0}">
             <td>{{item.typeName}}</td>
             <td>{{this.fmt(item.impPrice)}}</td>
-            <td>{{this.fmt(item.impVolume)}} ({{item.impOrders}})</td>
-            <td>{{item.avgVol7Day.toFixed(0)}}</td>
-            <td>{{this.fmtBig(getItem(i)?.avgVol7Day * getItem(i)?.avgPrice)}}</td>
-            <td>{{this.fmt(getItem(i)?.stats[1].price)}}</td>
-            <td>{{this.calc(i).profit}}</td>
-            <td>{{this.calc(i).profitPerM3}}</td>
-            <td>{{this.calc(i).margin}}%</td>
+            <td>{{item.impVolume?.toFixed(0)}} ({{item.impOrders}})</td>
+            <td>{{item.avgVol7Day?.toFixed(0)}}</td>
+            <td>{{this.fmtBig(item.avgRevenue)}}</td>
+            <td>{{this.fmt(item.expPrice)}}</td>
+            <td>{{this.fmt(item.profit)}}</td>
+            <td>{{this.fmt(item.profitPerM3)}}</td>
+            <td>{{this.fmt(item.margin)}}%</td>
+            <td>{{item.doctrines}}</td>
          </tr>
       </table>
    </div>
