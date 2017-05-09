@@ -8,6 +8,7 @@ import { MarketOrder } from '../orders/orders';
 
 import { REGIONS } from '../../static-data/locations'
 import { LOCATIONS } from '../../static-data/locations'
+import { SHIP_PACKAGED_VOLUMES } from '../../static-data/eve-static'
 
 declare const AWS: any;
 
@@ -81,10 +82,15 @@ export class EveAPIService {
                let url: string = ESI_BASE_URL + "/universe/types/" + typeID + "/?datasource=tranquility&language=en-us"
                this.getTypeData(url).subscribe(
                   res => {
+                     let vol = res.volume;
+                     if (SHIP_PACKAGED_VOLUMES.some(p => p.groupID == res.group_id)) {
+                        vol = SHIP_PACKAGED_VOLUMES.find(p => p.groupID == res.group_id).packagedVol;
+                     }
+
                      let et = new EveType(
                         res.type_id,
                         res.name,
-                        res.volume,
+                        vol,
                         res.group_id,
                         0
                      );
@@ -151,6 +157,8 @@ export class EveAPIService {
          return body || { };
       }).subscribe(
          res => {
+            // restrict orders to only the station since that's the main competition
+            res = res.filter(f => f.location_id == order.stationID)
             this.parseAndSetMarketStatData(res, order);
          },
          error => {

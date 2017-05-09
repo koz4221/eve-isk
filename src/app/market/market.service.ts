@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 
 import { MarketStat, MarketLocationStat } from './market'
 import { LOCATIONS } from '../../static-data/locations'
-import { IMPORT_ITEMS_DOCTRINE } from './import-items';
+import { IMPORT_ITEMS_DOCTRINE } from './import-items'
 
 import { EveAPIService } from '../services/eve-api.service';
 

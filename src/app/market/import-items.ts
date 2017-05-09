@@ -113,7 +113,7 @@ export const IMPORT_ITEMS_DOCTRINE: any[] = [
    },
    {
       group: "Scimitars and Scythes",
-      nickname: "S Logi",
+      nickname: "S. Logi",
       items: [
          11978,       // Scimitar
          631,         // Scythe
@@ -185,7 +185,7 @@ export const IMPORT_ITEMS_DOCTRINE: any[] = [
    },
    {
       group: "Jackdaws",
-      nickname: "JDaws",
+      nickname: "Jackdaws",
       items: [
          34828,       // Jackdaw
          1541,        // Power Diagnostic System II
@@ -248,7 +248,7 @@ export const IMPORT_ITEMS_DOCTRINE: any[] = [
    },
    {
       group: "Guardians",
-      nickname: "A Logi",
+      nickname: "A. Logi",
       items: [
          11987,       // Guardian
          20353,       // 1600mm Reinforced Steel Plates II
