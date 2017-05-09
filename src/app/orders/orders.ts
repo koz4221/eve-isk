@@ -18,3 +18,14 @@ export class MarketOrder {
       public topVolume?: number
     ){}
 }
+
+export class Transaction {
+   constructor(
+      public tranID: number,
+      public tranDate: string,
+      public quantity: number,
+      public typeID: number,
+      public typeName: string,
+      public price: number
+   ){}
+}

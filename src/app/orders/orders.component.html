@@ -11,10 +11,28 @@
          </tr>
          <tr [ngClass]="{'success': this.thisIsTopOrder(o), 'danger': !this.thisIsTopOrder(o)}" *ngFor="let o of mf.data">
             <td>{{o.typeName}}</td>
-            <td>{{this.ordersService.formatNumberString(o.price)}}</td>
+            <td>{{this.fmt2(o.price)}}</td>
             <td>{{o.volRemaining}} / {{o.volEntered}}</td>
-            <td>{{this.ordersService.formatNumberString(o.topPrice)}}</td>
+            <td>{{this.fmt2(o.topPrice)}}</td>
             <td>{{o.topVolume}} ({{o.topNumOrders}})</td>
+         </tr>
+      </table>
+   </div>
+   <div class="panel panel-default">
+      <table class="table">
+         <tr>
+            <th>Tran. Date</th>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+         </tr>
+         <tr *ngFor="let t of this.ordersService.transactions">
+            <td>{{t.tranDate}}</td>
+            <td>{{t.typeName}}</td>
+            <td>{{t.quantity}}</td>
+            <td>{{t.price}}</td>
+            <td>{{this.fmt(t.quantity * t.price)}}</td>
          </tr>
       </table>
    </div>

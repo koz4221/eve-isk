@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
-import { MarketOrder } from './orders';
+import { MarketOrder, Transaction } from './orders';
 
 import { EveAPIService } from '../services/eve-api.service';
 
@@ -11,6 +11,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class OrdersService {
    public orders: MarketOrder[];
+   public transactions: Transaction[];
 
    private typeNames: { typeID: number, typeName: string }[] = [];
 
@@ -18,29 +19,27 @@ export class OrdersService {
 
    constructor(private http: Http, private eveAPI: EveAPIService) {}
 
-   formatNumberString(num: number): string {    
-      return (+num).toFixed(2);  
-      // let fNum: string
-      // num = +num;
+   formatNumberString(num: number): string {
+      let fNum: string
 
-      // // decimal precision
-      // if (num < 1000 && num > -1000) {
-      //    fNum = num.toFixed(2);
-      // } else {
-      //    fNum = num.toFixed(0);
-      // }
+      // decimal precision
+      if (num < 1000 && num > -1000) {
+         fNum = num.toFixed(2);
+      } else {
+         fNum = num.toFixed(0);
+      }
 
-      // // add commas for big numbers
-      // fNum = fNum.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      // add commas for big numbers
+      fNum = fNum.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-      // return fNum;
+      return fNum;
    }
 
    loadOrders(): void {
       this.orders = [];
       let url: string = "https://api.eveonline.com/char/MarketOrders.xml.aspx?keyID=6138010&vCode=hsyZWl5yV8HGG7oz2QZW6z1QA1juV4y2BkwUGQQ1uRkdhm2Z1PUmrmigsLpDGkSm&characterID=2112070262"
 
-      this.getOrderData(url).subscribe(
+      this.getData(url).subscribe(
          res => {
             this.xml2js(res._body, (err, res) => {
                res.eveapi.result[0].rowset[0].row.map(p => {
@@ -73,7 +72,7 @@ export class OrdersService {
       )
    }
 
-   private getOrderData(url: string): Observable<any> {
+   private getData(url: string): Observable<any> {
       return this.http.get(url).map((res:Response) => res);
    }
 
@@ -96,5 +95,38 @@ export class OrdersService {
 
    private setTopMarketStats(order: MarketOrder): void {
       this.eveAPI.setTopMarketStats(order);
+   }
+
+   loadTransactions(): void {
+      this.transactions = [];
+      let url: string = "https://api.eveonline.com/char/WalletTransactions.xml.aspx?keyID=6138010&vCode=hsyZWl5yV8HGG7oz2QZW6z1QA1juV4y2BkwUGQQ1uRkdhm2Z1PUmrmigsLpDGkSm&" +
+         "characterID=2112070262&rowCount=100";
+
+      this.getData(url).subscribe(
+         res => {
+            this.xml2js(res._body, (err, res) => {
+               res.eveapi.result[0].rowset[0].row.map(p => {
+                  if (p.$.transactionType == "sell") {
+                     this.transactions.push(new Transaction(
+                        p.$.transactionID,
+                        p.$.transactionDateTime,
+                        p.$.quantity,
+                        p.$.typeID,
+                        p.$.typeName,
+                        p.$.price
+                     ))
+                  }  
+               })        
+            })
+
+            this.transactions = this.transactions.sort((a, b) => {
+               if (a.tranID > b.tranID) { return -1; }
+               else { return 1; }
+            }).slice(0, 19);
+         },
+         error => {
+            console.log(error);
+         }
+      )
    }
 }

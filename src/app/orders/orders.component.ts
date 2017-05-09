@@ -13,9 +13,20 @@ import { OrdersService } from './orders.service';
 export class OrdersComponent {
    constructor(public ordersService: OrdersService) {
       ordersService.loadOrders();
+      ordersService.loadTransactions();
    }
 
    thisIsTopOrder(order: MarketOrder): boolean {
       return (order.orderID == order.topOrderID)
+   }
+
+   fmt(val: number): string {
+      if (val) return this.ordersService.formatNumberString(val);
+      return ""
+   }
+
+   fmt2(val: number): string {
+      if (val) return (+val).toFixed(2);
+      return ""
    }
 }
