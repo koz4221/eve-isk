@@ -243,4 +243,63 @@ export class EveAPIService {
    private daysInMiliseconds(days: number): number {
       return days * 24 * 60 * 60 * 1000;
    }
+
+   public getAllTypes(callback: (data: number[]) => void): void {
+      let types: number[] = [];
+      let url: string
+      let totalPages: number = 1 // currently stops at page 33
+      let pagesComplete: number = 0
+
+      for (let page: number = 1; page <= totalPages; page++) {
+         url = ESI_BASE_URL + "/universe/types/?datasource=tranquility&page=" + page
+
+         this.http.get(url).map((data) => {
+            let body = data.json();
+            return body || {};
+         }).subscribe(
+            res => {
+               res.map(m => {
+                  types.push(m);
+               })
+
+               pagesComplete++;
+               if (pagesComplete >= totalPages) {
+                  callback(types);
+               }
+            }
+         )
+      }
+
+   }
+
+   public getAllTypes2(callback: (data: number[]) => void): void {
+      let types: number[] = [];
+      let url: string
+      let totalPages: number = 2 // currently stops at page 33
+      let pagesComplete: number = 0
+
+      for (let page: number = 1; page <= totalPages; page++) {
+         url = ESI_BASE_URL + "/markets/10000014/orders/?datasource=tranquility&order_type=sell&page=" + page
+
+         this.http.get(url).map((data) => {
+            let body = data.json();
+            return body || {};
+         }).subscribe(
+            res => {
+               res = res.filter(f => f.location_id == 61000182);
+               res.map(m => {
+                  if (!types.some(s => s == m.type_id)) {
+                     types.push(m.type_id);
+                  }
+               })
+
+               console.log(types.length);
+               pagesComplete++;
+               if (pagesComplete >= totalPages) {
+                  callback(types.slice(1800, 2000));
+               }
+            }
+         )
+      }
+   }
 }

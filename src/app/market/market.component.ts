@@ -18,9 +18,14 @@ export class MarketComponent {
    importItems = IMPORT_ITEMS_ALL;
 
    constructor(public marketService: MarketService) {
+      //this.marketService.loadAllTypes();
       for (let g of this.importItems) {
-         marketService.LoadMarketData(this.importItems);
+         marketService.loadMarketData(this.importItems);
       }
+   }
+
+   fullDeepDive() {
+
    }
 
    getNumLocations(): number {

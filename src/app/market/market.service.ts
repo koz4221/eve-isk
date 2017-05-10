@@ -21,7 +21,7 @@ export class MarketService {
       this.data = [];
    }
 
-   public LoadMarketData(typeIDs: number[]): void {
+   public loadMarketData(typeIDs: number[]): void {
       let mls: MarketLocationStat;
       let url: string = this.urlBase// + LOCATIONS.find(p => p.code == this.prices).regionID + "/orders/?datasource=tranquility&order_type=all&type_id="
 
@@ -134,5 +134,11 @@ export class MarketService {
       fNum = fNum.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
       return fNum;
+   }
+
+   public loadAllTypes(): void {
+      this.eveAPI.getAllTypes2((data) => {
+         this.loadMarketData(data);
+      });
    }
 }
