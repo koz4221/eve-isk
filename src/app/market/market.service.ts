@@ -10,6 +10,8 @@ import { EveAPIService } from '../services/eve-api.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
+const ONE_HOUR_IN_MS: number = 3600000
+
 @Injectable()
 export class MarketService {
    public data: MarketStat[] = [];
@@ -39,7 +41,7 @@ export class MarketService {
 
                let regionID: number = LOCATIONS.find(p => p.code == loc).regionID;
                let locationID: number = LOCATIONS.find(p => p.code == loc).locationID;
-               let mls: MarketLocationStat = new MarketLocationStat(locationID, "", regionID, 0, 0, 0);
+               //let mls: MarketLocationStat = new MarketLocationStat(locationID, "", regionID, 0, 0, 0, 0, 0, 0);
                let stat: MarketLocationStat;
                url = this.urlBase + regionID + "/orders/?datasource=tranquility&order_type=all&type_id=" + tid
 
@@ -58,6 +60,9 @@ export class MarketService {
                         ms.profit = ms.impPrice - ms.expPrice;
                         ms.profitPerM3 = (ms.impPrice - ms.expPrice) / ms.itemVolume;
                         ms.margin = ((ms.impPrice - ms.expPrice) / ms.expPrice) * 100;
+                        ms.active1Hour = stat.active1Hour;
+                        ms.active3Hour = stat.active3Hour;
+                        ms.active24Hour = stat.active24Hour;
                      }
                      else {
                         ms.expPrice = stat.price;
@@ -73,7 +78,7 @@ export class MarketService {
             }
 
             this.eveAPI.getType(tid, (data) => {
-               ms.typeName = data.typeName;
+               ms.typeName = data.typeName + " (" + data.typeID + ")";
                ms.itemVolume = data.volume;
                ms.profitPerM3 = (ms.impPrice - ms.expPrice) / ms.itemVolume;
             })
@@ -105,6 +110,10 @@ export class MarketService {
       let price: number = 0;
       let volume: number = 0;
       let orders: number = 0;
+      let active1Hour: number = 0;
+      let active3Hour: number = 0;
+      let active24Hour: number = 0;
+      let now: number = Date.now();
 
       data = data.filter(f => f.is_buy_order == false);
 
@@ -114,10 +123,15 @@ export class MarketService {
          if (locCode == "catch") {
             volume += Number(stat.volume_remain);
             orders++;
+
+            let issued: Date = new Date(stat.issued);
+            if (now - issued.valueOf() <= ONE_HOUR_IN_MS) active1Hour++;
+            if (now - issued.valueOf() <= ONE_HOUR_IN_MS * 3) active3Hour++;
+            if (now - issued.valueOf() <= ONE_HOUR_IN_MS * 24) active24Hour++;
          }
       }
 
-      return new MarketLocationStat(lid, locName, rid, price, volume, orders);
+      return new MarketLocationStat(lid, locName, rid, price, volume, orders, active1Hour, active3Hour, active24Hour);
    }
 
    formatNumberString(num: number): string {

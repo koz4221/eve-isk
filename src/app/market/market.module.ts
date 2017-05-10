@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { DataTableModule } from "angular2-datatable";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TooltipModule } from "ngx-tooltip";
 
 import { MarketComponent } from './market.component';
 
@@ -18,7 +20,9 @@ import { EveAPIService } from '../services/eve-api.service';
       FormsModule,
       HttpModule,
       JsonpModule,
-      DataTableModule
+      DataTableModule,
+      NgbModule,
+      TooltipModule
   ],
   providers: [
       EveAPIService,

@@ -12,6 +12,9 @@ export class MarketStat {
    public impOrders: number;
    public avgRevenue: number;
    public doctrines: string = "";
+   public active1Hour: number;
+   public active3Hour: number;
+   public active24Hour: number;
 
    public profit: number = this.impPrice - this.expPrice;
    public profitPerM3: number = 0;
@@ -30,6 +33,9 @@ export class MarketLocationStat {
       public price: number,
       public totVolume: number,
       public totOrders: number,
+      public active1Hour: number,
+      public active3Hour: number,
+      public active24Hour: number
    ){}
 }
 

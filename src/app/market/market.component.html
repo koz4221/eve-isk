@@ -1,31 +1,39 @@
 <br>
 <div class="container-fluid">
-   <div class="panel panel-default">
-      <table class="table" [mfData]="marketService.data" #mf="mfDataTable">
-         <tr>
-            <th><mfDefaultSorter by="typeName">Item</mfDefaultSorter></th>
-            <th><mfDefaultSorter by="impPrice">Price</mfDefaultSorter></th>
-            <th><mfDefaultSorter by="impVolume">Quantity</mfDefaultSorter></th>
-            <th><mfDefaultSorter by="avgVol7Day">Avg Quan 7D</mfDefaultSorter></th>
-            <th><mfDefaultSorter by="avgRevenue">Market Rev</mfDefaultSorter></th>
-            <th><mfDefaultSorter by="expPrice">Export Price</mfDefaultSorter></th>
-            <th><mfDefaultSorter by="profit">Profit</mfDefaultSorter></th>
-            <th><mfDefaultSorter by="profitPerM3">Profit per m<sup>3</sup></mfDefaultSorter></th>
-            <th><mfDefaultSorter by="margin">Margin</mfDefaultSorter></th>
-            <th>Doctrines</th>
-         </tr>
-         <tr *ngFor="let item of mf.data" [ngClass]="{'danger': item.impVolume == 0}">
-            <td>{{item.typeName}}</td>
-            <td>{{this.fmt(item.impPrice)}}</td>
-            <td>{{item.impVolume?.toFixed(0)}} ({{item.impOrders}})</td>
-            <td>{{item.avgVol7Day?.toFixed(0)}}</td>
-            <td>{{this.fmtBig(item.avgRevenue)}}</td>
-            <td>{{this.fmt(item.expPrice)}}</td>
-            <td>{{this.fmt(item.profit)}}</td>
-            <td>{{this.fmt(item.profitPerM3)}}</td>
-            <td>{{this.fmt(item.margin)}}%</td>
-            <td>{{item.doctrines}}</td>
-         </tr>
-      </table>
-   </div>
+   <ng-template ngFor let-cat [ngForOf]="importCats">
+      <a role="button" (click)="flipCollapsed(cat.code); loadData(cat.code)" [attr.aria-expanded]="!getCollapsed(cat.code)" aria-controls="divCollapse"><h3>{{cat.name}}</h3></a>
+      <div id="divCollapse" [ngbCollapse]="getCollapsed(cat.code)">
+         <div class="panel panel-default">
+            <table class="table" [mfData]="getMarketData(cat.code)" #mf="mfDataTable">
+               <tr>
+                  <th><mfDefaultSorter by="typeName">Item</mfDefaultSorter></th>
+                  <th><mfDefaultSorter by="impPrice">Price</mfDefaultSorter></th>
+                  <th><mfDefaultSorter by="impVolume">Quantity</mfDefaultSorter></th>
+                  <th><mfDefaultSorter by="avgVol7Day">Avg Quan 7D</mfDefaultSorter></th>
+                  <th><mfDefaultSorter by="avgRevenue">Market Rev</mfDefaultSorter></th>
+                  <th><mfDefaultSorter by="expPrice">Export Price</mfDefaultSorter></th>
+                  <th><mfDefaultSorter by="profit">Profit</mfDefaultSorter></th>
+                  <th><mfDefaultSorter by="profitPerM3">Profit per m<sup>3</sup></mfDefaultSorter></th>
+                  <th><mfDefaultSorter by="margin">Margin</mfDefaultSorter></th>
+                  <th>Doctrines</th>
+               </tr>
+               <ng-template ngFor let-item [ngForOf]="mf.data">
+               <tr [ngClass]="{'danger': item.impVolume == 0}">
+                  <td>{{item.typeName}}</td>
+                  <td>{{this.fmt(item.impPrice)}}</td>
+                  <td><span tooltip="{{item.active1Hour}} / {{item.active3Hour}} / {{item.active24Hour}}">
+                     {{item.impVolume?.toFixed(0)}} ({{item.impOrders}})</span></td>
+                  <td>{{item.avgVol7Day?.toFixed(0)}}</td>
+                  <td>{{this.fmtBig(item.avgRevenue)}}</td>
+                  <td>{{this.fmt(item.expPrice)}}</td>
+                  <td>{{this.fmt(item.profit)}}</td>
+                  <td>{{this.fmt(item.profitPerM3)}}</td>
+                  <td>{{this.fmt(item.margin)}}%</td>
+                  <td>{{item.doctrines}}</td>
+               </tr>
+               </ng-template>
+            </table>
+         </div>
+      </div>
+   </ng-template>
 </div>

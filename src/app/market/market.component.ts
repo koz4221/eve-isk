@@ -14,18 +14,24 @@ import { IMPORT_ITEMS_ALL, IMPORT_ITEMS_DOCTRINE } from './import-items';
 })
 
 export class MarketComponent {
-   //importItems = IMPORT_ITEMS_DOCTRINE;
-   importItems = IMPORT_ITEMS_ALL;
+   importCats = IMPORT_ITEMS_ALL;
+   collapseStates: { code: string, isCollapsed: boolean }[] = [];
 
    constructor(public marketService: MarketService) {
-      //this.marketService.loadAllTypes();
-      for (let g of this.importItems) {
-         marketService.loadMarketData(this.importItems);
+      // //this.marketService.loadAllTypes();
+      // for (let g of this.importItems) {
+      //    //marketService.loadMarketData(this.importItems);
+      // }
+      for (let cat of this.importCats) {
+         this.collapseStates.push({code: cat.code, isCollapsed: true});
       }
    }
 
-   fullDeepDive() {
-
+   loadData(code: string): void {
+      let importItems = this.importCats.find(f => f.code == code).items
+      for (let g of importItems) {
+         this.marketService.loadMarketData(importItems);
+      }
    }
 
    getNumLocations(): number {
@@ -52,5 +58,18 @@ export class MarketComponent {
 
    getItem(typeID: number): MarketStat {
       return this.marketService.data.find(f => f.typeID == typeID);
+   }
+
+   flipCollapsed(code: string): void {
+      this.collapseStates.find(f => f.code == code).isCollapsed = !this.getCollapsed(code);
+   }
+
+   getCollapsed(code: string): boolean {
+      return this.collapseStates.find(f => f.code == code).isCollapsed;
+   }
+
+   getMarketData(code: string): MarketStat[] {
+      let items: number[] = this.importCats.find(f => f.code == code).items;
+      return this.marketService.data.filter(f => items.some(s => s == f.typeID));
    }
 }
