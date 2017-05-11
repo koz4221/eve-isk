@@ -164,6 +164,24 @@ export const IMPORT_ITEMS_ALL: any[] = [
       ]
    },
    {
+      name: "Implants",
+      code: "implant",
+      items: [
+         10216,
+         9899,
+         10217,
+         10208,
+         10209,
+         9941,
+         10212,
+         9942,
+         10213,
+         10221,
+         9943,
+         10222,
+      ]
+   },
+   {
       name: "Minerals",
       code: "mineral",
       items: [
@@ -177,6 +195,45 @@ export const IMPORT_ITEMS_ALL: any[] = [
          ,11396
          ,11399
 
+      ]
+   },
+   {
+      name: "Ice Products",
+      code: "iceprod",
+      items: [
+         16274,
+         17889,
+         17888,
+         17887,
+         16275
+      ]
+   },
+   {
+      name: "Miscallaneous",
+      code: "misc",
+      items: [
+         3898,
+         15463,
+         1405,
+         11370,
+         21096,
+         3831,
+         33475,
+         33076,
+         30486,
+         41490,
+         30488,
+         12198,
+         11640,
+         1999,
+         2605,
+         11577,
+         11578,
+         32014,
+         40520,
+         28756,
+         8089,
+         2873
       ]
    }
 

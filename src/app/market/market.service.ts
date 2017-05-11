@@ -126,7 +126,7 @@ export class MarketService {
 
             let issued: Date = new Date(stat.issued);
             if (now - issued.valueOf() <= ONE_HOUR_IN_MS) active1Hour++;
-            if (now - issued.valueOf() <= ONE_HOUR_IN_MS * 3) active3Hour++;
+            if (now - issued.valueOf() <= ONE_HOUR_IN_MS * 6) active3Hour++;
             if (now - issued.valueOf() <= ONE_HOUR_IN_MS * 24) active24Hour++;
          }
       }
